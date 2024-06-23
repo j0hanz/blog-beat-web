@@ -12,15 +12,15 @@ import styles from './styles/Footer.module.css';
 const Footer = () => {
   return (
     <footer className={`footer bg-dark text-white py-2 ${styles.footer}`}>
-      <Container fluid>
+      <Container>
         <Row className="align-items-center">
-          <Col className="px-1">
+          <Col className="px-0">
             <p className="mb-0 text-white-50">
               <FontAwesomeIcon className="fa-sm px-1" icon={faCopyright} />
               2024 Blog Beat
             </p>
           </Col>
-          <Col className="px-1 text-end">
+          <Col className="px-0 text-end">
             <div className={`fa-lg ${styles.socialLinks}`}>
               {[
                 {
@@ -45,7 +45,6 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="px-2"
                 >
                   <FontAwesomeIcon icon={icon} />
                 </a>
