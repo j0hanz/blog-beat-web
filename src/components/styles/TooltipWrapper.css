@@ -1,0 +1,13 @@
+.tooltip-inner {
+  background-color: rgba(199, 199, 199, 0.8);
+  color: #050404;
+  font-size: 16px;
+  padding: 4px 8px;
+  border-radius: 10px;
+  margin-top: 13px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.arrow::before {
+  border-bottom-color: rgba(199, 199, 199, 0.8);
+}
