@@ -1,0 +1,33 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+}
+
+body {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+a {
+  color: #57c7ff;
+}
+
+a:hover {
+  color: #ff6f61;
+}
+
+.card,
+.modal-content {
+  background-color: #2c2c2c;
+  border-color: #3a3a3a;
+}
+
+.card-title,
+.modal-title {
+  color: #ffffff;
+}
