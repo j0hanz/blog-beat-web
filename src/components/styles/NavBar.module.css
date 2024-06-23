@@ -1,0 +1,42 @@
+.navLinkEffect {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navLinkEffect:hover {
+  color: #007bff;
+  transform: scale(1.15);
+}
+
+.logoNav {
+  width: 125px;
+}
+
+.nobodyImg {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  width: 35px;
+}
+
+.nobodyImg:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 16px #000000;
+}
+
+.nobodyImgToggle {
+  width: 55px;
+}
+
+.offcanvasWidth {
+  max-width: 275px;
+}
+
+.offcanvasBody {
+  padding: 1.5rem;
+}
+
+@media (max-width: 575px) {
+  .logoNav {
+    display: none;
+  }
+}
