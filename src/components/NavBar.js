@@ -35,12 +35,12 @@ const NavBar = () => {
         </Nav.Link>
         <Nav className="mx-auto">
           <Nav.Link href="/" className={styles.navLinkEffect}>
-            <TooltipWrapper message="Home" tooltipClass="custom-tooltip">
+            <TooltipWrapper message="Home">
               <FontAwesomeIcon className="fa-xl mx-3 mx-md-5" icon={faHouse} />
             </TooltipWrapper>
           </Nav.Link>
           <Nav.Link href="/about" className={styles.navLinkEffect}>
-            <TooltipWrapper message="About" tooltipClass="custom-tooltip">
+            <TooltipWrapper message="About">
               <FontAwesomeIcon
                 className="fa-xl mx-3 mx-md-5"
                 icon={faCircleInfo}
@@ -48,7 +48,7 @@ const NavBar = () => {
             </TooltipWrapper>
           </Nav.Link>
           <Nav.Link href="/newpost" className={styles.navLinkEffect}>
-            <TooltipWrapper message="New Post" tooltipClass="custom-tooltip">
+            <TooltipWrapper message="New Post">
               <FontAwesomeIcon
                 className="fa-xl mx-3 mx-md-5"
                 icon={faSquarePlus}
@@ -57,7 +57,7 @@ const NavBar = () => {
           </Nav.Link>
         </Nav>
         <Button variant="outline-dark p-1" onClick={toggleOffcanvas}>
-          <TooltipWrapper message="Profile" tooltipClass="custom-tooltip">
+          <TooltipWrapper message="Profile">
             <img
               src={nobody}
               alt="Profile"
