@@ -8,54 +8,79 @@ import {
   faCircleInfo,
   faSquarePlus,
   faTimes,
+  faSignOutAlt,
   faAngleRight,
 } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import logo from '../assets/logo.webp';
 import nobody from '../assets/nobody.webp';
 import styles from './styles/NavBar.module.css';
 import TooltipWrapper from './TooltipWrapper';
-import { useCurrentUser } from '../contexts/CurrentUserContext'; // Correct import
+import Icon from './Icon';
+import {
+  useCurrentUser,
+  useSetCurrentUser,
+} from '../contexts/CurrentUserContext';
+import axios from 'axios';
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const toggleOffcanvas = () => setShow(!show);
-  const handleNavLinkClick = (path) => {
-    toggleOffcanvas();
-    navigate(path);
+  const handleSignOut = async () => {
+    try {
+      await axios.post('dj-rest-auth/logout/');
+      setCurrentUser(null);
+      navigate('/login');
+    } catch (err) {
+      console.log(err);
+    }
   };
   const loggedInIcons = (
     <>
-      <Nav.Link
-        onClick={() => handleNavLinkClick('/profile')}
-        className="text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2"
+      <NavLink
+        to="/"
+        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        onClick={handleSignOut}
       >
-        <FontAwesomeIcon className="fa-xl" icon={faUserPlus} />
-        <span className="mx-auto">{currentUser?.username}</span>
-        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-      </Nav.Link>
+        <FontAwesomeIcon className="fa-xl" icon={faSignOutAlt} />
+        Sign out
+      </NavLink>
+      <NavLink
+        to={`/profiles/${currentUser?.profile_id}`}
+        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        onClick={toggleOffcanvas}
+      >
+        <Icon
+          src={currentUser?.profile_image || nobody}
+          text="Profile"
+          height={40}
+        />
+      </NavLink>
     </>
   );
   const loggedOutIcons = (
     <>
-      <Nav.Link
-        onClick={() => handleNavLinkClick('/login')}
-        className="text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2"
+      <NavLink
+        to="/login"
+        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        onClick={toggleOffcanvas}
       >
         <FontAwesomeIcon className="fa-xl" icon={faArrowRightToBracket} />
         <span className="mx-auto">Login</span>
         <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-      </Nav.Link>
-      <Nav.Link
-        onClick={() => handleNavLinkClick('/signup')}
-        className="text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2"
+      </NavLink>
+      <NavLink
+        to="/signup"
+        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        onClick={toggleOffcanvas}
       >
         <FontAwesomeIcon className="fa-xl" icon={faUserPlus} />
         <span className="mx-auto">Sign Up</span>
         <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-      </Nav.Link>
+      </NavLink>
     </>
   );
   return (
@@ -65,34 +90,33 @@ const NavBar = () => {
           <img src={logo} alt="Logo" className={styles.logoNav} />
         </Nav.Link>
         <Nav className="mx-auto">
-          <Nav.Link href="/" className={styles.navLinkEffect}>
+          <NavLink to="/" className={styles.navLinkEffect}>
             <TooltipWrapper message="Home">
               <FontAwesomeIcon className="fa-xl mx-3 mx-md-5" icon={faHouse} />
             </TooltipWrapper>
-          </Nav.Link>
-          <Nav.Link href="/about" className={styles.navLinkEffect}>
+          </NavLink>
+          <NavLink to="/about" className={styles.navLinkEffect}>
             <TooltipWrapper message="About">
               <FontAwesomeIcon
                 className="fa-xl mx-3 mx-md-5"
                 icon={faCircleInfo}
               />
             </TooltipWrapper>
-          </Nav.Link>
-          <Nav.Link href="/newpost" className={styles.navLinkEffect}>
+          </NavLink>
+          <NavLink to="/newpost" className={styles.navLinkEffect}>
             <TooltipWrapper message="New Post">
               <FontAwesomeIcon
                 className="fa-xl mx-3 mx-md-5"
                 icon={faSquarePlus}
               />
             </TooltipWrapper>
-          </Nav.Link>
+          </NavLink>
         </Nav>
         <Button variant="outline-dark p-1" onClick={toggleOffcanvas}>
           <TooltipWrapper message="Profile">
-            <img
-              src={nobody}
-              alt="Profile"
-              className={`${styles.nobodyImg} rounded-circle`}
+            <Icon
+              src={currentUser ? currentUser.profile_image || nobody : nobody}
+              height={35}
             />
           </TooltipWrapper>
         </Button>
@@ -103,15 +127,16 @@ const NavBar = () => {
           className={`bg-dark text-white ${styles.offcanvasWidth}`}
         >
           <Offcanvas.Header>
-            <img
-              src={nobody}
-              alt="Profile"
-              className={`${styles.nobodyImgToggle} rounded`}
+            <Icon
+              src={currentUser ? currentUser.profile_image || nobody : nobody}
+              height={55}
             />
-            <Offcanvas.Title className="mx-auto">User</Offcanvas.Title>
+            <Offcanvas.Title className="mx-auto">
+              {currentUser ? currentUser.username : 'User'}
+            </Offcanvas.Title>
             <Button
               variant="link"
-              className="text-white btn-outline-secondary btn-sm"
+              className="text-white btn-outline-secondary btn-sm ms-auto"
               onClick={toggleOffcanvas}
             >
               <FontAwesomeIcon className="fa-lg" icon={faTimes} />
