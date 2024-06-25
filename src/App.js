@@ -13,8 +13,8 @@ import { CurrentUserProvider } from './contexts/CurrentUserContext';
 
 function App() {
   return (
-    <CurrentUserProvider>
-      <Router>
+    <Router>
+      <CurrentUserProvider>
         <div className={styles.App}>
           <NavBar />
           <main className={styles.main}>
@@ -28,8 +28,8 @@ function App() {
           </main>
           <Footer />
         </div>
-      </Router>
-    </CurrentUserProvider>
+      </CurrentUserProvider>
+    </Router>
   );
 }
 
