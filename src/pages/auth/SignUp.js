@@ -121,17 +121,16 @@ const Signup = () => {
             </Alert>
           ))}
           <p className="mt-4">
-            Already have an account?
-            <br />{' '}
-            <span className="mt-3">
+            Already have an account?{' '}
+            <p className="mt-2">
               <Link
                 to="/login"
                 onClick={handleClose}
-                className="btn btn-outline-light mt-2"
+                className="btn btn-outline-light"
               >
                 Login here!
               </Link>
-            </span>
+            </p>
           </p>
         </Form>
       </Modal.Body>
