@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Navbar, Nav, Offcanvas, Container, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -15,18 +15,49 @@ import logo from '../assets/logo.webp';
 import nobody from '../assets/nobody.webp';
 import styles from './styles/NavBar.module.css';
 import TooltipWrapper from './TooltipWrapper';
+import { CurrentUserContext } from '../App';
 
 const NavBar = () => {
+  const currentUser = useContext(CurrentUserContext);
+  const loggedInIcons = (
+    <>
+      <Nav.Link
+        onClick={() => handleNavLinkClick('/profile')}
+        className="text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2"
+      >
+        <FontAwesomeIcon className="fa-xl" icon={faUserPlus} />
+        <span className="mx-auto">{currentUser?.username}</span>
+        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
+      </Nav.Link>
+    </>
+  );
+  const loggedOutIcons = (
+    <>
+      <Nav.Link
+        onClick={() => handleNavLinkClick('/login')}
+        className="text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2"
+      >
+        <FontAwesomeIcon className="fa-xl" icon={faArrowRightToBracket} />
+        <span className="mx-auto">Login</span>
+        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
+      </Nav.Link>
+      <Nav.Link
+        onClick={() => handleNavLinkClick('/signup')}
+        className="text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2"
+      >
+        <FontAwesomeIcon className="fa-xl" icon={faUserPlus} />
+        <span className="mx-auto">Sign Up</span>
+        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
+      </Nav.Link>
+    </>
+  );
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-
   const toggleOffcanvas = () => setShow(!show);
-
   const handleNavLinkClick = (path) => {
     toggleOffcanvas();
     navigate(path);
   };
-
   return (
     <Navbar className="navbar-dark bg-dark">
       <Container fluid>
@@ -89,25 +120,7 @@ const NavBar = () => {
           <hr />
           <Offcanvas.Body className={styles.offcanvasBody}>
             <Nav className="flex-column">
-              <Nav.Link
-                onClick={() => handleNavLinkClick('/login')}
-                className="text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2"
-              >
-                <FontAwesomeIcon
-                  className="fa-xl"
-                  icon={faArrowRightToBracket}
-                />
-                <span className="mx-auto">Login</span>
-                <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-              </Nav.Link>
-              <Nav.Link
-                onClick={() => handleNavLinkClick('/signup')}
-                className="text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2"
-              >
-                <FontAwesomeIcon className="fa-xl" icon={faUserPlus} />
-                <span className="mx-auto">Sign Up</span>
-                <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-              </Nav.Link>
+              {currentUser ? loggedInIcons : loggedOutIcons}
             </Nav>
           </Offcanvas.Body>
         </Offcanvas>
