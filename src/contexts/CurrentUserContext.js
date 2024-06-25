@@ -12,7 +12,9 @@ export const CurrentUserProvider = ({ children }) => {
   const navigate = useNavigate();
   const handleMount = async () => {
     try {
-      const { data } = await axiosRes.get('dj-rest-auth/user/');
+      const { data } = await axiosRes.get('dj-rest-auth/user/', {
+        withCredentials: true,
+      });
       setCurrentUser(data);
     } catch (err) {
       console.log(err);
@@ -25,7 +27,11 @@ export const CurrentUserProvider = ({ children }) => {
     const requestInterceptor = axiosReq.interceptors.request.use(
       async (config) => {
         try {
-          await axios.post('/dj-rest-auth/token/refresh/');
+          await axios.post(
+            '/dj-rest-auth/token/refresh/',
+            {},
+            { withCredentials: true },
+          );
         } catch (err) {
           setCurrentUser((prevCurrentUser) => {
             if (prevCurrentUser) {
@@ -33,20 +39,21 @@ export const CurrentUserProvider = ({ children }) => {
             }
             return null;
           });
-          return config;
         }
         return config;
       },
-      (err) => {
-        return Promise.reject(err);
-      },
+      (err) => Promise.reject(err),
     );
     const responseInterceptor = axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
         if (err.response?.status === 401) {
           try {
-            await axios.post('/dj-rest-auth/token/refresh/');
+            await axios.post(
+              '/dj-rest-auth/token/refresh/',
+              {},
+              { withCredentials: true },
+            );
             return axios(err.config);
           } catch (err) {
             setCurrentUser((prevCurrentUser) => {
