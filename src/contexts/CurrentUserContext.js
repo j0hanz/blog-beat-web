@@ -7,14 +7,13 @@ export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
 export const useCurrentUser = () => useContext(CurrentUserContext);
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
+
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
   const handleMount = async () => {
     try {
-      const { data } = await axiosRes.get('dj-rest-auth/user/', {
-        withCredentials: true,
-      });
+      const { data } = await axiosRes.get('dj-rest-auth/user/');
       setCurrentUser(data);
     } catch (err) {
       console.log(err);
@@ -27,11 +26,7 @@ export const CurrentUserProvider = ({ children }) => {
     const requestInterceptor = axiosReq.interceptors.request.use(
       async (config) => {
         try {
-          await axios.post(
-            '/dj-rest-auth/token/refresh/',
-            {},
-            { withCredentials: true },
-          );
+          await axios.post('/dj-rest-auth/token/refresh/');
         } catch (err) {
           setCurrentUser((prevCurrentUser) => {
             if (prevCurrentUser) {
