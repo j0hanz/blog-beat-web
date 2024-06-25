@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Modal, Button, Form, InputGroup, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './styles/Login.module.css';
+import { SetCurrentUserContext } from '../../App';
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -14,6 +15,7 @@ const Login = () => {
   const { username, password } = loginData;
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const setCurrentUser = useContext(SetCurrentUserContext);
   const handleChange = (event) => {
     setLoginData({
       ...loginData,
@@ -23,7 +25,8 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post('/dj-rest-auth/login/', loginData);
+      const { data } = await axios.post('/dj-rest-auth/login/', loginData);
+      setCurrentUser(data.user);
       navigate('/');
     } catch (err) {
       setErrors(err.response?.data || {});
