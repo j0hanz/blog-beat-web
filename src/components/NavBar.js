@@ -28,7 +28,9 @@ const NavBar = () => {
   const setCurrentUser = useSetCurrentUser();
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+
   const toggleOffcanvas = () => setShow(!show);
+
   const handleSignOut = async () => {
     try {
       await axios.post('dj-rest-auth/logout/');
@@ -38,6 +40,7 @@ const NavBar = () => {
       console.log(err);
     }
   };
+
   const loggedInIcons = (
     <>
       <NavLink
@@ -61,6 +64,7 @@ const NavBar = () => {
       </NavLink>
     </>
   );
+
   const loggedOutIcons = (
     <>
       <NavLink
@@ -83,6 +87,7 @@ const NavBar = () => {
       </NavLink>
     </>
   );
+
   return (
     <Navbar className="navbar-dark bg-dark">
       <Container fluid>
