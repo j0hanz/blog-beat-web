@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './styles/Login.module.css';
 import { SetCurrentUserContext } from '../../contexts/CurrentUserContext';
+import { setTokenTimestamp } from '../../utils/utils';
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -25,10 +26,9 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post('/dj-rest-auth/login/', loginData, {
-        withCredentials: true,
-      });
+      const { data } = await axios.post('/dj-rest-auth/login/', loginData);
       setCurrentUser(data.user);
+      setTokenTimestamp(data);
       navigate('/');
     } catch (err) {
       setErrors(err.response?.data || {});
