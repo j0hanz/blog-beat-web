@@ -5,7 +5,7 @@ import { faUser, faLock, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './styles/Login.module.css';
-import { SetCurrentUserContext } from '../../App';
+import { SetCurrentUserContext } from '../../contexts/CurrentUserContext'; // Correct import
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -16,12 +16,14 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const setCurrentUser = useContext(SetCurrentUserContext);
+
   const handleChange = (event) => {
     setLoginData({
       ...loginData,
       [event.target.name]: event.target.value,
     });
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -32,9 +34,11 @@ const Login = () => {
       setErrors(err.response?.data || {});
     }
   };
+
   const handleClose = () => {
     navigate('/');
   };
+
   return (
     <Modal show={true} onHide={handleClose} centered>
       <Modal.Header className="d-flex justify-content-center p-3 bg-dark position-relative">
@@ -104,14 +108,14 @@ const Login = () => {
           ))}
           <p className="mt-4">
             Don't have an account?{' '}
-            <p className="mt-3">
-              <Link
-                to="/signup"
-                onClick={handleClose}
-                className="btn btn-outline-light"
-              >
-                Sign up now!
-              </Link>
+            <p className="mt-2">
+            <Link
+              to="/signup"
+              onClick={handleClose}
+              className="btn btn-outline-light"
+            >
+              Sign up now!
+            </Link>
             </p>
           </p>
         </Form>
