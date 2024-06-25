@@ -2,11 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { axiosReq, axiosRes } from '../api/axiosDefaults';
 import { useNavigate } from 'react-router-dom';
-import {
-  removeTokenTimestamp,
-  shouldRefreshToken,
-  setTokenTimestamp,
-} from '../utils/utils';
+import { removeTokenTimestamp, shouldRefreshToken } from '../utils/utils';
 
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
@@ -19,7 +15,6 @@ export const CurrentUserProvider = ({ children }) => {
     try {
       const { data } = await axiosRes.get('dj-rest-auth/user/');
       setCurrentUser(data);
-      setTokenTimestamp(data);
     } catch (err) {
       console.log(err);
     }
@@ -28,12 +23,11 @@ export const CurrentUserProvider = ({ children }) => {
     handleMount();
   }, []);
   useEffect(() => {
-    const requestInterceptor = axiosReq.interceptors.request.use(
+    axiosReq.interceptors.request.use(
       async (config) => {
         if (shouldRefreshToken()) {
           try {
-            const { data } = await axios.post('/dj-rest-auth/token/refresh/');
-            setTokenTimestamp(data);
+            await axios.post('/dj-rest-auth/token/refresh/');
           } catch (err) {
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
@@ -49,14 +43,12 @@ export const CurrentUserProvider = ({ children }) => {
       },
       (err) => Promise.reject(err),
     );
-    const responseInterceptor = axiosRes.interceptors.response.use(
+    axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
         if (err.response?.status === 401) {
           try {
-            const { data } = await axios.post('/dj-rest-auth/token/refresh/');
-            setTokenTimestamp(data);
-            return axios(err.config);
+            await axios.post('/dj-rest-auth/token/refresh/');
           } catch (err) {
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
@@ -66,14 +58,11 @@ export const CurrentUserProvider = ({ children }) => {
             });
             removeTokenTimestamp();
           }
+          return axios(err.config);
         }
         return Promise.reject(err);
       },
     );
-    return () => {
-      axiosReq.interceptors.request.eject(requestInterceptor);
-      axiosRes.interceptors.response.eject(responseInterceptor);
-    };
   }, [navigate]);
   return (
     <CurrentUserContext.Provider value={currentUser}>
