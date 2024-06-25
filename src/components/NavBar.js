@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, Offcanvas, Container, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -15,10 +15,17 @@ import logo from '../assets/logo.webp';
 import nobody from '../assets/nobody.webp';
 import styles from './styles/NavBar.module.css';
 import TooltipWrapper from './TooltipWrapper';
-import { CurrentUserContext } from '../App';
+import { useCurrentUser } from '../contexts/CurrentUserContext'; // Correct import
 
 const NavBar = () => {
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = useCurrentUser();
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const toggleOffcanvas = () => setShow(!show);
+  const handleNavLinkClick = (path) => {
+    toggleOffcanvas();
+    navigate(path);
+  };
   const loggedInIcons = (
     <>
       <Nav.Link
@@ -51,13 +58,6 @@ const NavBar = () => {
       </Nav.Link>
     </>
   );
-  const [show, setShow] = useState(false);
-  const navigate = useNavigate();
-  const toggleOffcanvas = () => setShow(!show);
-  const handleNavLinkClick = (path) => {
-    toggleOffcanvas();
-    navigate(path);
-  };
   return (
     <Navbar className="navbar-dark bg-dark">
       <Container fluid>
