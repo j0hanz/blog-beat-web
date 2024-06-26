@@ -108,7 +108,7 @@ function Login() {
           ))}
           <p className="mt-4">
             Don't have an account?{' '}
-            <p className="mt-2">
+            <span className="mt-2">
               <Link
                 to="/signup"
                 onClick={handleClose}
@@ -116,7 +116,7 @@ function Login() {
               >
                 Sign up now!
               </Link>
-            </p>
+            </span>
           </p>
         </Form>
       </Modal.Body>

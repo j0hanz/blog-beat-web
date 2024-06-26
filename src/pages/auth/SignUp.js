@@ -122,7 +122,7 @@ const Signup = () => {
           ))}
           <p className="mt-4">
             Already have an account?{' '}
-            <p className="mt-2">
+            <span className="mt-2">
               <Link
                 to="/login"
                 onClick={handleClose}
@@ -130,7 +130,7 @@ const Signup = () => {
               >
                 Login here!
               </Link>
-            </p>
+            </span>
           </p>
         </Form>
       </Modal.Body>
