@@ -6,17 +6,19 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './styles/Login.module.css';
 import { SetCurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useRedirect } from '../../hooks/useRedirect';
 import { setTokenTimestamp } from '../../utils/utils';
 
-const Login = () => {
+function Login() {
+  const setCurrentUser = useContext(SetCurrentUserContext);
+  useRedirect('loggedIn');
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
   });
   const { username, password } = loginData;
-  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const setCurrentUser = useContext(SetCurrentUserContext);
+  const [errors, setErrors] = useState({});
   const handleChange = (event) => {
     setLoginData({
       ...loginData,
@@ -120,6 +122,6 @@ const Login = () => {
       </Modal.Body>
     </Modal>
   );
-};
+}
 
 export default Login;
