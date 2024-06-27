@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Custom hook to handle redirecting based on user authentication status
 export const useRedirect = (userAuthStatus) => {
@@ -9,15 +9,15 @@ export const useRedirect = (userAuthStatus) => {
   useEffect(() => {
     const handleMount = async () => {
       try {
-        await axios.post('/dj-rest-auth/token/refresh/');
+        await axios.post("/dj-rest-auth/token/refresh/");
         // if user is logged in, the code below will run
-        if (userAuthStatus === 'loggedIn') {
-          navigate('/');
+        if (userAuthStatus === "loggedIn") {
+          navigate("/");
         }
       } catch (err) {
         // if user is not logged in, the code below will run
-        if (userAuthStatus === 'loggedOut') {
-          navigate('/');
+        if (userAuthStatus === "loggedOut") {
+          navigate("/");
         }
       }
     };
