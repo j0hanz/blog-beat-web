@@ -1,24 +1,24 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import './styles/TooltipWrapper.css';
+import React, { useCallback, useState, useEffect } from "react";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import "./styles/TooltipWrapper.css";
 
 const TooltipWrapper = React.memo(
-  ({ children, message, placement = 'bottom', tooltipClass }) => {
+  ({ children, message, placement = "bottom", tooltipClass }) => {
     const [showTooltip, setShowTooltip] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(
-      window.innerWidth <= 768,
+      window.innerWidth <= 768
     );
     const renderTooltip = useCallback(
       (props) => (
         <Tooltip
-          id={`tooltip-${message.toLowerCase().replace(/ /g, '-')}`}
+          id={`tooltip-${message.toLowerCase().replace(/ /g, "-")}`}
           {...props}
           className={tooltipClass}
         >
           {message}
         </Tooltip>
       ),
-      [message, tooltipClass],
+      [message, tooltipClass]
     );
     useEffect(() => {
       if (showTooltip) {
@@ -28,8 +28,8 @@ const TooltipWrapper = React.memo(
     }, [showTooltip]);
     useEffect(() => {
       const handleResize = () => setIsSmallScreen(window.innerWidth <= 768);
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
     }, []);
     if (isSmallScreen) {
       return <>{children}</>;
@@ -45,7 +45,7 @@ const TooltipWrapper = React.memo(
         {children}
       </OverlayTrigger>
     );
-  },
+  }
 );
 
 export default TooltipWrapper;
