@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Navbar, Nav, Offcanvas, Container, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from "react";
+import { Navbar, Nav, Offcanvas, Container, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouse,
   faArrowRightToBracket,
@@ -10,49 +10,47 @@ import {
   faTimes,
   faSignOutAlt,
   faAngleRight,
-} from '@fortawesome/free-solid-svg-icons';
-import { useNavigate, NavLink } from 'react-router-dom';
-import logo from '../assets/logo.webp';
-import nobody from '../assets/nobody.webp';
-import styles from './styles/NavBar.module.css';
-import TooltipWrapper from './TooltipWrapper';
-import Icon from './Icon';
+} from "@fortawesome/free-solid-svg-icons";
+import { NavLink } from "react-router-dom";
+import logo from "../assets/logo.webp";
+import nobody from "../assets/nobody.webp";
+import styles from "./styles/NavBar.module.css";
+import TooltipWrapper from "./TooltipWrapper";
+import Icon from "./Icon";
 import {
   useCurrentUser,
   useSetCurrentUser,
-} from '../contexts/CurrentUserContext';
-import axios from 'axios';
-import { removeTokenTimestamp } from '../utils/utils';
+} from "../contexts/CurrentUserContext";
+import axios from "axios";
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
   const [show, setShow] = useState(false);
-  const navigate = useNavigate();
   const toggleOffcanvas = () => setShow(!show);
+
   const handleSignOut = async () => {
     try {
-      await axios.post('dj-rest-auth/logout/');
+      await axios.post("dj-rest-auth/logout/");
       setCurrentUser(null);
-      removeTokenTimestamp();
-      navigate('/login');
     } catch (err) {
       console.log(err);
     }
   };
+
   const loggedInIcons = (
     <>
       <NavLink
-        to="/"
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        to="/"
         onClick={handleSignOut}
       >
         <FontAwesomeIcon className="fa-xl" icon={faSignOutAlt} />
         Sign out
       </NavLink>
       <NavLink
-        to={`/profiles/${currentUser?.profile_id}`}
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        to={`/profiles/${currentUser?.profile_id}`}
         onClick={toggleOffcanvas}
       >
         <Icon
@@ -63,11 +61,12 @@ const NavBar = () => {
       </NavLink>
     </>
   );
+
   const loggedOutIcons = (
     <>
       <NavLink
-        to="/login"
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        to="/signin"
         onClick={toggleOffcanvas}
       >
         <FontAwesomeIcon className="fa-xl" icon={faArrowRightToBracket} />
@@ -75,8 +74,8 @@ const NavBar = () => {
         <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
       </NavLink>
       <NavLink
-        to="/signup"
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        to="/signup"
         onClick={toggleOffcanvas}
       >
         <FontAwesomeIcon className="fa-xl" icon={faUserPlus} />
@@ -85,6 +84,7 @@ const NavBar = () => {
       </NavLink>
     </>
   );
+
   return (
     <Navbar className="navbar-dark bg-dark">
       <Container fluid>
@@ -134,7 +134,7 @@ const NavBar = () => {
               height={55}
             />
             <Offcanvas.Title className="mx-auto">
-              {currentUser ? currentUser.username : 'User'}
+              {currentUser ? currentUser.username : "User"}
             </Offcanvas.Title>
             <Button
               variant="link"
