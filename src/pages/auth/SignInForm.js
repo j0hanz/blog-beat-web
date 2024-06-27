@@ -10,14 +10,14 @@ import { useRedirect } from '../../hooks/useRedirect';
 import { setTokenTimestamp } from '../../utils/utils';
 
 function SignInForm() {
-  const setCurrentUser = useContext(SetCurrentUserContext);
+  const SetCurrentUser = useContext(SetCurrentUserContext);
   useRedirect('loggedIn');
 
-  const [signInData, setSignInData] = useState({
+  const [logInData, setSignInData] = useState({
     username: '',
     password: '',
   });
-  const { username, password } = signInData;
+  const { username, password } = logInData;
 
   const [errors, setErrors] = useState({});
 
@@ -26,10 +26,10 @@ function SignInForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post('/dj-rest-auth/login/', signInData);
-      setCurrentUser(data.user);
+      const { data } = await axios.post('/dj-rest-auth/login/', logInData);
+      SetCurrentUser(data.user);
       setTokenTimestamp(data);
-      navigate(-1);
+      navigate('/');
     } catch (err) {
       setErrors(err.response?.data || {});
     }
@@ -37,7 +37,7 @@ function SignInForm() {
 
   const handleChange = (event) => {
     setSignInData({
-      ...signInData,
+      ...logInData,
       [event.target.name]: event.target.value,
     });
   };
