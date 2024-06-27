@@ -29,9 +29,9 @@ export const CurrentUserProvider = ({ children }) => {
     handleMount();
   }, []);
 
+  // Intercept requests to check for token expiration and refresh if necessary
   useMemo(() => {
-    // Intercept requests to check for token expiration and refresh if necessary
-    axiosReq.interceptors.request.use(
+    const requestInterceptor = axiosReq.interceptors.request.use(
       async (config) => {
         if (shouldRefreshToken()) {
           try {
@@ -49,23 +49,21 @@ export const CurrentUserProvider = ({ children }) => {
         }
         return config;
       },
-      (err) => {
-        return Promise.reject(err);
-      },
+      (err) => Promise.reject(err),
     );
 
     // Intercept responses to check for token expiration and refresh if necessary
-    axiosRes.interceptors.response.use(
+    const responseInterceptor = axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
         if (err.response?.status === 401) {
           try {
             await axios.post('/dj-rest-auth/token/refresh/');
             return axios(err.config);
-          } catch (err) {
+          } catch (refreshErr) {
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
-                navigate('/login');
+                navigate('/signin');
               }
               return null;
             });
@@ -75,6 +73,12 @@ export const CurrentUserProvider = ({ children }) => {
         return Promise.reject(err);
       },
     );
+
+    // Eject interceptors when component unmounts
+    return () => {
+      axiosReq.interceptors.request.eject(requestInterceptor);
+      axiosRes.interceptors.response.eject(responseInterceptor);
+    };
   }, [navigate]);
 
   return (
