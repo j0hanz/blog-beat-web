@@ -1,15 +1,15 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import "./api/axiosDefaults";
-import "bootstrap/dist/css/bootstrap.min.css";
-import styles from "./App.module.css";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import PostCreateForm from "./pages/PostCreateForm";
-import SignInForm from "./pages/auth/SignInForm";
-import SignUpForm from "./pages/auth/SignUpForm";
-import { useCurrentUser } from "./contexts/CurrentUserContext";
+import { Routes, Route, Navigate } from 'react-router-dom';
+import './api/axiosDefaults';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import styles from './App.module.css';
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import About from './pages/About';
+import PostCreateForm from './pages/PostCreateForm';
+import SignInForm from './pages/auth/SignInForm';
+import SignUpForm from './pages/auth/SignUpForm';
+import { useCurrentUser } from './contexts/CurrentUserContext';
 
 function App() {
   const currentUser = useCurrentUser();

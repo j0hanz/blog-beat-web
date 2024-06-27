@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./styles/Icon.module.css";
+import React from 'react';
+import styles from './styles/Icon.module.css';
 
 const Icon = React.forwardRef(({ src, height = 45, text }, ref) => {
   return (

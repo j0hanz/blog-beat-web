@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Navbar, Nav, Offcanvas, Container, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from 'react';
+import { Navbar, Nav, Offcanvas, Container, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHouse,
   faArrowRightToBracket,
@@ -10,18 +10,18 @@ import {
   faTimes,
   faSignOutAlt,
   faAngleRight,
-} from "@fortawesome/free-solid-svg-icons";
-import { NavLink } from "react-router-dom";
-import logo from "../assets/logo.webp";
-import nobody from "../assets/nobody.webp";
-import styles from "./styles/NavBar.module.css";
-import TooltipWrapper from "./TooltipWrapper";
-import Icon from "./Icon";
+} from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from 'react-router-dom';
+import logo from '../assets/logo.webp';
+import nobody from '../assets/nobody.webp';
+import styles from './styles/NavBar.module.css';
+import TooltipWrapper from './TooltipWrapper';
+import Icon from './Icon';
 import {
   useCurrentUser,
   useSetCurrentUser,
-} from "../contexts/CurrentUserContext";
-import axios from "axios";
+} from '../contexts/CurrentUserContext';
+import axios from 'axios';
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
@@ -31,7 +31,7 @@ const NavBar = () => {
 
   const handleSignOut = async () => {
     try {
-      await axios.post("dj-rest-auth/logout/");
+      await axios.post('dj-rest-auth/logout/');
       setCurrentUser(null);
     } catch (err) {
       console.log(err);
@@ -134,7 +134,7 @@ const NavBar = () => {
               height={55}
             />
             <Offcanvas.Title className="mx-auto">
-              {currentUser ? currentUser.username : "User"}
+              {currentUser ? currentUser.username : 'User'}
             </Offcanvas.Title>
             <Button
               variant="link"

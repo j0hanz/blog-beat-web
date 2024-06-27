@@ -1,21 +1,21 @@
-import React, { useState, useContext } from "react";
-import { Modal, Button, Form, InputGroup, Alert } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock, faTimes } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
-import styles from "./styles/Login.module.css";
-import { SetCurrentUserContext } from "../../contexts/CurrentUserContext";
-import { useRedirect } from "../../hooks/useRedirect";
-import { setTokenTimestamp } from "../../utils/utils";
+import React, { useState, useContext } from 'react';
+import { Modal, Button, Form, InputGroup, Alert } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faLock, faTimes } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
+import styles from './styles/Login.module.css';
+import { SetCurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useRedirect } from '../../hooks/useRedirect';
+import { setTokenTimestamp } from '../../utils/utils';
 
 function SignInForm() {
   const setCurrentUser = useContext(SetCurrentUserContext);
-  useRedirect("loggedIn");
+  useRedirect('loggedIn');
 
   const [signInData, setSignInData] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
   const { username, password } = signInData;
 
@@ -26,7 +26,7 @@ function SignInForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post("/dj-rest-auth/login/", signInData);
+      const { data } = await axios.post('/dj-rest-auth/login/', signInData);
       setCurrentUser(data.user);
       setTokenTimestamp(data);
       navigate(-1);
@@ -43,7 +43,7 @@ function SignInForm() {
   };
 
   const handleClose = () => {
-    navigate("/");
+    navigate('/');
   };
 
   return (
@@ -114,7 +114,7 @@ function SignInForm() {
             </Alert>
           ))}
           <p className="mt-4">
-            Don't have an account?{" "}
+            Don't have an account?{' '}
             <span className="mt-2">
               <Link
                 to="/signup"

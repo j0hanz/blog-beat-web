@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { Modal, Button, Form, InputGroup, Alert } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus, faKey, faTimes } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
-import styles from "./styles/Signup.module.css";
-import { useRedirect } from "../../hooks/useRedirect";
+import React, { useState } from 'react';
+import { Modal, Button, Form, InputGroup, Alert } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus, faKey, faTimes } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
+import styles from './styles/Signup.module.css';
+import { useRedirect } from '../../hooks/useRedirect';
 
 const SignUpForm = () => {
-  useRedirect("loggedIn");
+  useRedirect('loggedIn');
 
   const [signUpData, setSignUpData] = useState({
-    username: "",
-    password1: "",
-    password2: "",
+    username: '',
+    password1: '',
+    password2: '',
   });
   const { username, password1, password2 } = signUpData;
 
@@ -31,15 +31,15 @@ const SignUpForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("/dj-rest-auth/registration/", signUpData);
-      navigate("/signin");
+      await axios.post('/dj-rest-auth/registration/', signUpData);
+      navigate('/signin');
     } catch (err) {
       setErrors(err.response?.data || {});
     }
   };
 
   const handleClose = () => {
-    navigate("/");
+    navigate('/');
   };
 
   return (
@@ -130,7 +130,7 @@ const SignUpForm = () => {
             </Alert>
           ))}
           <p className="mt-4">
-            Already have an account?{" "}
+            Already have an account?{' '}
             <span className="mt-2">
               <Link
                 to="/signin"
