@@ -21,6 +21,14 @@
   padding: 1.5rem;
 }
 
+.faKey {
+  color: #ffff00;
+}
+
+.faSignOutAlt {
+  color: #007bff;
+}
+
 @media (max-width: 575px) {
   .logoNav {
     display: none;
