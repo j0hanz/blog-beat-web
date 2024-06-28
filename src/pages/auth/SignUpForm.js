@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faKey, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styles from './styles/Signup.module.css';
 
 const SignUpForm = () => {
@@ -29,9 +30,11 @@ const SignUpForm = () => {
     event.preventDefault();
     try {
       await axios.post('/dj-rest-auth/registration/', signUpData);
+      toast.success('Account created successfully!');
       navigate('/signin');
     } catch (err) {
       setErrors(err.response?.data);
+      toast.error('Sign up failed!');
     }
   };
 
