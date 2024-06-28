@@ -10,6 +10,8 @@ import {
   faTimes,
   faSignOutAlt,
   faAngleRight,
+  faUserEdit,
+  faKey,
 } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import logo from '../assets/logo.webp';
@@ -42,22 +44,36 @@ const NavBar = () => {
     <>
       <NavLink
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to="/"
-        onClick={handleSignOut}
+        to={`/profiles/${currentUser?.profile_id}/edit`}
+        onClick={toggleOffcanvas}
       >
-        <FontAwesomeIcon className="fa-xl" icon={faSignOutAlt} />
-        Sign out
+        <FontAwesomeIcon className="fa-xl" icon={faUserEdit} />
+        <span className="mx-auto">Edit Profile</span>
+        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
       </NavLink>
       <NavLink
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to={`/profiles/${currentUser?.profile_id}`}
+        to={`/profiles/${currentUser?.profile_id}/password`}
         onClick={toggleOffcanvas}
       >
-        <Icon
-          src={currentUser?.profile_image || nobody}
-          text="Profile"
-          height={40}
+        <FontAwesomeIcon className={`fa-xl ${styles.faKey}`} icon={faKey} />
+        <span className="mx-auto">Update Password</span>
+        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
+      </NavLink>
+      <hr />
+      <NavLink
+        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        to="/"
+        onClick={() => {
+          handleSignOut();
+        }}
+      >
+        <FontAwesomeIcon
+          className={`fa-xl ${styles.faSignOutAlt}`}
+          icon={faSignOutAlt}
         />
+        <span className="mx-auto">Sign out</span>
+        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
       </NavLink>
     </>
   );
