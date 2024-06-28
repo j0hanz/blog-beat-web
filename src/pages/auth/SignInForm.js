@@ -1,23 +1,20 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Modal, Button, Form, InputGroup, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './styles/Login.module.css';
-import { SetCurrentUserContext } from '../../contexts/CurrentUserContext';
-import { useRedirect } from '../../hooks/useRedirect';
-import { setTokenTimestamp } from '../../utils/utils';
+import { useSetCurrentUser } from '../../contexts/CurrentUserContext';
 
 function SignInForm() {
-  const SetCurrentUser = useContext(SetCurrentUserContext);
-  useRedirect('loggedIn');
+  const setCurrentUser = useSetCurrentUser();
 
-  const [logInData, setSignInData] = useState({
+  const [signInData, setSignInData] = useState({
     username: '',
     password: '',
   });
-  const { username, password } = logInData;
+  const { username, password } = signInData;
 
   const [errors, setErrors] = useState({});
 
@@ -25,19 +22,21 @@ function SignInForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     try {
-      const { data } = await axios.post('/dj-rest-auth/login/', logInData);
-      SetCurrentUser(data.user);
-      setTokenTimestamp(data);
+      const { data } = await axios.post('/dj-rest-auth/login/', signInData);
+      setCurrentUser(data.user);
+      console.log(data);
       navigate('/');
     } catch (err) {
-      setErrors(err.response?.data || {});
+      setErrors(err.response?.data);
+      console.log(err);
     }
   };
 
   const handleChange = (event) => {
     setSignInData({
-      ...logInData,
+      ...signInData,
       [event.target.name]: event.target.value,
     });
   };
