@@ -5,11 +5,8 @@ import { faUserPlus, faKey, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './styles/Signup.module.css';
-import { useRedirect } from '../../hooks/useRedirect';
 
 const SignUpForm = () => {
-  useRedirect('loggedIn');
-
   const [signUpData, setSignUpData] = useState({
     username: '',
     password1: '',
@@ -34,7 +31,7 @@ const SignUpForm = () => {
       await axios.post('/dj-rest-auth/registration/', signUpData);
       navigate('/signin');
     } catch (err) {
-      setErrors(err.response?.data || {});
+      setErrors(err.response?.data);
     }
   };
 
