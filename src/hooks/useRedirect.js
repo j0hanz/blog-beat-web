@@ -1,6 +1,8 @@
-import axios from 'axios';
+/* import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRedirect } from '../../hooks/useRedirect';
+import { setTokenTimestamp } from '../../utils/utils';
 
 // Custom hook to handle redirecting based on user authentication status
 export const useRedirect = (userAuthStatus) => {
@@ -25,3 +27,4 @@ export const useRedirect = (userAuthStatus) => {
     handleMount();
   }, [navigate, userAuthStatus]);
 };
+ */
