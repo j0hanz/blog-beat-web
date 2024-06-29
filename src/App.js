@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import styles from './App.module.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
 import About from './pages/About';
 import PostCreateForm from './pages/posts/PostCreateForm';
 import PostPage from './pages/posts/PostPage';
@@ -14,9 +13,11 @@ import SignInForm from './pages/auth/SignInForm';
 import SignUpForm from './pages/auth/SignUpForm';
 import Notifications from './components/Notifications';
 import { useCurrentUser } from './contexts/CurrentUserContext';
+import PostsPage from './pages/posts/PostsPage';
 
 function App() {
   const currentUser = useCurrentUser();
+  const profile_id = currentUser?.profile_id || '';
 
   return (
     <div className={styles.App}>
@@ -24,7 +25,30 @@ function App() {
       <Notifications />
       <main className={styles.main}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <PostsPage message="No results found. Adjust the search keyword." />
+            }
+          />
+          <Route
+            path="/feed"
+            element={
+              <PostsPage
+                message="No results found. Adjust the search keyword or follow a user."
+                filter={`owner__followed__owner__profile=${profile_id}&`}
+              />
+            }
+          />
+          <Route
+            path="/liked"
+            element={
+              <PostsPage
+                message="No results found. Adjust the search keyword or like a post."
+                filter={`likes__owner__profile=${profile_id}&ordering=-likes__created_at&`}
+              />
+            }
+          />
           <Route path="/about" element={<About />} />
           <Route
             path="/posts/create"
