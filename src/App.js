@@ -8,7 +8,7 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
-import PostCreateForm from './pages/PostCreateForm';
+import PostCreateForm from './pages/posts/PostCreateForm';
 import SignInForm from './pages/auth/SignInForm';
 import SignUpForm from './pages/auth/SignUpForm';
 import Notifications from './components/Notifications';
@@ -26,9 +26,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route
-            path="/newpost"
+            path="/posts/create"
             element={
-              currentUser ? <PostCreateForm /> : <Navigate to="/signin" />
+              currentUser ? <PostCreateForm /> : <Navigate to="/" />
             }
           />
           <Route
