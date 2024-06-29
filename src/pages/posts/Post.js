@@ -114,7 +114,7 @@ const Post = (props) => {
             ) : like_id ? (
               <span onClick={handleUnlike}>
                 <FontAwesomeIcon
-                  className={`fa-xl ${styles.faThumbsUp} ${styles.liked}`}
+                  className={`fa-xl ${styles.faThumbsUp}`}
                   icon={faThumbsUp}
                 />
               </span>
