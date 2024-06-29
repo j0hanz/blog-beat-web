@@ -121,7 +121,7 @@ const NavBar = () => {
               />
             </TooltipWrapper>
           </NavLink>
-          <NavLink to="/newpost" className={styles.navLinkEffect}>
+          <NavLink to="/posts/create" className={styles.navLinkEffect}>
             <TooltipWrapper message="New Post">
               <FontAwesomeIcon
                 className="fa-xl mx-4 mx-md-5"
