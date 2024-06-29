@@ -137,13 +137,13 @@ const NavBar = () => {
         <Nav className="mx-auto">
           <NavLink to="/" className={styles.navLinkEffect}>
             <TooltipWrapper message="Home">
-              <FontAwesomeIcon className="fa-xl mx-3 mx-md-5" icon={faHouse} />
+              <FontAwesomeIcon className="fa-xl mx-4 mx-md-5" icon={faHouse} />
             </TooltipWrapper>
           </NavLink>
           <NavLink to="/about" className={styles.navLinkEffect}>
             <TooltipWrapper message="About">
               <FontAwesomeIcon
-                className="fa-xl mx-3 mx-md-5"
+                className="fa-xl mx-4 mx-md-5"
                 icon={faCircleInfo}
               />
             </TooltipWrapper>
@@ -151,7 +151,7 @@ const NavBar = () => {
           <NavLink to="/posts/create" className={styles.navLinkEffect}>
             <TooltipWrapper message="New Post">
               <FontAwesomeIcon
-                className="fa-xl mx-3 mx-md-5"
+                className="fa-xl mx-4 mx-md-5"
                 icon={faSquarePlus}
               />
             </TooltipWrapper>
