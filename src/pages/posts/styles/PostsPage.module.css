@@ -1,0 +1,40 @@
+.SearchBar {
+  margin-bottom: 20px;
+  position: relative;
+  max-width: 600px;
+}
+
+.SearchBar input {
+  border-radius: 20px;
+  color: #242a3d;
+  padding-left: 40px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.SearchIcon {
+  position: absolute;
+  font-size: 1.2rem;
+  padding: 9px;
+  padding-left: 15px;
+}
+
+.SearchIcon:hover {
+  cursor: default;
+  color: #cfced3;
+}
+
+.Content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.SearchContainer {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+}
