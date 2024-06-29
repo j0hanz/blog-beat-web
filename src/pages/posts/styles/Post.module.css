@@ -6,6 +6,7 @@
   color: #ffffff;
   max-width: 800px;
   position: relative;
+  text-align: center;
 }
 
 .faThumbsUp,
@@ -42,4 +43,13 @@
   height: auto;
   object-fit: cover;
   width: 600px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.Content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
 }
