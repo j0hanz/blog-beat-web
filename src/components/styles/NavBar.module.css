@@ -25,8 +25,13 @@
   color: #ffff00;
 }
 
-.faSignOutAlt {
+.faSignOutAlt,
+.faThumbsUp {
   color: #007bff;
+}
+
+.faBarsStaggered {
+  color: #a83198;
 }
 
 @media (max-width: 575px) {
