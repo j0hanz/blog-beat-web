@@ -1,0 +1,45 @@
+.Post {
+  background-color: transparent;
+  border: 1px solid #8b8787;
+  border-radius: 2px;
+  margin-bottom: 16px;
+  color: #ffffff;
+  max-width: 800px;
+  position: relative;
+}
+
+.faThumbsUp,
+.faComments {
+  color: #ffffff;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.faThumbsUp:hover,
+.faComments:hover {
+  color: #007bff;
+  transform: scale(1.15);
+}
+
+.liked {
+  color: #007bff;
+}
+
+.PostBar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.EditIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1;
+}
+
+.CardImg {
+  height: auto;
+  object-fit: cover;
+  width: 600px;
+}
