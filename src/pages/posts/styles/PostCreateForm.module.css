@@ -1,0 +1,41 @@
+.Container {
+  min-height: 343px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.Image {
+  max-width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.ImageWrapper {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.ImageWrapper * {
+  cursor: pointer;
+}
+
+.Placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  background-color: #3f3e3e;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.FormControl {
+  width: 100%;
+}
