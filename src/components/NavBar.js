@@ -12,6 +12,8 @@ import {
   faAngleRight,
   faUserEdit,
   faKey,
+  faBarsStaggered,
+  faThumbsUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import logo from '../assets/logo.webp';
@@ -42,6 +44,31 @@ const NavBar = () => {
 
   const loggedInIcons = (
     <>
+      <NavLink
+        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        to="/feed"
+        onClick={toggleOffcanvas}
+      >
+        <FontAwesomeIcon
+          className={`fa-xl ${styles.faBarsStaggered}`}
+          icon={faBarsStaggered}
+        />
+        <span className="mx-auto">Feed</span>
+        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
+      </NavLink>
+      <NavLink
+        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        to="/liked"
+        onClick={toggleOffcanvas}
+      >
+        <FontAwesomeIcon
+          className={`fa-xl ${styles.faThumbsUp}`}
+          icon={faThumbsUp}
+        />
+        <span className="mx-auto">Liked</span>
+        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
+      </NavLink>
+      <hr />
       <NavLink
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
         to={`/profiles/${currentUser?.profile_id}/edit`}
@@ -110,13 +137,13 @@ const NavBar = () => {
         <Nav className="mx-auto">
           <NavLink to="/" className={styles.navLinkEffect}>
             <TooltipWrapper message="Home">
-              <FontAwesomeIcon className="fa-xl mx-4 mx-md-5" icon={faHouse} />
+              <FontAwesomeIcon className="fa-xl mx-3 mx-md-5" icon={faHouse} />
             </TooltipWrapper>
           </NavLink>
           <NavLink to="/about" className={styles.navLinkEffect}>
             <TooltipWrapper message="About">
               <FontAwesomeIcon
-                className="fa-xl mx-4 mx-md-5"
+                className="fa-xl mx-3 mx-md-5"
                 icon={faCircleInfo}
               />
             </TooltipWrapper>
@@ -124,7 +151,7 @@ const NavBar = () => {
           <NavLink to="/posts/create" className={styles.navLinkEffect}>
             <TooltipWrapper message="New Post">
               <FontAwesomeIcon
-                className="fa-xl mx-4 mx-md-5"
+                className="fa-xl mx-3 mx-md-5"
                 icon={faSquarePlus}
               />
             </TooltipWrapper>
