@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import {
   Form,
   Button,
@@ -9,21 +10,24 @@ import {
   Container,
   Alert,
   Image,
+  InputGroup,
 } from 'react-bootstrap';
 
 import Upload from '../../assets/upload.png';
 import styles from './styles/PostCreateForm.module.css';
 import Asset from '../../components/Asset';
+import { axiosReq } from '../../api/axiosDefaults';
 
 function PostCreateForm() {
   const [errors, setErrors] = useState({});
   const [postData, setPostData] = useState({
     title: '',
+    location: '',
     content: '',
     image: '',
   });
 
-  const { title, content, image } = postData;
+  const { title, location, content, image } = postData;
   const imageInput = useRef(null);
   const navigate = useNavigate();
 
@@ -60,13 +64,14 @@ function PostCreateForm() {
     const formData = new FormData();
 
     formData.append('title', title);
+    formData.append('location', location);
     formData.append('content', content);
     if (imageInput.current.files[0]) {
       formData.append('image', imageInput.current.files[0]);
     }
 
     try {
-      const { data } = await axios.post('/posts/', formData);
+      const { data } = await axiosReq.post('/posts/', formData);
       navigate(`/posts/${data.id}`);
     } catch (err) {
       console.log(err);
@@ -75,6 +80,84 @@ function PostCreateForm() {
       }
     }
   };
+
+  const textFields = (
+    <div className="text-center">
+      <Form.Group controlId="title" className="mb-3">
+        <Form.Label className="d-none">Title</Form.Label>
+        <InputGroup>
+          <InputGroup.Text>
+            <FontAwesomeIcon icon={faFileAlt} />
+          </InputGroup.Text>
+          <Form.Control
+            type="text"
+            placeholder="Title"
+            name="title"
+            value={title}
+            onChange={handleChange}
+            className={styles.FormControl}
+          />
+        </InputGroup>
+        {errors?.title?.map((message, idx) => (
+          <Alert variant="warning" key={idx}>
+            {message}
+          </Alert>
+        ))}
+      </Form.Group>
+
+      <Form.Group controlId="location" className="mb-3">
+        <Form.Label className="d-none">Location</Form.Label>
+        <InputGroup>
+          <InputGroup.Text>
+            <FontAwesomeIcon icon={faMapMarkerAlt} />
+          </InputGroup.Text>
+          <Form.Control
+            type="text"
+            placeholder="Location"
+            name="location"
+            value={location}
+            onChange={handleChange}
+            className={styles.FormControl}
+          />
+        </InputGroup>
+        {errors?.location?.map((message, idx) => (
+          <Alert variant="warning" key={idx}>
+            {message}
+          </Alert>
+        ))}
+      </Form.Group>
+
+      <Form.Group controlId="content" className="mb-4">
+        <Form.Label className="d-none">Content</Form.Label>
+        <InputGroup>
+          <InputGroup.Text>
+            <FontAwesomeIcon icon={faFileAlt} />
+          </InputGroup.Text>
+          <Form.Control
+            as="textarea"
+            rows={6}
+            placeholder="Content"
+            name="content"
+            value={content}
+            onChange={handleChange}
+            className={styles.FormControl}
+          />
+        </InputGroup>
+        {errors?.content?.map((message, idx) => (
+          <Alert variant="warning" key={idx}>
+            {message}
+          </Alert>
+        ))}
+      </Form.Group>
+
+      <Button variant="secondary" onClick={() => navigate(-1)}>
+        Cancel
+      </Button>
+      <Button variant="primary" type="submit">
+        Create
+      </Button>
+    </div>
+  );
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -124,51 +207,16 @@ function PostCreateForm() {
                 </div>
               )}
             </Form.Group>
+            {errors?.image?.map((message, idx) => (
+              <Alert variant="warning" key={idx}>
+                {message}
+              </Alert>
+            ))}
           </Col>
         </Row>
         <Row>
           <Col className="py-2 p-0 p-md-2" md={12} lg={12}>
-            <div className="text-center">
-              <Form.Group>
-                <Form.Label>Title</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="title"
-                  value={title}
-                  onChange={handleChange}
-                  className={styles.FormControl}
-                />
-              </Form.Group>
-              {errors?.title?.map((message, idx) => (
-                <Alert variant="warning" key={idx}>
-                  {message}
-                </Alert>
-              ))}
-
-              <Form.Group>
-                <Form.Label>Content</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={6}
-                  name="content"
-                  value={content}
-                  onChange={handleChange}
-                  className={styles.FormControl}
-                />
-              </Form.Group>
-              {errors?.content?.map((message, idx) => (
-                <Alert variant="warning" key={idx}>
-                  {message}
-                </Alert>
-              ))}
-
-              <Button variant="secondary" onClick={() => navigate(-1)}>
-                Cancel
-              </Button>
-              <Button variant="primary" type="submit">
-                Create
-              </Button>
-            </div>
+            {textFields}
           </Col>
         </Row>
       </Container>
