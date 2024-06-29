@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
 import { useParams } from 'react-router';
-import styles from './styles/PostPage.module.css';
 import { axiosReq } from '../../api/axiosDefaults';
 import Post from './Post';
 
@@ -27,8 +26,8 @@ function PostPage() {
 
   return (
     <Container
-      className={`${styles.Container} d-flex justify-content-center align-items-center`}
       fluid
+      className="d-flex justify-content-center align-items-center"
     >
       <Row className="h-100 w-100">
         <Col className="py-2 p-0 p-lg-2 d-flex justify-content-center align-items-center">
