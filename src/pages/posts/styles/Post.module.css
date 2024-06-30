@@ -29,13 +29,6 @@
   margin-top: 10px;
 }
 
-.EditIcon {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  z-index: 1;
-}
-
 .CardImg {
   height: auto;
   object-fit: cover;
