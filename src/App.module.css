@@ -13,12 +13,17 @@ body {
   color: #ffffff;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 a {
-  color: #57c7ff;
+  text-decoration: none;
+  color: #f1f1f1;
 }
 
 a:hover {
-  color: #ff6f61;
+  color: #007bff;
 }
 
 .card,
@@ -30,4 +35,18 @@ a:hover {
 .card-title,
 .modal-title {
   color: #ffffff;
+}
+
+/* scrollbar */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+*::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+*::-webkit-scrollbar-thumb {
+  background: #888;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
