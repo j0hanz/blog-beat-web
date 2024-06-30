@@ -11,6 +11,7 @@
 
 .logoNav {
   width: 125px;
+  overflow: hidden;
 }
 
 .offcanvasWidth {
@@ -34,7 +35,7 @@
   color: #a83198;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 650px) {
   .logoNav {
     display: none;
   }
