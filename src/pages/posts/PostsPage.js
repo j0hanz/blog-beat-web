@@ -42,16 +42,17 @@ function PostsPage({ message, filter = '' }) {
   }, [filter, query, pathname, currentUser]);
 
   return (
-    <Row className="h-100 justify-content-center">
+    <Row className="h-100 justify-content-center mx-auto">
       <Col lg={8}>
         <div className={styles.SearchContainer}>
           <Form
             className={styles.SearchBar}
             onSubmit={(event) => event.preventDefault()}
-          ><FontAwesomeIcon
-          className={`fa-xl ${styles.SearchIcon}`}
-          icon={faSearch}
-        />
+          >
+            <FontAwesomeIcon
+              className={`fa-xl ${styles.SearchIcon}`}
+              icon={faSearch}
+            />
             <Form.Control
               value={query}
               onChange={(event) => setQuery(event.target.value)}
