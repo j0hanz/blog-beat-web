@@ -1,5 +1,7 @@
 .Icon {
   transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .Icon:hover {
