@@ -2,15 +2,12 @@ import React from 'react';
 import styles from './styles/Post.module.css';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Icon from '../../components/Icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faEdit,
-  faComments,
-  faThumbsUp,
-} from '@fortawesome/free-solid-svg-icons';
+import { faComments, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { axiosRes } from '../../api/axiosDefaults';
+import { MoreDropdown } from '../../components/MoreDropdown';
 
 const Post = (props) => {
   const {
@@ -31,6 +28,20 @@ const Post = (props) => {
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    navigate(`/posts/${id}/edit`);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/posts/${id}/`);
+      navigate(-1);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleLike = async () => {
     try {
@@ -67,17 +78,6 @@ const Post = (props) => {
   return (
     <div className="mx-auto mt-4">
       <Card className={`bg-dark ${styles.Post}`}>
-        {is_owner && postPage && (
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>Edit your post</Tooltip>}
-          >
-            <FontAwesomeIcon
-              className={`fa-lg ${styles.EditIcon}`}
-              icon={faEdit}
-            />
-          </OverlayTrigger>
-        )}
         <Card.Body>
           <div className="d-flex align-items-center justify-content-between">
             <Link
@@ -88,7 +88,15 @@ const Post = (props) => {
               <span>{owner}</span>
             </Link>
             <div className="d-flex align-items-center">
-              <span className='text-white-50 '>{updated_at}</span>
+              <span className="text-white-50 mx-2">{updated_at}</span>
+              {is_owner && postPage && (
+                <div className={styles.Absolute}>
+                  <MoreDropdown
+                    handleEdit={handleEdit}
+                    handleDelete={handleDelete}
+                  />
+                </div>
+              )}
             </div>
           </div>
           <hr />
