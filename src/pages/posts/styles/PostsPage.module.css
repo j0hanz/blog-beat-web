@@ -7,21 +7,17 @@
 .SearchBar input {
   border-radius: 20px;
   color: #242a3d;
-
+  padding-left: 40px;
   margin-bottom: 16px;
   width: 100%;
 }
 
 .SearchIcon {
   position: absolute;
-  font-size: 1.2rem;
-  padding: 9px;
-
-}
-
-.SearchIcon:hover {
-  cursor: default;
-  color: #cfced3;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #2c2c2c;
 }
 
 .Content {
