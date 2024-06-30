@@ -45,14 +45,13 @@ function PostsPage({ message, filter = '' }) {
     <Row className="h-100 justify-content-center">
       <Col lg={8}>
         <div className={styles.SearchContainer}>
-          <FontAwesomeIcon
-            className={`fa-xl ${styles.SearchIcon}`}
-            icon={faSearch}
-          />
           <Form
             className={styles.SearchBar}
             onSubmit={(event) => event.preventDefault()}
-          >
+          ><FontAwesomeIcon
+          className={`fa-xl ${styles.SearchIcon}`}
+          icon={faSearch}
+        />
             <Form.Control
               value={query}
               onChange={(event) => setQuery(event.target.value)}
@@ -65,17 +64,16 @@ function PostsPage({ message, filter = '' }) {
           <>
             {posts.results.length ? (
               <InfiniteScroll
-                dataLength={posts.results.length}
-                loader={<Asset spinner />}
-                hasMore={!!posts.next}
-                next={() => fetchMoreData(posts, setPosts)}
-              >
-                {posts.results.map((post) => (
+                children={posts.results.map((post) => (
                   <div className="d-flex justify-content-center" key={post.id}>
                     <Post {...post} setPosts={setPosts} />
                   </div>
                 ))}
-              </InfiniteScroll>
+                dataLength={posts.results.length}
+                loader={<Asset spinner />}
+                hasMore={!!posts.next}
+                next={() => fetchMoreData(posts, setPosts)}
+              />
             ) : (
               <Container className={styles.Content}>
                 <Asset src={NoResults} message={message} />
