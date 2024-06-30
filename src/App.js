@@ -14,6 +14,7 @@ import SignUpForm from './pages/auth/SignUpForm';
 import Notifications from './components/Notifications';
 import { useCurrentUser } from './contexts/CurrentUserContext';
 import PostsPage from './pages/posts/PostsPage';
+import PostEditForm from './pages/posts/PostEditForm';
 
 function App() {
   const currentUser = useCurrentUser();
@@ -55,6 +56,10 @@ function App() {
             element={currentUser ? <PostCreateForm /> : <Navigate to="/" />}
           />
           <Route path="/posts/:id" element={<PostPage />} />
+          <Route
+            path="/posts/:id/edit"
+            element={currentUser ? <PostEditForm /> : <Navigate to="/" />}
+          />
           <Route
             path="/signin"
             element={!currentUser ? <SignInForm /> : <Navigate to="/" />}
