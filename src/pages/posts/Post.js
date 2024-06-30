@@ -66,7 +66,7 @@ const Post = (props) => {
 
   return (
     <div className="mx-auto mt-4">
-      <Card className={styles.Post}>
+      <Card className={`bg-dark ${styles.Post}`}>
         {is_owner && postPage && (
           <OverlayTrigger
             placement="top"
