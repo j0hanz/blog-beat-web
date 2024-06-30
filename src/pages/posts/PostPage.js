@@ -55,7 +55,12 @@ function PostPage() {
                 ) : null}
                 {comments.results.length ? (
                   comments.results.map((comment) => (
-                    <Comment key={comment.id} {...comment} />
+                    <Comment
+                      key={comment.id}
+                      {...comment}
+                      setPost={setPost}
+                      setComments={setComments}
+                    />
                   ))
                 ) : (
                   <div className="d-flex justify-content-center mt-3">
