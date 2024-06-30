@@ -1,0 +1,22 @@
+.CommentCard {
+  width: 800px;
+  max-width: 100%;
+  margin: auto;
+  background-color: #1e1e1e;
+  border: none;
+}
+
+.Button {
+  width: 100px;
+  border: none;
+  background-color: #007bff;
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 8px 16px;
+  transition: background-color 0.3s;
+}
+
+.Button:hover {
+  cursor: pointer;
+  background-color: #0056b3;
+}
