@@ -84,12 +84,11 @@ const Post = (props) => {
               to={`/profiles/${profile_id}`}
               className="d-flex align-items-center"
             >
-              <Icon src={profile_image} height={55} />
+              <Icon src={profile_image} height={35} />
               <span>{owner}</span>
             </Link>
-            {title && <Card.Title className="text-center">{title}</Card.Title>}
             <div className="d-flex align-items-center">
-              <span>{updated_at}</span>
+              <span className='text-white-50 '>{updated_at}</span>
             </div>
           </div>
           <hr />
@@ -97,6 +96,7 @@ const Post = (props) => {
         <Link to={`/posts/${id}`}>
           <Card.Img className={styles.CardImg} src={image} alt={title} />
         </Link>
+        {title && <Card.Title className="text-center my-3">{title}</Card.Title>}
         <Card.Body>
           {content && <Card.Text>{content}</Card.Text>}
           <hr />
