@@ -1,11 +1,8 @@
 .Post {
-  background-color: transparent;
-  border: 1px solid #8b8787;
-  border-radius: 2px;
+  border-radius: 10px;
   margin-bottom: 16px;
   color: #ffffff;
   max-width: 800px;
-  position: relative;
   text-align: center;
 }
 
