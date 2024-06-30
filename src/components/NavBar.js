@@ -129,10 +129,14 @@ const NavBar = () => {
   );
 
   return (
-    <Navbar className="navbar-dark bg-dark">
+    <Navbar className="navbar-dark bg-dark fixed-top py-1">
       <Container fluid>
-        <Nav.Link href="/">
-          <img src={logo} alt="Logo" className={styles.logoNav} />
+        <Nav.Link href="/" className="position-relative">
+          <img
+            src={logo}
+            alt="Logo"
+            className={`position-absolute translate-middle-y ${styles.logoNav}`}
+          />
         </Nav.Link>
         <Nav className="mx-auto">
           <NavLink to="/" className={styles.navLinkEffect}>
