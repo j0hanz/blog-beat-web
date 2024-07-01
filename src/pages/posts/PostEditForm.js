@@ -167,13 +167,14 @@ function PostEditForm() {
           </Alert>
         ))}
       </Form.Group>
-
-      <Button variant="secondary" onClick={() => navigate(-1)}>
-        Cancel
-      </Button>
-      <Button variant="primary" type="submit">
-        Save
-      </Button>
+      <div className="float-end">
+        <Button variant="outline-light mx-3" onClick={() => navigate(-1)}>
+          Cancel
+        </Button>
+        <Button variant="outline-primary" type="submit">
+          Save
+        </Button>
+      </div>
     </div>
   );
 
