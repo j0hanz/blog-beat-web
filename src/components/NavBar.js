@@ -71,7 +71,7 @@ const NavBar = () => {
       <hr />
       <NavLink
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to={`/profiles/${currentUser?.pk}/`}
+        to={`/profiles/${currentUser?.pk}/edit`}
         onClick={toggleOffcanvas}
       >
         <FontAwesomeIcon className="fa-xl" icon={faUserEdit} />
