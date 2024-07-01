@@ -12,26 +12,29 @@ import {
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Post from '../posts/Post';
 import { fetchMoreData } from '../../utils/utils';
+import NoResults from '../../assets/no-results.png';
+import { ProfileEditDropdown } from '../../components/MoreDropdown';
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [profilePosts, setProfilePosts] = useState({ results: [] });
   const currentUser = useCurrentUser();
   const { id } = useParams();
-  const setProfileData = useSetProfileData();
+  const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();
   const { pageProfile } = useProfileData();
   const [profile] = pageProfile.results;
-  const is_owner = currentUser?.username === profile?.owner;
-
-  const [profilePosts, setProfilePosts] = useState({ results: [] });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log(`Fetching profile data for ID: ${id}`);
         const [{ data: pageProfile }, { data: profilePosts }] =
           await Promise.all([
             axiosReq.get(`/profiles/${id}/`),
             axiosReq.get(`/posts/?owner__profile=${id}`),
           ]);
+        console.log('Fetched profile data:', pageProfile);
+        console.log('Fetched profile posts:', profilePosts);
         setProfileData((prevState) => ({
           ...prevState,
           pageProfile: { results: [pageProfile] },
@@ -39,56 +42,15 @@ function ProfilePage() {
         setProfilePosts(profilePosts);
         setHasLoaded(true);
       } catch (err) {
-        console.log(err);
+        console.log('Error fetching data:', err);
       }
     };
     fetchData();
   }, [id, setProfileData]);
 
-  const handleFollow = async () => {
-    try {
-      const { data } = await axiosReq.post('/followers/', {
-        followed: profile.id,
-      });
-      setProfileData((prevState) => ({
-        ...prevState,
-        pageProfile: {
-          results: [
-            {
-              ...profile,
-              followers_count: profile.followers_count + 1,
-              following_id: data.id,
-            },
-          ],
-        },
-      }));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleUnfollow = async () => {
-    try {
-      await axiosReq.delete(`/followers/${profile.following_id}/`);
-      setProfileData((prevState) => ({
-        ...prevState,
-        pageProfile: {
-          results: [
-            {
-              ...profile,
-              followers_count: profile.followers_count - 1,
-              following_id: null,
-            },
-          ],
-        },
-      }));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const mainProfile = (
     <>
+      {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
       <Row className="px-3 mx-auto text-center justify-content-center">
         <Col lg={3} className="d-flex justify-content-center">
           <Image
@@ -119,18 +81,18 @@ function ProfilePage() {
           className="d-flex justify-content-center align-items-center"
         >
           {currentUser &&
-            !is_owner &&
+            !profile?.is_owner &&
             (profile?.following_id ? (
               <Button
                 className={`${styles.Button} ${styles.BlackOutline}`}
-                onClick={handleUnfollow}
+                onClick={() => handleUnfollow(profile)}
               >
                 unfollow
               </Button>
             ) : (
               <Button
                 className={`${styles.Button} ${styles.Black}`}
-                onClick={handleFollow}
+                onClick={() => handleFollow(profile)}
               >
                 follow
               </Button>
@@ -144,22 +106,24 @@ function ProfilePage() {
   const mainProfilePosts = (
     <>
       <hr />
-      <p className="text-center">Profile owner's posts</p>
+      <p className="text-center">{profile?.owner}'s posts</p>
       <hr />
       <div className="d-flex justify-content-center">
         {profilePosts.results.length ? (
           <InfiniteScroll
-            dataLength={profilePosts.results.length}
-            next={() => fetchMoreData(profilePosts, setProfilePosts)}
-            hasMore={!!profilePosts.next}
-            loader={<Asset spinner />}
-          >
-            {profilePosts.results.map((post) => (
+            children={profilePosts.results.map((post) => (
               <Post key={post.id} {...post} setPosts={setProfilePosts} />
             ))}
-          </InfiniteScroll>
+            dataLength={profilePosts.results.length}
+            loader={<Asset spinner />}
+            hasMore={!!profilePosts.next}
+            next={() => fetchMoreData(profilePosts, setProfilePosts)}
+          />
         ) : (
-          <Asset spinner />
+          <Asset
+            src={NoResults}
+            message={`No results found, ${profile?.owner} hasn't posted yet.`}
+          />
         )}
       </div>
     </>
