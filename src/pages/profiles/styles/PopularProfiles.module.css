@@ -1,0 +1,13 @@
+.PopularProfilesBorder {
+  border-radius: 25px;
+  margin: 0 auto;
+  max-width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Header {
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
