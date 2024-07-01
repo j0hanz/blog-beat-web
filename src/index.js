@@ -5,12 +5,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ProfileDataProvider } from './contexts/ProfileDataContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
     <CurrentUserProvider>
-      <App />
+      <ProfileDataProvider>
+        <App />
+      </ProfileDataProvider>
     </CurrentUserProvider>
   </Router>,
 );
