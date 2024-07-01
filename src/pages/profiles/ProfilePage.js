@@ -3,7 +3,6 @@ import { Container, Row, Col, Button, Image } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import Asset from '../../components/Asset';
 import styles from './styles/ProfilePage.module.css';
-
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { axiosReq } from '../../api/axiosDefaults';
 import {
