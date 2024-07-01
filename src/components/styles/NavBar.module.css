@@ -9,6 +9,10 @@
   transform: scale(1.15);
 }
 
+.logoOffcanvas {
+  width: 175px;
+}
+
 .logoNav {
   width: 125px;
   overflow: hidden;
