@@ -71,7 +71,7 @@ const NavBar = () => {
       <hr />
       <NavLink
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to={`/profiles/${currentUser?.pk}/edit`}
+        to={`/profiles/${currentUser?.pk}`}
         onClick={toggleOffcanvas}
       >
         <FontAwesomeIcon className="fa-xl" icon={faUserEdit} />
@@ -80,7 +80,7 @@ const NavBar = () => {
       </NavLink>
       <NavLink
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to={`/profiles/${currentUser?.profile_id}/edit/password`}
+        to={`/profiles/${currentUser?.pk}/edit/password`}
         onClick={toggleOffcanvas}
       >
         <FontAwesomeIcon className={`fa-xl ${styles.faKey}`} icon={faKey} />
