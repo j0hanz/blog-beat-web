@@ -7,6 +7,7 @@ import {
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles/MoreDropdown.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const ThreeDots = React.forwardRef(({ onClick }, ref) => (
   <FontAwesomeIcon
@@ -41,6 +42,47 @@ export const MoreDropdown = ({ handleEdit, handleDelete }) => {
             className={`fa-lg ${styles.faTrashAlt}`}
             icon={faTrashAlt}
           />
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
+
+export const ProfileEditDropdown = ({ id }) => {
+  const navigate = useNavigate();
+
+  console.log(`ProfileEditDropdown ID: ${id}`);
+
+  return (
+    <Dropdown className={`ml-auto px-3 ${styles.Absolute}`} drop="left">
+      <Dropdown.Toggle as={ThreeDots} />
+      <Dropdown.Menu>
+        <Dropdown.Item
+          onClick={() => {
+            console.log(`Navigating to /profiles/${id}/edit`);
+            navigate(`/profiles/${id}/edit`);
+          }}
+          aria-label="edit-profile"
+        >
+          <i className="fas fa-edit" /> edit profile
+        </Dropdown.Item>
+        <Dropdown.Item
+          onClick={() => {
+            console.log(`Navigating to /profiles/${id}/edit/username`);
+            navigate(`/profiles/${id}/edit/username`);
+          }}
+          aria-label="edit-username"
+        >
+          <i className="far fa-id-card" /> change username
+        </Dropdown.Item>
+        <Dropdown.Item
+          onClick={() => {
+            console.log(`Navigating to /profiles/${id}/edit/password`);
+            navigate(`/profiles/${id}/edit/password`);
+          }}
+          aria-label="edit-password"
+        >
+          <i className="fas fa-key" /> change password
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
