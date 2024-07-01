@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
+import { Modal, Form, Button } from 'react-bootstrap';
 import { axiosRes } from '../../api/axiosDefaults';
 import styles from './styles/CommentCreateEditForm.module.css';
 
 function CommentEditForm(props) {
-  const { id, content, setShowEditForm, setComments } = props;
+  const { id, content, show, handleClose, setComments } = props;
   const [formContent, setFormContent] = useState(content);
 
   const handleChange = (event) => {
@@ -29,40 +29,47 @@ function CommentEditForm(props) {
             : comment;
         }),
       }));
-      setShowEditForm(false);
+      handleClose();
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group>
-        <Form.Control
-          className={styles.Form}
-          as="textarea"
-          value={formContent}
-          onChange={handleChange}
-          rows={2}
-        />
-      </Form.Group>
-      <div className="float-end mt-1">
-        <button
-          className="btn btn-outline-light mx-3"
-          onClick={() => setShowEditForm(false)}
-          type="button"
-        >
-          Cancel
-        </button>
-        <button
-          className="btn btn-outline-primary"
-          disabled={!formContent.trim()}
-          type="submit"
-        >
-          Save
-        </button>
-      </div>
-    </Form>
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header closeButton className="bg-dark text-white" closeVariant="white">
+        <Modal.Title>Edit Comment</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="bg-dark text-white">
+        <Form onSubmit={handleSubmit}>
+          <Form.Group>
+            <Form.Control
+              className={styles.Form}
+              as="textarea"
+              value={formContent}
+              onChange={handleChange}
+              rows={2}
+            />
+          </Form.Group>
+          <div className="float-end mt-1">
+            <Button
+              variant="outline-light"
+              onClick={handleClose}
+              className="mx-3"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="outline-primary"
+              disabled={!formContent.trim()}
+              type="submit"
+            >
+              Save
+            </Button>
+          </div>
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
 }
 
