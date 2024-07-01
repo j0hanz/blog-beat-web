@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Button, Card, InputGroup } from 'react-bootstrap';
 import styles from './styles/CommentCreateEditForm.module.css';
 import { axiosRes } from '../../api/axiosDefaults';
+import Icon from '../../components/Icon';
 
 function CommentCreateForm(props) {
-  const { post, setPost, setComments } = props;
+  const { post, setPost, setComments, profileImage, profile_id } = props;
   const [content, setContent] = useState('');
 
   const handleChange = (event) => {
@@ -42,6 +44,9 @@ function CommentCreateForm(props) {
         <Form onSubmit={handleSubmit}>
           <Form.Group>
             <InputGroup>
+              <Link to={`/profiles/${profile_id}`}>
+                <Icon src={profileImage} />
+              </Link>
               <Form.Control
                 placeholder="Write a comment..."
                 as="textarea"

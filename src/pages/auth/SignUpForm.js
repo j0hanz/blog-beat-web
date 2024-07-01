@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, InputGroup, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faKey, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Form, Button, InputGroup, Alert, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styles from './styles/Signup.module.css';
+import { useRedirect } from '../../hooks/useRedirect';
 
-const SignUpForm = () => {
+function SignUpForm() {
+  useRedirect('loggedIn');
   const [signUpData, setSignUpData] = useState({
     username: '',
     password1: '',
@@ -33,6 +35,7 @@ const SignUpForm = () => {
       toast.success('Account created successfully!');
       navigate('/signin');
     } catch (err) {
+      console.log(err);
       setErrors(err.response?.data);
       toast.error('Sign up failed!');
     }
@@ -132,19 +135,19 @@ const SignUpForm = () => {
           <p className="mt-4">
             Already have an account?{' '}
             <span className="mt-2">
-              <Link
-                to="/signin"
+              <Button
+                variant="link"
                 onClick={handleClose}
                 className="btn btn-outline-light"
               >
                 Login here!
-              </Link>
+              </Button>
             </span>
           </p>
         </Form>
       </Modal.Body>
     </Modal>
   );
-};
+}
 
 export default SignUpForm;

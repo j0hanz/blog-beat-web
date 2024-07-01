@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, InputGroup, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Form, Button, InputGroup, Alert, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styles from './styles/Login.module.css';
 import { useSetCurrentUser } from '../../contexts/CurrentUserContext';
+import { useRedirect } from '../../hooks/useRedirect';
 
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
+  useRedirect('loggedIn');
 
   const [signInData, setSignInData] = useState({
     username: '',
@@ -21,25 +23,25 @@ function SignInForm() {
 
   const navigate = useNavigate();
 
+  const handleChange = (event) => {
+    setSignInData({
+      ...signInData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
       const { data } = await axios.post('/dj-rest-auth/login/', signInData);
       setCurrentUser(data.user);
       toast.success('Logged in successfully!');
       navigate('/');
     } catch (err) {
+      console.log(err);
       setErrors(err.response?.data);
       toast.error('Login failed!');
     }
-  };
-
-  const handleChange = (event) => {
-    setSignInData({
-      ...signInData,
-      [event.target.name]: event.target.value,
-    });
   };
 
   const handleClose = () => {
@@ -116,13 +118,13 @@ function SignInForm() {
           <p className="mt-4">
             Don't have an account?{' '}
             <span className="mt-2">
-              <Link
-                to="/signup"
+              <Button
+                variant="link"
                 onClick={handleClose}
                 className="btn btn-outline-light"
               >
                 Sign up now!
-              </Link>
+              </Button>
             </span>
           </p>
         </Form>
