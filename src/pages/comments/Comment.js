@@ -46,49 +46,50 @@ const Comment = (props) => {
   };
 
   return (
-    <Card className={`bg-dark my-4 ${styles.CommentCard}`}>
-      <Card.Body className="p-2">
-        <Row className="align-items-center">
-          <Col xs="auto" className="text-center m-auto">
-            <Link to={`/profiles/${profile_id}`}>
-              <Icon
-                src={profile_image}
-                height={45}
-                className="rounded-circle"
-              />
-            </Link>
-          </Col>
-          <Col>
-            <div className="d-flex justify-content-between align-items-center">
-              <div>
-                <span className={styles.Owner}>{owner}</span>
-                <span className={`text-white-50 ${styles.Date}`}>
-                  {updated_at}
-                </span>
-              </div>
-              {is_owner && !showEditForm && (
-                <MoreDropdown
-                  handleEdit={() => setShowEditForm(true)}
-                  handleDelete={handleDelete}
+    <>
+      <Card className={`bg-dark my-4 ${styles.CommentCard}`}>
+        <Card.Body className="p-2">
+          <Row className="align-items-center">
+            <Col xs="auto" className="text-center m-auto">
+              <Link to={`/profiles/${profile_id}`}>
+                <Icon
+                  src={profile_image}
+                  height={45}
+                  className="rounded-circle"
                 />
+              </Link>
+            </Col>
+            <Col>
+              <div className="d-flex justify-content-between align-items-center">
+                <div>
+                  <span className={styles.Owner}>{owner}</span>
+                  <span className={`text-white-50 ${styles.Date}`}>
+                    {updated_at}
+                  </span>
+                </div>
+                {is_owner && !showEditForm && (
+                  <MoreDropdown
+                    handleEdit={() => setShowEditForm(true)}
+                    handleDelete={handleDelete}
+                  />
+                )}
+              </div>
+              {showEditForm ? (
+                <CommentEditForm
+                  id={id}
+                  content={content}
+                  setComments={setComments}
+                  show={showEditForm}
+                  handleClose={() => setShowEditForm(false)}
+                />
+              ) : (
+                <p className="text-white fw-light">{content}</p>
               )}
-            </div>
-            {showEditForm ? (
-              <CommentEditForm
-                id={id}
-                profile_id={profile_id}
-                content={content}
-                profileImage={profile_image}
-                setComments={setComments}
-                setShowEditForm={setShowEditForm}
-              />
-            ) : (
-              <p className="text-white fw-light">{content}</p>
-            )}
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+    </>
   );
 };
 
