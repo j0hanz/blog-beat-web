@@ -6,6 +6,9 @@ import Post from './Post';
 import CommentCreateForm from '../comments/CommentCreateForm';
 import Comment from '../comments/Comment';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Asset from '../../components/Asset';
+import { fetchMoreData } from '../../utils/utils';
 
 function PostPage() {
   const { id } = useParams();
@@ -42,7 +45,7 @@ function PostPage() {
             <>
               <Post {...post.results[0]} setPosts={setPost} postPage />
               <Container className="mt-4">
-                {currentUser ? (
+                {currentUser && (
                   <CommentCreateForm
                     profile_id={currentUser.profile_id}
                     profileImage={profile_image}
@@ -50,18 +53,23 @@ function PostPage() {
                     setPost={setPost}
                     setComments={setComments}
                   />
-                ) : comments.results.length ? (
-                  'Comments'
-                ) : null}
+                )}
                 {comments.results.length ? (
-                  comments.results.map((comment) => (
-                    <Comment
-                      key={comment.id}
-                      {...comment}
-                      setPost={setPost}
-                      setComments={setComments}
-                    />
-                  ))
+                  <InfiniteScroll
+                    dataLength={comments.results.length}
+                    loader={<Asset spinner />}
+                    hasMore={!!comments.next}
+                    next={() => fetchMoreData(comments, setComments)}
+                  >
+                    {comments.results.map((comment) => (
+                      <Comment
+                        key={comment.id}
+                        {...comment}
+                        setPost={setPost}
+                        setComments={setComments}
+                      />
+                    ))}
+                  </InfiniteScroll>
                 ) : (
                   <div className="d-flex justify-content-center mt-3">
                     {currentUser ? (
