@@ -18,18 +18,20 @@ const PopularProfiles = () => {
     <Container>
       {filteredProfiles.length ? (
         <>
-          <div className={`text-center py-3 ${styles.Header}`}>
+          <div className={styles.ProfilesSection}>
             <hr />
-            <h3>Most Followed Profiles</h3>
+            <div className={`text-center py-3 ${styles.Header}`}>
+              <h3>Most Followed Profiles</h3>
+            </div>
+            <div
+              className={`d-flex flex-wrap justify-content-around bg-dark py-4 ${styles.PopularProfilesBorder}`}
+            >
+              {filteredProfiles.map((profile) => (
+                <Profile key={profile.id} profile={profile} />
+              ))}
+            </div>
+            <hr />
           </div>
-          <div
-            className={`d-flex flex-wrap justify-content-around bg-dark py-4 ${styles.PopularProfilesBorder}`}
-          >
-            {filteredProfiles.map((profile) => (
-              <Profile key={profile.id} profile={profile} />
-            ))}
-          </div>
-          <hr />
         </>
       ) : (
         <div className="d-flex justify-content-center">
