@@ -10,6 +10,7 @@ import { axiosReq } from '../../api/axiosDefaults';
 import NoResults from '../../assets/no-results.png';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { fetchMoreData } from '../../utils/utils';
+import PopularProfiles from '../profiles/PopularProfiles';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 
 function PostsPage({ message, filter = '' }) {
@@ -27,7 +28,7 @@ function PostsPage({ message, filter = '' }) {
         setPosts(data);
         setHasLoaded(true);
       } catch (err) {
-        // console.log(err);
+        console.log(err);
       }
     };
 
@@ -44,7 +45,7 @@ function PostsPage({ message, filter = '' }) {
   return (
     <Row className="h-100 justify-content-center mx-auto">
       <Col lg={8}>
-        <div className={styles.SearchContainer}>
+        <div className={`mb-1 ${styles.SearchContainer}`}>
           <Form
             className={styles.SearchBar}
             onSubmit={(event) => event.preventDefault()}
@@ -61,20 +62,22 @@ function PostsPage({ message, filter = '' }) {
             />
           </Form>
         </div>
+        <PopularProfiles />
         {hasLoaded ? (
           <>
             {posts.results.length ? (
               <InfiniteScroll
-                children={posts.results.map((post) => (
+                dataLength={posts.results.length}
+                next={() => fetchMoreData(posts, setPosts)}
+                hasMore={!!posts.next}
+                loader={<Asset spinner />}
+              >
+                {posts.results.map((post) => (
                   <div className="d-flex justify-content-center" key={post.id}>
                     <Post {...post} setPosts={setPosts} />
                   </div>
                 ))}
-                dataLength={posts.results.length}
-                loader={<Asset spinner />}
-                hasMore={!!posts.next}
-                next={() => fetchMoreData(posts, setPosts)}
-              />
+              </InfiniteScroll>
             ) : (
               <Container className={styles.Content}>
                 <Asset src={NoResults} message={message} />
