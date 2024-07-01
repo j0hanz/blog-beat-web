@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Icon from '../../components/Icon';
 import { MoreDropdown } from '../../components/MoreDropdown';
+import CommentEditForm from './CommentEditForm';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { axiosRes } from '../../api/axiosDefaults';
 import styles from './styles/Comment.module.css';
@@ -19,6 +20,7 @@ const Comment = (props) => {
     setComments,
   } = props;
 
+  const [showEditForm, setShowEditForm] = useState(false);
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
 
@@ -47,7 +49,7 @@ const Comment = (props) => {
     <Card className={`bg-dark my-4 ${styles.CommentCard}`}>
       <Card.Body className="p-2">
         <Row className="align-items-center">
-          <Col xs="auto" className="text-center">
+          <Col xs="auto" className="text-center m-auto">
             <Link to={`/profiles/${profile_id}`}>
               <Icon
                 src={profile_image}
@@ -64,14 +66,25 @@ const Comment = (props) => {
                   {updated_at}
                 </span>
               </div>
-              {is_owner && (
+              {is_owner && !showEditForm && (
                 <MoreDropdown
-                  handleEdit={() => {}}
+                  handleEdit={() => setShowEditForm(true)}
                   handleDelete={handleDelete}
                 />
               )}
             </div>
-            <div className={styles.Content}>{content}</div>
+            {showEditForm ? (
+              <CommentEditForm
+                id={id}
+                profile_id={profile_id}
+                content={content}
+                profileImage={profile_image}
+                setComments={setComments}
+                setShowEditForm={setShowEditForm}
+              />
+            ) : (
+              <p className="text-white fw-light">{content}</p>
+            )}
           </Col>
         </Row>
       </Card.Body>
