@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Offcanvas, Container, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,10 +14,10 @@ import {
   faKey,
   faBarsStaggered,
   faThumbsUp,
+  faPersonWalkingArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import logo from '../assets/logo.webp';
-import nobody from '../assets/nobody.webp';
 import styles from './styles/NavBar.module.css';
 import TooltipWrapper from './TooltipWrapper';
 import Icon from './Icon';
@@ -32,6 +32,18 @@ const NavBar = () => {
   const setCurrentUser = useSetCurrentUser();
   const [show, setShow] = useState(false);
   const toggleOffcanvas = () => setShow(!show);
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const { data } = await axios.get('/dj-rest-auth/user/');
+        setCurrentUser(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchCurrentUser();
+  }, [setCurrentUser]);
 
   const handleSignOut = async () => {
     try {
@@ -71,7 +83,7 @@ const NavBar = () => {
       <hr />
       <NavLink
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to={`/profiles/${currentUser?.pk}`}
+        to={`/profiles/${currentUser?.pk}/edit`}
         onClick={toggleOffcanvas}
       >
         <FontAwesomeIcon className="fa-xl" icon={faUserEdit} />
@@ -163,10 +175,14 @@ const NavBar = () => {
         </Nav>
         <Button variant="outline-dark p-1" onClick={toggleOffcanvas}>
           <TooltipWrapper message="Profile">
-            <Icon
-              src={currentUser ? currentUser.profile_image || nobody : nobody}
-              height={35}
-            />
+            {currentUser ? (
+              <Icon src={currentUser.profile_image} height={35} />
+            ) : (
+              <FontAwesomeIcon
+                className={`fa-xl ${styles.navLinkEffect}`}
+                icon={faPersonWalkingArrowRight}
+              />
+            )}
           </TooltipWrapper>
         </Button>
         <Offcanvas
@@ -176,20 +192,38 @@ const NavBar = () => {
           className={`bg-dark text-white ${styles.offcanvasWidth}`}
         >
           <Offcanvas.Header>
-            <Icon
-              src={currentUser ? currentUser.profile_image || nobody : nobody}
-              height={55}
-            />
-            <Offcanvas.Title className="mx-auto">
-              {currentUser ? currentUser.username : 'User'}
-            </Offcanvas.Title>
-            <Button
-              variant="link"
-              className="text-white btn-outline-secondary btn-sm ms-auto"
-              onClick={toggleOffcanvas}
-            >
-              <FontAwesomeIcon className="fa-lg" icon={faTimes} />
-            </Button>
+            {currentUser ? (
+              <Icon src={currentUser.profile_image} height={55} />
+            ) : (
+              <div className="text-center w-100">
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className={`${styles.logoOffcanvas}`}
+                />
+                <Button
+                  variant="link"
+                  className="text-white btn-outline-secondary btn-sm float-end"
+                  onClick={toggleOffcanvas}
+                >
+                  <FontAwesomeIcon className="fa-lg" icon={faTimes} />
+                </Button>
+              </div>
+            )}
+            {currentUser && (
+              <>
+                <Offcanvas.Title className="mx-auto">
+                  {currentUser.username}
+                </Offcanvas.Title>
+                <Button
+                  variant="link"
+                  className="text-white btn-outline-secondary btn-sm ms-auto"
+                  onClick={toggleOffcanvas}
+                >
+                  <FontAwesomeIcon className="fa-lg" icon={faTimes} />
+                </Button>
+              </>
+            )}
           </Offcanvas.Header>
           <hr />
           <Offcanvas.Body className={styles.offcanvasBody}>
