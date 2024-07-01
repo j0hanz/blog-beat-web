@@ -1,7 +1,5 @@
 .PopularProfilesBorder {
   border-radius: 25px;
-  margin: 0 auto;
-  max-width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -10,4 +8,9 @@
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
+}
+
+.ProfilesSection {
+  max-width: 800px;
+  margin: 0 auto;
 }
