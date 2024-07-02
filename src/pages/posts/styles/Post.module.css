@@ -2,8 +2,11 @@
   border-radius: 10px;
   margin-bottom: 16px;
   color: #ffffff;
+  width: 100%;
   max-width: 800px;
   text-align: center;
+  background-color: #242424;
+  margin: 0 auto;
 }
 
 .faThumbsUp,
