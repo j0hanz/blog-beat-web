@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button, Card, InputGroup } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles/CommentCreateEditForm.module.css';
 import { axiosRes } from '../../api/axiosDefaults';
 import Icon from '../../components/Icon';
 
 function CommentCreateForm(props) {
-  const { post, setPost, setComments, profileImage, profile_id } = props;
+  const { post, setPost, setComments } = props;
   const [content, setContent] = useState('');
 
   const handleChange = (event) => {
@@ -44,22 +46,22 @@ function CommentCreateForm(props) {
         <Form onSubmit={handleSubmit}>
           <Form.Group>
             <InputGroup>
-              <Link to={`/profiles/${profile_id}`}>
-                <Icon src={profileImage} />
-              </Link>
+              <InputGroup.Text>
+                <FontAwesomeIcon icon={faComment} />
+              </InputGroup.Text>
               <Form.Control
                 placeholder="Write a comment..."
                 as="textarea"
                 value={content}
                 onChange={handleChange}
                 rows={2}
-                className="bg-dark text-white"
+                className={`bg-dark ${styles.Form}`}
               />
             </InputGroup>
           </Form.Group>
           <div className="d-flex justify-content-end mt-2">
             <Button
-              className={styles.Button}
+              variant="outline-primary text-white"
               disabled={!content.trim()}
               type="submit"
             >
