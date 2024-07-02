@@ -77,6 +77,7 @@ const Comment = (props) => {
               {showEditForm ? (
                 <CommentEditForm
                   id={id}
+                  profile_id={profile_id}
                   content={content}
                   setComments={setComments}
                   show={showEditForm}
