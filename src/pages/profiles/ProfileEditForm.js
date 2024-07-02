@@ -301,7 +301,7 @@ const ProfileEditForm = () => {
       >
         Cancel
       </Button>
-      <Button variant="outline-primary" type="submit" className="mx-3 btn-lg">
+      <Button variant="outline-primary text-white" type="submit" className="mx-3 btn-lg">
         Save
       </Button>
     </>
