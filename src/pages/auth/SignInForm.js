@@ -33,7 +33,7 @@ function SignInForm() {
       const { data } = await axios.post('/dj-rest-auth/login/', signInData);
       setCurrentUser(data.user);
       toast.success('Logged in successfully!');
-      navigate('/');
+      navigate(-1);
     } catch (err) {
       setErrors(err.response?.data);
       toast.error('Login failed!');
