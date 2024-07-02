@@ -10,9 +10,9 @@ const PopularProfiles = () => {
   const { popularProfiles } = useProfileData();
   const currentUser = useCurrentUser();
 
-  const filteredProfiles = popularProfiles.results.filter(
-    (profile) => profile.owner !== currentUser?.username,
-  );
+  const filteredProfiles = popularProfiles.results
+    .filter((profile) => profile.owner !== currentUser?.username)
+    .slice(0, 4);
 
   return (
     <Container>
