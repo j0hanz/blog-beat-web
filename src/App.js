@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import './api/axiosDefaults';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import './api/axiosDefaults';
 import styles from './App.module.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -32,14 +32,12 @@ function App() {
       <main className={styles.main}>
         <Routes>
           <Route
-            exact
             path="/"
             element={
               <PostsPage message="No results found. Adjust the search keyword." />
             }
           />
           <Route
-            exact
             path="/feed"
             element={
               <PostsPage
@@ -49,7 +47,6 @@ function App() {
             }
           />
           <Route
-            exact
             path="/liked"
             element={
               <PostsPage
@@ -58,41 +55,40 @@ function App() {
               />
             }
           />
-          <Route exact path="/about" element={<About />} />
+          <Route path="/about" element={<About />} />
           <Route
-            exact
             path="/posts/create"
-            element={currentUser ? <PostCreateForm /> : <Navigate to="/" />}
+            element={
+              currentUser ? <PostCreateForm /> : <Navigate to="/signin" />
+            }
           />
-          <Route exact path="/posts/:id" element={<PostPage />} />
+          <Route path="/posts/:id" element={<PostPage />} />
           <Route
-            exact
             path="/posts/:id/edit"
-            element={currentUser ? <PostEditForm /> : <Navigate to="/" />}
+            element={currentUser ? <PostEditForm /> : <Navigate to="/signin" />}
           />
-          <Route exact path="/profiles/:id" element={<ProfilePage />} />
+          <Route path="/profiles/:id" element={<ProfilePage />} />
           <Route
-            exact
             path="/profiles/:id/edit/username"
-            element={<UsernameForm />}
+            element={currentUser ? <UsernameForm /> : <Navigate to="/signin" />}
           />
           <Route
-            exact
             path="/profiles/:id/edit/password"
-            element={<UserPasswordForm />}
+            element={
+              currentUser ? <UserPasswordForm /> : <Navigate to="/signin" />
+            }
           />
           <Route
-            exact
             path="/profiles/:id/edit"
-            element={<ProfileEditForm />}
+            element={
+              currentUser ? <ProfileEditForm /> : <Navigate to="/signin" />
+            }
           />
           <Route
-            exact
             path="/signin"
             element={!currentUser ? <SignInForm /> : <Navigate to="/" />}
           />
           <Route
-            exact
             path="/signup"
             element={!currentUser ? <SignUpForm /> : <Navigate to="/" />}
           />
