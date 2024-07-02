@@ -171,7 +171,7 @@ function PostEditForm() {
         <Button variant="outline-light mx-3" onClick={() => navigate(-1)}>
           Cancel
         </Button>
-        <Button variant="outline-primary" type="submit">
+        <Button variant="outline-primary text-white" type="submit">
           Save
         </Button>
       </div>
