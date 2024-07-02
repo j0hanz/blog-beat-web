@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form, Button, InputGroup } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { axiosRes } from '../../api/axiosDefaults';
 import styles from './styles/CommentCreateEditForm.module.css';
 
@@ -47,13 +49,18 @@ function CommentEditForm(props) {
       <Modal.Body className="bg-dark text-white">
         <Form onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Control
-              className={styles.Form}
-              as="textarea"
-              value={formContent}
-              onChange={handleChange}
-              rows={2}
-            />
+            <InputGroup>
+              <InputGroup.Text>
+                <FontAwesomeIcon icon={faComment} />
+              </InputGroup.Text>
+              <Form.Control
+                className={`bg-dark text-white ${styles.Form}`}
+                as="textarea"
+                value={formContent}
+                onChange={handleChange}
+                rows={2}
+              />
+            </InputGroup>
           </Form.Group>
           <div className="float-end mt-1">
             <Button
