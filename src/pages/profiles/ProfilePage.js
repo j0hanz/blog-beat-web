@@ -18,23 +18,24 @@ import { ProfileEditDropdown } from '../../components/MoreDropdown';
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profilePosts, setProfilePosts] = useState({ results: [] });
+
   const currentUser = useCurrentUser();
   const { id } = useParams();
+
   const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();
   const { pageProfile } = useProfileData();
+
   const [profile] = pageProfile.results;
+  const is_owner = currentUser?.username === profile?.owner;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(`Fetching profile data for ID: ${id}`);
         const [{ data: pageProfile }, { data: profilePosts }] =
           await Promise.all([
             axiosReq.get(`/profiles/${id}/`),
             axiosReq.get(`/posts/?owner__profile=${id}`),
           ]);
-        console.log('Fetched profile data:', pageProfile);
-        console.log('Fetched profile posts:', profilePosts);
         setProfileData((prevState) => ({
           ...prevState,
           pageProfile: { results: [pageProfile] },
@@ -42,7 +43,7 @@ function ProfilePage() {
         setProfilePosts(profilePosts);
         setHasLoaded(true);
       } catch (err) {
-        console.log('Error fetching data:', err);
+        console.log(err);
       }
     };
     fetchData();
@@ -50,7 +51,7 @@ function ProfilePage() {
 
   const mainProfile = (
     <>
-      {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
+      {is_owner && <ProfileEditDropdown id={profile?.id} />}
       <Row className="px-3 mx-auto text-center justify-content-center">
         <Col lg={3} className="d-flex justify-content-center">
           <Image
@@ -81,7 +82,7 @@ function ProfilePage() {
           className="d-flex justify-content-center align-items-center"
         >
           {currentUser &&
-            !profile?.is_owner &&
+            !is_owner &&
             (profile?.following_id ? (
               <Button
                 className={`${styles.Button} ${styles.BlackOutline}`}
