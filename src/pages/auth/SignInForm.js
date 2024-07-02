@@ -21,14 +21,11 @@ function SignInForm() {
 
   const [errors, setErrors] = useState({});
 
-  const navigate = useNavigate();
-
-  const handleChange = (event) => {
-    setSignInData({
-      ...signInData,
-      [event.target.name]: event.target.value,
-    });
+  const handleClose = () => {
+    navigate('/');
   };
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,14 +35,16 @@ function SignInForm() {
       toast.success('Logged in successfully!');
       navigate('/');
     } catch (err) {
-      console.log(err);
       setErrors(err.response?.data);
       toast.error('Login failed!');
     }
   };
 
-  const handleClose = () => {
-    navigate('/');
+  const handleChange = (event) => {
+    setSignInData({
+      ...signInData,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
