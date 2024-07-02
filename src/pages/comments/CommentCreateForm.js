@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Form, Button, Card, InputGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles/CommentCreateEditForm.module.css';
 import { axiosRes } from '../../api/axiosDefaults';
-import Icon from '../../components/Icon';
 
 function CommentCreateForm(props) {
   const { post, setPost, setComments } = props;
@@ -55,7 +53,7 @@ function CommentCreateForm(props) {
                 value={content}
                 onChange={handleChange}
                 rows={2}
-                className={`bg-dark ${styles.Form}`}
+                className={`bg-dark text-white ${styles.Form}`}
               />
             </InputGroup>
           </Form.Group>
