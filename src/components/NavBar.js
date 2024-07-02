@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, Offcanvas, Container, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -18,6 +18,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import logo from '../assets/logo.webp';
+import defaultProfileImage from '../assets/nobody.webp';
 import styles from './styles/NavBar.module.css';
 import TooltipWrapper from './TooltipWrapper';
 import Icon from './Icon';
@@ -32,18 +33,6 @@ const NavBar = () => {
   const setCurrentUser = useSetCurrentUser();
   const [show, setShow] = useState(false);
   const toggleOffcanvas = () => setShow(!show);
-
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const { data } = await axios.get('/dj-rest-auth/user/');
-        setCurrentUser(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchCurrentUser();
-  }, [setCurrentUser]);
 
   const handleSignOut = async () => {
     try {
@@ -176,7 +165,10 @@ const NavBar = () => {
         <Button variant="outline-dark p-1" onClick={toggleOffcanvas}>
           <TooltipWrapper message="Profile">
             {currentUser ? (
-              <Icon src={currentUser.profile_image} height={35} />
+              <Icon
+                src={currentUser.profile_image || defaultProfileImage}
+                height={35}
+              />
             ) : (
               <FontAwesomeIcon
                 className={`fa-xl ${styles.navLinkEffect}`}
@@ -193,7 +185,10 @@ const NavBar = () => {
         >
           <Offcanvas.Header>
             {currentUser ? (
-              <Icon src={currentUser.profile_image} height={55} />
+              <Icon
+                src={currentUser.profile_image || defaultProfileImage}
+                height={55}
+              />
             ) : (
               <div className="text-center w-100">
                 <img
