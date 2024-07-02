@@ -18,6 +18,7 @@ function SignUpForm() {
   const { username, password1, password2 } = signUpData;
 
   const [errors, setErrors] = useState({});
+  const [showModal, setShowModal] = useState(true);
 
   const navigate = useNavigate();
 
@@ -40,11 +41,17 @@ function SignUpForm() {
   };
 
   const handleClose = () => {
+    setShowModal(false);
     navigate('/');
   };
 
+  const handleLogin = () => {
+    setShowModal(false);
+    navigate('/signin');
+  };
+
   return (
-    <Modal show={true} onHide={handleClose} centered>
+    <Modal show={showModal} onHide={handleClose} centered>
       <Modal.Header className="d-flex justify-content-center p-3 bg-dark position-relative">
         <Modal.Title className="text-center">Sign Up</Modal.Title>
         <Button
@@ -130,18 +137,14 @@ function SignUpForm() {
               {message}
             </Alert>
           ))}
-          <p className="mt-4">
+          <div className="mt-4">
             Already have an account?{' '}
-            <span className="mt-2">
-              <Button
-                variant="link"
-                onClick={handleClose}
-                className="btn btn-outline-light"
-              >
+            <p className="mt-3">
+              <Button variant="outline-light" onClick={handleLogin}>
                 Login here!
               </Button>
-            </span>
-          </p>
+            </p>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>

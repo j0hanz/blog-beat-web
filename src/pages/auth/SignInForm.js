@@ -20,12 +20,19 @@ function SignInForm() {
   const { username, password } = signInData;
 
   const [errors, setErrors] = useState({});
+  const [showModal, setShowModal] = useState(true);
+
+  const navigate = useNavigate();
 
   const handleClose = () => {
+    setShowModal(false);
     navigate('/');
   };
 
-  const navigate = useNavigate();
+  const handleSignUp = () => {
+    setShowModal(false);
+    navigate('/signup');
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -48,7 +55,7 @@ function SignInForm() {
   };
 
   return (
-    <Modal show={true} onHide={handleClose} centered>
+    <Modal show={showModal} onHide={handleClose} centered>
       <Modal.Header className="d-flex justify-content-center p-3 bg-dark position-relative">
         <Modal.Title className="text-center">Login</Modal.Title>
         <Button
@@ -114,18 +121,14 @@ function SignInForm() {
               {message}
             </Alert>
           ))}
-          <p className="mt-4">
+          <div className="mt-4">
             Don't have an account?{' '}
-            <span className="mt-2">
-              <Button
-                variant="link"
-                onClick={handleClose}
-                className="btn btn-outline-light"
-              >
+            <p className="mt-3">
+              <Button variant="outline-light" onClick={handleSignUp}>
                 Sign up now!
               </Button>
-            </span>
-          </p>
+            </p>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>
