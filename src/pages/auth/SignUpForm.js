@@ -35,9 +35,7 @@ function SignUpForm() {
       toast.success('Account created successfully!');
       navigate('/signin');
     } catch (err) {
-      console.log(err);
       setErrors(err.response?.data);
-      toast.error('Sign up failed!');
     }
   };
 
