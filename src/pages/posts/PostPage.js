@@ -16,6 +16,7 @@ function PostPage() {
   const currentUser = useCurrentUser();
   const profile_image = currentUser?.profile_image;
   const [comments, setComments] = useState({ results: [] });
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -26,6 +27,7 @@ function PostPage() {
         ]);
         setPost({ results: [post] });
         setComments(comments);
+        setHasLoaded(true);
       } catch (err) {
         console.log(err);
       }
@@ -34,59 +36,47 @@ function PostPage() {
     fetchPost();
   }, [id]);
 
+  if (!hasLoaded) {
+    return <Asset spinner />;
+  }
+
   return (
-    <Container
-      fluid
-      className="d-flex flex-column justify-content-center align-items-center"
-    >
-      <Row className="h-100 w-100">
-        <Col className="py-2 p-0 p-lg-2 d-flex flex-column justify-content-center align-items-center">
-          {post.results.length > 0 ? (
-            <>
-              <Post {...post.results[0]} setPosts={setPost} postPage />
-              <Container className="mt-4">
-                {currentUser && (
-                  <CommentCreateForm
-                    profile_id={currentUser.profile_id}
-                    profileImage={profile_image}
-                    post={id}
-                    setPost={setPost}
-                    setComments={setComments}
-                  />
-                )}
-                {comments.results.length ? (
-                  <InfiniteScroll
-                    dataLength={comments.results.length}
-                    loader={<Asset spinner />}
-                    hasMore={!!comments.next}
-                    next={() => fetchMoreData(comments, setComments)}
-                  >
-                    {comments.results.map((comment) => (
-                      <Comment
-                        key={comment.id}
-                        {...comment}
-                        setPost={setPost}
-                        setComments={setComments}
-                      />
-                    ))}
-                  </InfiniteScroll>
-                ) : (
-                  <div className="d-flex justify-content-center mt-3">
-                    {currentUser ? (
-                      <span>No comments yet, be the first to comment!</span>
-                    ) : (
-                      <span>No comments... yet</span>
-                    )}
-                  </div>
-                )}
-              </Container>
-            </>
-          ) : (
-            <p>Loading...</p>
+    <Row className="h-100">
+      <Col className="d-flex flex-column justify-content-center mx-auto">
+        <Post {...post.results[0]} setPosts={setPost} postPage />
+        <Container className="mt-4 ">
+          {currentUser && (
+            <CommentCreateForm
+              profile_id={currentUser.profile_id}
+              profileImage={profile_image}
+              post={id}
+              setPost={setPost}
+              setComments={setComments}
+            />
           )}
-        </Col>
-      </Row>
-    </Container>
+          {comments.results.length ? (
+            <InfiniteScroll
+              children={comments.results.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  {...comment}
+                  setPost={setPost}
+                  setComments={setComments}
+                />
+              ))}
+              dataLength={comments.results.length}
+              loader={<Asset spinner />}
+              hasMore={!!comments.next}
+              next={() => fetchMoreData(comments, setComments)}
+            />
+          ) : (
+            <div className="d-flex justify-content-center mt-3">
+              <span>No comments yet, be the first to comment!</span>
+            </div>
+          )}
+        </Container>
+      </Col>
+    </Row>
   );
 }
 
