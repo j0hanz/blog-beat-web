@@ -37,7 +37,11 @@ function CommentEditForm(props) {
 
   return (
     <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header closeButton className="bg-dark text-white" closeVariant="white">
+      <Modal.Header
+        closeButton
+        className="bg-dark text-white"
+        closeVariant="white"
+      >
         <Modal.Title>Edit Comment</Modal.Title>
       </Modal.Header>
       <Modal.Body className="bg-dark text-white">
@@ -60,7 +64,7 @@ function CommentEditForm(props) {
               Cancel
             </Button>
             <Button
-              variant="outline-primary"
+              variant="outline-primary text-white"
               disabled={!formContent.trim()}
               type="submit"
             >
