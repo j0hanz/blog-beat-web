@@ -22,11 +22,11 @@ const UsernameForm = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
 
+  const handleClose = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
-    if (id === undefined) {
-      console.error('UsernameForm: ID is undefined!');
-      return;
-    }
     if (currentUser?.pk?.toString() === id) {
       setUsername(currentUser.username);
     } else {
@@ -46,12 +46,9 @@ const UsernameForm = () => {
       }));
       navigate(-1);
     } catch (err) {
+      console.log(err);
       setErrors(err.response?.data);
     }
-  };
-
-  const handleClose = () => {
-    navigate(-1);
   };
 
   return (
@@ -93,7 +90,7 @@ const UsernameForm = () => {
               Cancel
             </Button>
             <Button
-              variant="outline-primary"
+              variant="outline-primary text-white"
               type="submit"
               className="mx-3 btn-lg"
             >
