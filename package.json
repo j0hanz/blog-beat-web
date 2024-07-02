@@ -26,13 +26,6 @@
     "svgo": "^3.3.2",
     "web-vitals": "^4.2.1"
   },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/plugin-transform-runtime": "^7.24.7",
-    "@babel/preset-env": "^7.24.7",
-    "@babel/preset-react": "^7.24.7",
-    "msw": "^2.3.1"
-  },
   "scripts": {
     "heroku-prebuild": "npm install -g serve",
     "start": "react-scripts start",
@@ -80,8 +73,8 @@
     "node": "20.x",
     "npm": ">=6.14.0"
   },
-  "resolutions": {
-    "nth-check": "^2.0.1",
-    "postcss": "^8.4.31"
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "msw": "^2.3.1"
   }
 }
