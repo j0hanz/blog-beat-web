@@ -48,8 +48,8 @@ const Comment = (props) => {
   return (
     <>
       <Card className={`bg-dark my-4 ${styles.CommentCard}`}>
-        <Card.Body className="p-2">
-          <Row className="align-items-center">
+        <Card.Body>
+          <Row>
             <Col xs="auto" className="text-center m-auto">
               <Link to={`/profiles/${profile_id}`}>
                 <Icon
@@ -59,7 +59,7 @@ const Comment = (props) => {
                 />
               </Link>
             </Col>
-            <Col>
+            <Col className="align-self-center">
               <div className="d-flex justify-content-between align-items-center">
                 <div>
                   <span className={styles.Owner}>{owner}</span>
