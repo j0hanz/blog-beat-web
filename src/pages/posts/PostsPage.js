@@ -42,6 +42,10 @@ function PostsPage({ message, filter = '' }) {
     };
   }, [filter, query, pathname, currentUser]);
 
+  if (!hasLoaded) {
+    return <Asset spinner />;
+  }
+
   return (
     <Row className="h-100 justify-content-center mx-auto">
       <Col lg={8}>
@@ -63,30 +67,22 @@ function PostsPage({ message, filter = '' }) {
           </Form>
         </div>
         <PopularProfiles />
-        {hasLoaded ? (
-          <>
-            {posts.results.length ? (
-              <InfiniteScroll
-                dataLength={posts.results.length}
-                next={() => fetchMoreData(posts, setPosts)}
-                hasMore={!!posts.next}
-                loader={<Asset spinner />}
-              >
-                {posts.results.map((post) => (
-                  <div className="d-flex justify-content-center" key={post.id}>
-                    <Post {...post} setPosts={setPosts} />
-                  </div>
-                ))}
-              </InfiniteScroll>
-            ) : (
-              <Container className={styles.Content}>
-                <Asset src={NoResults} message={message} />
-              </Container>
-            )}
-          </>
+        {posts.results.length ? (
+          <InfiniteScroll
+            dataLength={posts.results.length}
+            next={() => fetchMoreData(posts, setPosts)}
+            hasMore={!!posts.next}
+            loader={<Asset spinner />}
+          >
+            {posts.results.map((post) => (
+              <div className="d-flex justify-content-center" key={post.id}>
+                <Post {...post} setPosts={setPosts} />
+              </div>
+            ))}
+          </InfiniteScroll>
         ) : (
           <Container className={styles.Content}>
-            <Asset spinner />
+            <Asset src={NoResults} message={message} />
           </Container>
         )}
       </Col>
