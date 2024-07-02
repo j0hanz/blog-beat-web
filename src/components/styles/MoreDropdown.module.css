@@ -1,15 +1,25 @@
 .DropdownItem {
-  display: inline-block;
-  max-width: 50%;
-  padding: 0;
+  display: block;
+  border-radius: 25px;
+  margin-bottom: 5px;
+  color: white !important;
+  transition: color 0.3s, background-color 0.3s;
 }
 
-.faEdit {
-  color: #ffff00;
+.faEdit,
+.faTrashAlt,
+.faIdCard,
+.faKey {
+  color: white;
+  transition: color 0.3s;
 }
 
-.faTrashAlt {
-  color: #ff0000;
+.DropdownItem:hover .faEdit,
+.DropdownItem:hover .faTrashAlt,
+.DropdownItem:hover .faIdCard,
+.DropdownItem:hover .faKey {
+  color: #007bff;
+  transform: scale(1.15);
 }
 
 .DropdownMenu {
