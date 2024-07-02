@@ -1,0 +1,14 @@
+.Asset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .spinner {
+    width: 3rem;
+    height: 3rem;
+    color: #007bff;
+    margin: 20px 0;
+  }
+  
