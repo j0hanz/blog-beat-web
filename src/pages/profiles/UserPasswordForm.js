@@ -22,6 +22,10 @@ const UserPasswordForm = () => {
 
   const [errors, setErrors] = useState({});
 
+  const handleClose = () => {
+    navigate(-1);
+  };
+
   const handleChange = (event) => {
     setUserData({
       ...userData,
@@ -30,10 +34,6 @@ const UserPasswordForm = () => {
   };
 
   useEffect(() => {
-    if (id === undefined) {
-      console.error('UserPasswordForm: ID is undefined!');
-      return;
-    }
     if (currentUser?.pk?.toString() !== id) {
       navigate('/');
     }
@@ -45,12 +45,9 @@ const UserPasswordForm = () => {
       await axiosRes.post('/dj-rest-auth/password/change/', userData);
       navigate(-1);
     } catch (err) {
+      console.log(err);
       setErrors(err.response?.data);
     }
-  };
-
-  const handleClose = () => {
-    navigate(-1);
   };
 
   return (
@@ -108,7 +105,7 @@ const UserPasswordForm = () => {
               Cancel
             </Button>
             <Button
-              variant="outline-primary"
+              variant="outline-primary text-white"
               type="submit"
               className="mx-3 btn-lg"
             >
