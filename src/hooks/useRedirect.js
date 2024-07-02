@@ -9,14 +9,12 @@ export const useRedirect = (userAuthStatus) => {
     const handleMount = async () => {
       try {
         await axios.post('/dj-rest-auth/token/refresh/');
-        console.log('Token refreshed successfully.');
-        // if user is logged in, the code below will run
+        // if the user is logged in, this code will run
         if (userAuthStatus === 'loggedIn') {
           navigate('/');
         }
       } catch (err) {
-        console.log('Token refresh failed:', err);
-        // if user is not logged in, the code below will run
+        // if the user is not logged in, the code below will run instead
         if (userAuthStatus === 'loggedOut') {
           navigate('/');
         }
