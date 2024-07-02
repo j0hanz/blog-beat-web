@@ -14,7 +14,7 @@ export const fetchMoreData = async (resource, setResource) => {
       }, prevResource.results),
     }));
   } catch (err) {
-    console.log(err);
+    console.error('Error fetching more data:', err); // Improved error handling
   }
 };
 
@@ -28,7 +28,7 @@ export const followHelper = (profile, clickedProfile, following_id) => {
         following_id,
       }
     : profile.is_owner
-    ? // This is the profile of the logged in user
+    ? // This is the profile of the logged-in user
       // update its following count
       { ...profile, following_count: profile.following_count + 1 }
     : // this is not the profile the user clicked on or the profile
@@ -46,7 +46,7 @@ export const unfollowHelper = (profile, clickedProfile) => {
         following_id: null,
       }
     : profile.is_owner
-    ? // This is the profile of the logged in user
+    ? // This is the profile of the logged-in user
       // update its following count
       { ...profile, following_count: profile.following_count - 1 }
     : // this is not the profile the user clicked on or the profile
@@ -60,12 +60,7 @@ export const setTokenTimestamp = (data) => {
 };
 
 export const shouldRefreshToken = () => {
-  const refreshTokenTimestamp = localStorage.getItem('refreshTokenTimestamp');
-  if (!refreshTokenTimestamp) {
-    return false;
-  }
-  const now = Math.floor(Date.now() / 1000);
-  return now > refreshTokenTimestamp;
+  return !!localStorage.getItem('refreshTokenTimestamp');
 };
 
 export const removeTokenTimestamp = () => {
