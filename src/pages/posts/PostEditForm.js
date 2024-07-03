@@ -17,6 +17,7 @@ import Upload from '../../assets/upload.png';
 import styles from './styles/PostCreateForm.module.css';
 import Asset from '../../components/Asset';
 import { axiosReq } from '../../api/axiosDefaults';
+import { toast } from 'react-toastify';
 
 function PostEditForm() {
   const [errors, setErrors] = useState({});
@@ -90,11 +91,13 @@ function PostEditForm() {
 
     try {
       await axiosReq.put(`/posts/${id}/`, formData);
+      toast.success('Post updated successfully!');
       navigate(`/posts/${id}`);
     } catch (err) {
       console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
+        toast.error('Failed to update post. Please try again.');
       }
     }
   };

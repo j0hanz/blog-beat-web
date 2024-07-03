@@ -27,6 +27,7 @@ import {
   useSetCurrentUser,
 } from '../contexts/CurrentUserContext';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
@@ -38,8 +39,10 @@ const NavBar = () => {
     try {
       await axios.post('dj-rest-auth/logout/');
       setCurrentUser(null);
+      toast.info('You have logged out!');
     } catch (err) {
       console.log(err);
+      toast.error('An error occurred. Please try again.');
     }
   };
 

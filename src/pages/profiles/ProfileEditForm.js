@@ -32,6 +32,7 @@ import {
 } from '../../contexts/CurrentUserContext';
 import { CountryDropdown } from 'react-country-region-selector';
 import styles from './styles/ProfileEditForm.module.css';
+import { toast } from 'react-toastify';
 
 const SOCIAL_MEDIA_CHOICES = [
   {
@@ -157,9 +158,11 @@ const ProfileEditForm = () => {
         ...currentUser,
         profile_image: data.image,
       }));
+      toast.success('Profile updated successfully!');
       navigate('/profiles/' + id);
     } catch (err) {
       setErrors(err.response?.data);
+      toast.error('Failed to update profile. Please try again.');
     }
   };
 

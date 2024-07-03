@@ -12,12 +12,12 @@ import {
   Image,
   InputGroup,
 } from 'react-bootstrap';
-
 import Upload from '../../assets/upload.png';
 import styles from './styles/PostCreateForm.module.css';
 import Asset from '../../components/Asset';
 import { axiosReq } from '../../api/axiosDefaults';
 import { useRedirect } from '../../hooks/useRedirect';
+import { toast } from 'react-toastify';
 
 function PostCreateForm() {
   useRedirect('loggedOut');
@@ -74,11 +74,13 @@ function PostCreateForm() {
 
     try {
       const { data } = await axiosReq.post('/posts/', formData);
+      toast('Post created successfully!');
       navigate(`/posts/${data.id}`);
     } catch (err) {
       console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
+        toast.error('Failed to create post. Please try again.');
       }
     }
   };

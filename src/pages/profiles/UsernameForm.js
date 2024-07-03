@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
 import { Alert, Button, Container, Form, Modal } from 'react-bootstrap';
-
+import { toast } from 'react-toastify';
 import { axiosRes } from '../../api/axiosDefaults';
 import {
   useCurrentUser,
@@ -44,10 +43,12 @@ const UsernameForm = () => {
         ...prevUser,
         username,
       }));
+      toast.success('Username updated successfully!');
       navigate(-1);
     } catch (err) {
       console.log(err);
       setErrors(err.response?.data);
+      toast.error('Failed to update username. Please try again.');
     }
   };
 

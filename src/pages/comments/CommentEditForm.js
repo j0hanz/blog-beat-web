@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { axiosRes } from '../../api/axiosDefaults';
 import styles from './styles/CommentCreateEditForm.module.css';
+import { toast } from 'react-toastify';
 
 function CommentEditForm(props) {
   const { id, content, show, handleClose, setComments } = props;
@@ -31,9 +32,11 @@ function CommentEditForm(props) {
             : comment;
         }),
       }));
+      toast.success('Comment updated!');
       handleClose();
     } catch (err) {
       console.log(err);
+      toast.error('Failed to update comment. Please try again.');
     }
   };
 

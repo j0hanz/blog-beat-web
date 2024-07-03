@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { axiosReq, axiosRes } from '../api/axiosDefaults';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
@@ -19,6 +21,7 @@ export const CurrentUserProvider = ({ children }) => {
       setCurrentUser(data);
     } catch (err) {
       console.log(err);
+      toast.error('Failed to load user data.');
     }
   };
 
@@ -35,6 +38,7 @@ export const CurrentUserProvider = ({ children }) => {
           setCurrentUser((prevCurrentUser) => {
             if (prevCurrentUser) {
               navigate('/signin');
+              toast.error('Session expired. Please sign in again.');
             }
             return null;
           });
@@ -43,6 +47,7 @@ export const CurrentUserProvider = ({ children }) => {
         return config;
       },
       (err) => {
+        toast.error('Request failed. Please try again.');
         return Promise.reject(err);
       },
     );
@@ -56,16 +61,18 @@ export const CurrentUserProvider = ({ children }) => {
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
                 navigate('/signin');
+                toast.error('Session expired. Please sign in again.');
               }
               return null;
             });
           }
           return axios(err.config);
         }
+        toast.error('Response failed. Please try again.');
         return Promise.reject(err);
       },
     );
-  }, [navigate]);
+  }, [navigate, setCurrentUser]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

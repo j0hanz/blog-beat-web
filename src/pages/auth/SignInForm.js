@@ -43,7 +43,7 @@ function SignInForm() {
       navigate(-1);
     } catch (err) {
       setErrors(err.response?.data);
-      toast.error('Login failed!');
+      toast.error('Failed to login. Please try again.');
     }
   };
 

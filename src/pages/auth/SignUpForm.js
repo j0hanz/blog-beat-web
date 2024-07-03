@@ -33,10 +33,11 @@ function SignUpForm() {
     event.preventDefault();
     try {
       await axios.post('/dj-rest-auth/registration/', signUpData);
-      toast.success('Account created successfully!');
+      toast.success('Account created successfully! Please login.');
       navigate('/signin');
     } catch (err) {
       setErrors(err.response?.data);
+      toast.error('An error occurred. Please try again.');
     }
   };
 

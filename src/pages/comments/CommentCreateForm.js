@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles/CommentCreateEditForm.module.css';
 import { axiosRes } from '../../api/axiosDefaults';
+import { toast } from 'react-toastify';
 
 function CommentCreateForm(props) {
   const { post, setPost, setComments } = props;
@@ -35,6 +36,7 @@ function CommentCreateForm(props) {
       setContent('');
     } catch (err) {
       console.log(err);
+      toast.error('Failed to add comment. Please try again.');
     }
   };
 
