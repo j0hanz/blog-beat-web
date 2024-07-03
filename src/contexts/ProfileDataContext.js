@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { axiosReq, axiosRes } from '../api/axiosDefaults';
 import { useCurrentUser } from './CurrentUserContext';
 import { followHelper, unfollowHelper } from '../utils/utils';
+import { toast } from 'react-toastify';
 
 const ProfileDataContext = createContext();
 const SetProfileDataContext = createContext();
@@ -37,8 +38,12 @@ export const ProfileDataProvider = ({ children }) => {
           ),
         },
       }));
+      toast.success(
+        `You now follow ${clickedProfile.owner || clickedProfile.username}.`,
+      );
     } catch (err) {
       console.error('Failed to follow the profile:', err);
+      toast.error('Failed to follow the profile. Please try again.');
     }
   };
 
@@ -59,6 +64,11 @@ export const ProfileDataProvider = ({ children }) => {
           ),
         },
       }));
+      toast.info(
+        `You have unfollowed ${
+          clickedProfile.owner || clickedProfile.username
+        }.`,
+      );
     } catch (err) {
       console.error('Failed to unfollow the profile:', err);
     }
@@ -76,6 +86,7 @@ export const ProfileDataProvider = ({ children }) => {
         }));
       } catch (err) {
         console.error('Failed to fetch popular profiles:', err);
+        toast.error('Unable to load popular profiles.');
       }
     };
 
