@@ -1,15 +1,62 @@
 # Blog Beat
 
-Blog Beat is an interactive web application designed to provide a platform for
-users to read, write, and interact with blog posts on various topics. It targets
-bloggers, readers, and content creators seeking a user-friendly, accessible
-platform to express their ideas and engage with a community.
+Blog Beat is an interactive web application designed to provide a platform for users to read, write, and interact with blog posts on various topics. It targets bloggers, readers, and content creators seeking a user-friendly, accessible platform to express their ideas and engage with a community.
+
+---
+
+# Table of Contents
+
+- [Introduction](#introduction)
+- [User Experience (UX)](#user-experience-ux)
+  - [Strategy](#strategy)
+    - [Project Goals](#project-goals)
+    - [User Goals](#user-goals)
+    - [Site Owner Goals](#site-owner-goals)
+    - [Target Audience](#target-audience)
+    - [User Requirements and Expectations](#user-requirements-and-expectations)
+  - [Scope](#scope)
+    - [Features](#features)
+    - [Future Features](#future-features)
+  - [Structure](#structure)
+    - [Database Schema](#database-schema)
+  - [Component Architecture](#component-architecture)
+    - [Core Components](#core-components)
+    - [Reusable Components](#reusable-components)
+  - [Skeleton](#skeleton)
+    - [Wireframes](#wireframes)
+  - [Surface](#surface)
+    - [Design Choices](#design-choices)
+    - [Colors](#colors)
+    - [Typography](#typography)
+- [Technologies Used](#technologies-used)
+  - [Front-End Technologies](#front-end-technologies)
+  - [Back-End Technologies](#back-end-technologies)
+  - [Development Tools and Libraries](#development-tools-and-libraries)
+- [Methodology](#methodology)
+  - [Agile Development](#agile-development)
+    - [MoSCoW Method](#moscow-method)
+    - [Story Points](#story-points)
+    - [Sprint](#sprint)
+  - [User Stories as GitHub Issues](#user-stories-as-github-issues)
+- [Bugs](#bugs)
+- [Testing](#testing)
+  - [Manual Testing](#manual-testing)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [Credits](#credits)
+- [Acknowledgements](#acknowledgements)
 
 ---
 
 <img src="/docs/mockup.png" alt="Blog Beat Mockup">
 
-## Usage
+---
+
+## Introduction
+
+---
+
+## User Experience (UX)
 
 Blog Beat is intuitive and user-friendly, enabling users to:
 
@@ -20,7 +67,37 @@ Blog Beat is intuitive and user-friendly, enabling users to:
 - **Comment on Posts**: Interact with the community by commenting on posts.
 - **Search Functionality**: Use the search bar to quickly locate posts by keywords.
 
-## Features
+---
+
+## Strategy
+
+### Project Goals
+
+To provide a rich blogging experience that encourages interaction and content creation.
+
+### User Goals
+
+To access a platform that is intuitive and enhances the blogging experience through user-centric design.
+
+### Site Owner Goals
+
+To grow a community around diverse blog content and provide tools that foster user engagement.
+
+### Target Audience
+
+Bloggers, readers, and content creators from various backgrounds interested in sharing and discussing diverse topics.
+
+### User Requirements and Expectations
+
+- A responsive and accessible website.
+- Secure and efficient user authentication and management.
+- Tools for content creation, editing, and interaction.
+
+---
+
+## Scope
+
+### Features
 
 Blog Beat is designed to deliver a blogging experience with the following features:
 
@@ -33,15 +110,33 @@ Blog Beat is designed to deliver a blogging experience with the following featur
 - **Like Functionality**: Allows users to like posts, enhancing interactive feedback.
 - **Popular Profiles**: Showcases leading user profiles based on activity and engagement.
 
+### Future Features
+
 ---
 
-### Skeleton
+## Structure
 
-#### Wireframes
+### Database Schema
 
-Blog Beat's wireframes, designed in Balsamiq,
-serve as a visual guide to the layout and interface,
-streamlining UI development and enhancing user experience.
+---
+
+## Component Architecture
+
+### Core Components
+
+---
+
+### Reusable Components
+
+---
+
+## Skeleton
+
+### Wireframes
+
+Blog Beat's wireframes where designed in Balsamiq.
+Serve as a visual guide to the layout and interface.
+Streamlining UI development and enhancing user experience.
 
 <details><summary>Home Page / Menu</summary>
 <img src="/docs/wireframes/home.png" alt="Home Page Wireframe">
@@ -52,14 +147,29 @@ streamlining UI development and enhancing user experience.
 <img src="/docs/wireframes/Sign-Up.png" alt="Sign Up Wireframe">
 </details>
 <details><summary>Profile / Edit</summary>
+<img src="/docs/wireframes/User-Profile.png" alt="User Profile Wireframe">
 <img src="/docs/wireframes/Profile.png" alt="Profile Wireframe">
-<img src="/docs/wireframes/User-Profile.png" alt="User Profile Wireframe">
 <img src="/docs/wireframes/Update-Password.png" alt="Update Password Wireframe">
-<img src="/docs/wireframes/User-Profile.png" alt="User Profile Wireframe">
 </details>
 <details><summary>Post Detail</summary>
 <img src="/docs/wireframes/Post-Detail.png" alt="Post Detail Wireframe">
 </details>
+
+---
+
+## Surface
+
+### Design Choices
+
+Focus on minimalism and readability to enhance user experience.
+
+### Colors
+
+A soothing color palette to create a welcoming environment.
+
+### Typography
+
+Carefully selected fonts to ensure readability and aesthetic appeal.
 
 ---
 
@@ -89,13 +199,53 @@ streamlining UI development and enhancing user experience.
 
 ---
 
+## Methodology
+
+### Agile Development
+
+Followed an agile methodology with an initial focus on developing a functional site that covered all key user stories.
+Additional features and functionalities were added incrementally.
+
+#### MoSCoW Method
+
+The MoSCoW method was used to prioritize features:
+- **Must Have**: Essential for project success.
+- **Should Have**: Important but not critical.
+- **Could Have**: Nice to have, consider for future.
+
+#### Story Points
+
+**Story Points** are a way to estimate the effort required to complete a task.
+They take into account the complexity, risks, and time needed.
+Story points use numbers 1, 2, 3, 5, and 8 to represent different effort levels.
+
+#### Sprint
+
+Details of sprint cycles and their outcomes are provided to showcase the iterative development approach.
+
+### User Stories as GitHub Issues
+
+User stories are managed as GitHub issues, allowing for transparent tracking and updates.
+
+---
+
+## Bugs
+
+A section to report known issues and their status.
+
+---
+
 ## Testing
 
-- **Manual Testing**: Detailed steps for how each feature was tested manually.
+### Manual Testing
+
+Detailed steps for how each feature was tested manually.
 
 ---
 
 ## Deployment
+
+Instructions and notes on how to deploy Blog Beat to production environments.
 
 ---
 
@@ -113,13 +263,13 @@ Please follow the outlined steps:
 
 ---
 
-## Version Control
-
----
-
 ## Credits
 
 - **React**: For building a dynamic user interface.
 - **Node.js and Express**: For server-side logic.
 - **Bootstrap**: For responsive design elements.
 - **Axios**: For making HTTP requests from the front-end.
+
+---
+
+## Acknowledgements
