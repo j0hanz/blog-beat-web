@@ -69,9 +69,7 @@ export const ProfileDataProvider = ({ children }) => {
           clickedProfile.owner || clickedProfile.username
         }.`,
       );
-    } catch (err) {
-      console.error('Failed to unfollow the profile:', err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -85,14 +83,11 @@ export const ProfileDataProvider = ({ children }) => {
           popularProfiles: data,
         }));
       } catch (err) {
-        console.error('Failed to fetch popular profiles:', err);
-        toast.error('Unable to load popular profiles.');
+        console.error(err);
       }
     };
 
-    if (currentUser) {
-      fetchPopularProfiles();
-    }
+    fetchPopularProfiles();
   }, [currentUser]);
 
   return (
