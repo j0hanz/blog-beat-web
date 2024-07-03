@@ -163,19 +163,17 @@ const NavBar = () => {
           </NavLink>
         </Nav>
         <Button variant="outline-dark p-1" onClick={toggleOffcanvas}>
-          <TooltipWrapper message="Profile">
-            {currentUser ? (
-              <Icon
-                src={currentUser.profile_image || defaultProfileImage}
-                height={35}
-              />
-            ) : (
-              <FontAwesomeIcon
-                className={`fa-xl ${styles.navLinkEffect}`}
-                icon={faPersonWalkingArrowRight}
-              />
-            )}
-          </TooltipWrapper>
+          {currentUser ? (
+            <Icon
+              src={currentUser.profile_image || defaultProfileImage}
+              height={35}
+            />
+          ) : (
+            <FontAwesomeIcon
+              className={`fa-xl ${styles.navLinkEffect}`}
+              icon={faPersonWalkingArrowRight}
+            />
+          )}
         </Button>
         <Offcanvas
           show={show}
@@ -185,10 +183,14 @@ const NavBar = () => {
         >
           <Offcanvas.Header>
             {currentUser ? (
-              <Icon
-                src={currentUser.profile_image || defaultProfileImage}
-                height={55}
-              />
+              <TooltipWrapper message="Profile">
+                <NavLink to={`/profiles/${currentUser?.pk}/`}>
+                  <Icon
+                    src={currentUser.profile_image || defaultProfileImage}
+                    height={55}
+                  />
+                </NavLink>
+              </TooltipWrapper>
             ) : (
               <div className="text-center w-100">
                 <img
