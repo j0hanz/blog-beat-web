@@ -1,6 +1,13 @@
 # Blog Beat
 
-Blog Beat is an interactive web application designed to provide a platform for users to read, write, and interact with blog posts on a variety of topics. This application targets bloggers, readers, and content creators who seek a user-friendly, accessible platform to express their ideas and engage with a community.
+Blog Beat is an interactive web application designed to provide a platform for
+users to read, write, and interact with blog posts on various topics. It targets
+bloggers, readers, and content creators seeking a user-friendly, accessible
+platform to express their ideas and engage with a community.
+
+---
+
+<img src="/docs/mockup.png" alt="Blog Beat Mockup">
 
 ## Usage
 
@@ -8,23 +15,51 @@ Blog Beat is intuitive and user-friendly, enabling users to:
 
 - **View Posts**: Explore all blog posts directly from the homepage.
 - **Sign Up/Log In**: Create an account or log in to unlock personalized features.
-- **Create Posts**: Authenticated users can publish new blog posts using an intuitive interface.
+- **Create Posts**: Users can publish new blog posts using an intuitive interface.
 - **Edit/Delete Posts**: Authors have full control to modify or remove their posts.
 - **Comment on Posts**: Interact with the community by commenting on posts.
 - **Search Functionality**: Use the search bar to quickly locate posts by keywords.
 
 ## Features
 
-Blog Beat is designed to deliver a seamless blogging experience with the following features:
+Blog Beat is designed to deliver a blogging experience with the following features:
 
-- **Responsive Design**: Fully optimized for all devices, ensuring accessibility anywhere.
+- **Responsive Design**: Optimized for all devices, ensuring accessibility anywhere.
 - **User Authentication**: A robust system for secure logins and account management.
-- **CRUD Operations**: Full functionality for creating, editing, deleting, and viewing posts.
+- **CRUD Operations**: For creating, editing, deleting, and viewing posts.
 - **Interactive Comments**: A platform for users to comment and engage with the community.
 - **Search Capability**: Efficient keyword search to swiftly find relevant posts.
 - **Social Media Sharing**: Easily share posts across social media to broaden visibility.
 - **Like Functionality**: Allows users to like posts, enhancing interactive feedback.
 - **Popular Profiles**: Showcases leading user profiles based on activity and engagement.
+
+---
+
+### Skeleton
+
+#### Wireframes
+
+Blog Beat's wireframes, designed in Balsamiq,
+serve as a visual guide to the layout and interface,
+streamlining UI development and enhancing user experience.
+
+<details><summary>Home Page / Menu</summary>
+<img src="/docs/wireframes/home.png" alt="Home Page Wireframe">
+<img src="/docs/wireframes/Menu.png" alt="Menu Wireframe">
+</details>
+<details><summary>Sign Up / Login</summary>
+<img src="/docs/wireframes/Sign-In.png" alt="Sign In Wireframe">
+<img src="/docs/wireframes/Sign-Up.png" alt="Sign Up Wireframe">
+</details>
+<details><summary>Profile / Edit</summary>
+<img src="/docs/wireframes/Profile.png" alt="Profile Wireframe">
+<img src="/docs/wireframes/User-Profile.png" alt="User Profile Wireframe">
+<img src="/docs/wireframes/Update-Password.png" alt="Update Password Wireframe">
+<img src="/docs/wireframes/User-Profile.png" alt="User Profile Wireframe">
+</details>
+<details><summary>Post Detail</summary>
+<img src="/docs/wireframes/Post-Detail.png" alt="Post Detail Wireframe">
+</details>
 
 ---
 
@@ -66,7 +101,10 @@ Blog Beat is designed to deliver a seamless blogging experience with the followi
 
 ## Contributing
 
-Contributors looking to improve Blog Beat or add features are welcome. Please follow the outlined steps:
+Contributors looking to improve Blog Beat or add features are welcome.
+
+Please follow the outlined steps:
+
 - Fork the repository
 - Clone your fork
 - Create a new branch for your feature
@@ -85,6 +123,3 @@ Contributors looking to improve Blog Beat or add features are welcome. Please fo
 - **Node.js and Express**: For server-side logic.
 - **Bootstrap**: For responsive design elements.
 - **Axios**: For making HTTP requests from the front-end.
-
-
-
