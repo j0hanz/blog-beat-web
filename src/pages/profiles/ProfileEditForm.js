@@ -33,6 +33,7 @@ import {
 import { CountryDropdown } from 'react-country-region-selector';
 import styles from './styles/ProfileEditForm.module.css';
 import { toast } from 'react-toastify';
+import Asset from '../../components/Asset';
 
 const SOCIAL_MEDIA_CHOICES = [
   {
@@ -76,6 +77,7 @@ const ProfileEditForm = () => {
     profileData;
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const handleMount = async () => {
@@ -98,6 +100,7 @@ const ProfileEditForm = () => {
             image,
             social_media_links: social_media_links || [],
           });
+          setLoading(false);
         } catch (err) {
           navigate('/');
         }
@@ -315,56 +318,64 @@ const ProfileEditForm = () => {
   );
 
   return (
-    <Modal show={true} onHide={handleClose} centered>
-      <Modal.Header
-        className={`d-flex justify-content-center p-3 ${styles.modalHeadBg} position-relative`}
-      >
-        <Modal.Title className="text-center">Edit Profile</Modal.Title>
-        <Button
-          variant="link"
-          className="text-white position-absolute end-0 top-0 btn-outline-secondary btn-sm"
-          onClick={handleClose}
-        >
-          <FontAwesomeIcon icon={faTimes} />
-        </Button>
-      </Modal.Header>
-      <Modal.Body className={`text-center mx-auto ${styles.modalBodyBg}`}>
-        <Form onSubmit={handleSubmit}>
-          <Container className="text-center">
-            <Form.Group>
-              {image && (
-                <figure>
-                  <Image src={image} rounded fluid />
-                </figure>
-              )}
-              {errors?.image?.map((message, idx) => (
-                <Alert variant="warning" key={idx}>
-                  {message}
-                </Alert>
-              ))}
-              <Form.Label className="my-auto" htmlFor="image-upload">
-                Change the image
-              </Form.Label>
-              <Form.Control
-                type="file"
-                id="image-upload"
-                ref={imageFile}
-                accept="image/*"
-                onChange={(e) => {
-                  if (e.target.files.length) {
-                    setProfileData({
-                      ...profileData,
-                      image: URL.createObjectURL(e.target.files[0]),
-                    });
-                  }
-                }}
-              />
-            </Form.Group>
-            <div className="mt-3">{textFields}</div>
-          </Container>
-        </Form>
-      </Modal.Body>
-    </Modal>
+    <>
+      {loading ? (
+        <Asset spinner />
+      ) : (
+        <Modal show={true} onHide={handleClose} centered>
+          <>
+            <Modal.Header
+              className={`d-flex justify-content-center p-3 ${styles.modalHeadBg} position-relative`}
+            >
+              <Modal.Title className="text-center">Edit Profile</Modal.Title>
+              <Button
+                variant="link"
+                className="text-white position-absolute end-0 top-0 btn-outline-secondary btn-sm"
+                onClick={handleClose}
+              >
+                <FontAwesomeIcon icon={faTimes} />
+              </Button>
+            </Modal.Header>
+            <Modal.Body className={`text-center mx-auto ${styles.modalBodyBg}`}>
+              <Form onSubmit={handleSubmit}>
+                <Container className="text-center">
+                  <Form.Group>
+                    {image && (
+                      <figure>
+                        <Image src={image} rounded fluid />
+                      </figure>
+                    )}
+                    {errors?.image?.map((message, idx) => (
+                      <Alert variant="warning" key={idx}>
+                        {message}
+                      </Alert>
+                    ))}
+                    <Form.Label className="my-auto" htmlFor="image-upload">
+                      Change the image
+                    </Form.Label>
+                    <Form.Control
+                      type="file"
+                      id="image-upload"
+                      ref={imageFile}
+                      accept="image/*"
+                      onChange={(e) => {
+                        if (e.target.files.length) {
+                          setProfileData({
+                            ...profileData,
+                            image: URL.createObjectURL(e.target.files[0]),
+                          });
+                        }
+                      }}
+                    />
+                  </Form.Group>
+                  <div className="mt-3">{textFields}</div>
+                </Container>
+              </Form>
+            </Modal.Body>
+          </>
+        </Modal>
+      )}
+    </>
   );
 };
 
