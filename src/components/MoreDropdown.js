@@ -5,7 +5,7 @@ import {
   faEllipsis,
   faEdit,
   faTrashAlt,
-  faEllipsisVertical,
+  faUserPen,
   faIdCard,
   faKey,
 } from '@fortawesome/free-solid-svg-icons';
@@ -24,10 +24,10 @@ const ThreeDots = React.forwardRef(({ onClick }, ref) => (
   />
 ));
 
-const VerticalThreeDots = React.forwardRef(({ onClick }, ref) => (
+const UserEditProfile = React.forwardRef(({ onClick }, ref) => (
   <FontAwesomeIcon
-    className="btn btn-outline-light p-1"
-    icon={faEllipsisVertical}
+    className="btn btn-outline-light"
+    icon={faUserPen}
     ref={ref}
     onClick={(e) => {
       e.preventDefault();
@@ -70,7 +70,7 @@ export const ProfileEditDropdown = ({ id }) => {
 
   return (
     <Dropdown className={`ml-auto px-3 ${styles.Absolute}`} drop="left">
-      <Dropdown.Toggle as={VerticalThreeDots} />
+      <Dropdown.Toggle as={UserEditProfile} />
       <Dropdown.Menu className={`text-center ${styles.DropdownMenu}`}>
         <Dropdown.Item
           className={styles.DropdownItem}
