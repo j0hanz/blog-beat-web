@@ -56,30 +56,70 @@ function ProfilePage() {
 
   const mainProfile = (
     <>
-      {is_owner && <ProfileEditDropdown id={profile?.id} />}
       <Row className="px-3 mx-auto text-center justify-content-center">
-        <Col lg={3} className="d-flex justify-content-center">
+        <Col
+          lg={3}
+          className="d-flex flex-column align-items-center justify-content-center"
+        >
           <Image
             className={styles.ProfileImage}
             roundedCircle
             src={profile?.image}
             alt={`${profile?.first_name} ${profile?.last_name}`}
           />
+          <div className={styles.ProfileOwner}>{profile?.owner}</div>
+          <div className="mt-1">
+            {is_owner && <ProfileEditDropdown id={profile?.id} />}
+          </div>
+          <div className="mt-2">
+            {currentUser && !is_owner && (
+              <Button
+                variant={
+                  profile?.following_id
+                    ? 'outline-secondary'
+                    : 'outline-primary'
+                }
+                onClick={() =>
+                  profile?.following_id
+                    ? handleUnfollow(profile)
+                    : handleFollow(profile)
+                }
+              >
+                {profile?.following_id ? 'Unfollow' : 'Follow'}
+              </Button>
+            )}
+          </div>
         </Col>
-        <Col lg={6} className="d-flex flex-column align-items-center">
-          <Row className="w-100 justify-content-center">
-            <Col xs={12} sm={4} className="my-2">
+        <Col className="mt-2">
+          <Row className="justify-content-center no-gutters">
+            <Col xs={4} className="my-2 text-center">
+              <div className="h5">{profile?.posts_count}</div>
+              <div className={styles.ProfileStats}>Posts</div>
+            </Col>
+            <Col xs={4} className="my-2 text-center">
+              <div className="h5">{profile?.followers_count}</div>
+              <div className={styles.ProfileStats}>Followers</div>
+            </Col>
+            <Col xs={4} className="my-2 text-center">
+              <div className="h5">{profile?.following_count}</div>
+              <div className={styles.ProfileStats}>Following</div>
+            </Col>
+          </Row>
+          <hr />
+          <Row className="justify-content-center">
+            <Col className="my-2 text-center">
               <div className="font-weight-bold">
-                <div>Name:</div>
                 {profile?.first_name} {profile?.last_name}
               </div>
             </Col>
-            <Col xs={12} sm={4} className="my-2">
-              <div>Country:</div>
+            <Col className="my-2 text-center">
               <div>{profile?.country}</div>
             </Col>
-            <Col xs={12} sm={4} className="my-2">
-              <div>Bio:</div>
+          </Row>
+          <hr />
+          <Row className="w-100 justify-content-center">
+            <Col xs={12} sm={4} className="my-2 text-center">
+              <div>About me:</div>
               <div>{profile?.bio}</div>
             </Col>
           </Row>
@@ -96,40 +136,11 @@ function ProfilePage() {
                 {link?.platform}
               </a>
             ))}
-          <Row className="justify-content-center no-gutters w-100">
-            <Col xs={4} className="my-2">
-              <div>{profile?.posts_count}</div>
-              <div>posts</div>
-            </Col>
-            <Col xs={4} className="my-2">
-              <div>{profile?.followers_count}</div>
-              <div>followers</div>
-            </Col>
-            <Col xs={4} className="my-2">
-              <div>{profile?.following_count}</div>
-              <div>following</div>
-            </Col>
-          </Row>
         </Col>
         <Col
           lg={3}
           className="d-flex justify-content-center align-items-center"
-        >
-          {currentUser && !is_owner && (
-            <Button
-              className={`${styles.Button} ${
-                profile?.following_id ? styles.BlackOutline : styles.Black
-              }`}
-              onClick={() =>
-                profile?.following_id
-                  ? handleUnfollow(profile)
-                  : handleFollow(profile)
-              }
-            >
-              {profile?.following_id ? 'Unfollow' : 'Follow'}
-            </Button>
-          )}
-        </Col>
+        ></Col>
       </Row>
     </>
   );
@@ -139,28 +150,25 @@ function ProfilePage() {
       <hr />
       <p className="text-center">{profile?.owner}'s posts</p>
       <hr />
-      <div className="d-flex justify-content-center">
-        {profilePosts.results.length ? (
-          <InfiniteScroll
-            dataLength={profilePosts.results.length}
-            next={() => fetchMoreData(profilePosts, setProfilePosts)}
-            hasMore={!!profilePosts.next}
-            loader={<Asset spinner />}
-          >
-            {profilePosts.results.map((post) => (
-              <Post key={post.id} {...post} setPosts={setProfilePosts} />
-            ))}
-          </InfiniteScroll>
-        ) : (
-          <Asset
-            src={NoResults}
-            message={`No results found, ${profile?.owner} hasn't posted yet.`}
-          />
-        )}
-      </div>
+      {profilePosts.results.length ? (
+        <InfiniteScroll
+          dataLength={profilePosts.results.length}
+          next={() => fetchMoreData(profilePosts, setProfilePosts)}
+          hasMore={!!profilePosts.next}
+          loader={<Asset spinner />}
+        >
+          {profilePosts.results.map((post) => (
+            <Post key={post.id} {...post} setPosts={setProfilePosts} />
+          ))}
+        </InfiniteScroll>
+      ) : (
+        <Asset
+          src={NoResults}
+          message={`No results found, ${profile?.owner} hasn't posted yet.`}
+        />
+      )}
     </>
   );
-
   return (
     <Row className="d-flex justify-content-center text-center mx-auto">
       <Col lg={10}>
