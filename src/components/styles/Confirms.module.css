@@ -1,0 +1,9 @@
+.modalBodyBg {
+  background-color: #1e1e1e;
+}
+
+.buttonOutlinePrimary {
+  background-color: transparent;
+  color: #fff;
+  width: 100%;
+}
