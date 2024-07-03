@@ -7,6 +7,31 @@ It provides a user-friendly platform for bloggers, readers, and content creators
 
 ---
 
+## Links
+
+<p>
+  <a href="https://blog-beat-17c62545ca2a.herokuapp.com" style="text-decoration: none;">
+    <img src="https://img.icons8.com/ios-filled/15/ffffff/web.png" alt="Frontend App"> Frontend App
+  </a>
+</p>
+<p>
+  <a href="https://github.com/j0hanz/blog-beat-web" style="text-decoration: none;">
+    <img src="https://img.icons8.com/ios-filled/15/ffffff/github.png" alt="Frontend Repository"> Frontend Repository
+  </a>
+</p>
+<p>
+  <a href="https://blog-beat-api-bab609deb9ee.herokuapp.com" style="text-decoration: none;">
+    <img src="https://img.icons8.com/ios-filled/15/ffffff/api.png" alt="API"> API
+  </a>
+</p>
+<p>
+  <a href="https://github.com/j0hanz/blog_beat_api" style="text-decoration: none;">
+    <img src="https://img.icons8.com/ios-filled/15/ffffff/github.png" alt="API Repository"> API Repository
+  </a>
+</p>
+
+
+
 # Table of Contents
 
 - [Introduction](#introduction)
