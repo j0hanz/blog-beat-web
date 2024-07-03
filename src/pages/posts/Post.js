@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles/Post.module.css';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import {
@@ -14,7 +14,9 @@ import Icon from '../../components/Icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { axiosRes } from '../../api/axiosDefaults';
+import { toast } from 'react-toastify';
 import { MoreDropdown } from '../../components/MoreDropdown';
+import Confirm from '../../components/Confirms';
 
 const Post = (props) => {
   const {
@@ -37,6 +39,8 @@ const Post = (props) => {
   const is_owner = currentUser?.username === owner;
   const navigate = useNavigate();
 
+  const [showConfirm, setShowConfirm] = useState(false);
+
   const handleEdit = () => {
     navigate(`/posts/${id}/edit`);
   };
@@ -44,10 +48,19 @@ const Post = (props) => {
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/posts/${id}/`);
-      navigate("/");
+      toast('Post deleted successfully!');
+      navigate('/');
     } catch (err) {
       console.log(err);
+      toast.error('Failed to delete post!');
     }
+  };
+
+  const handleShowConfirm = () => setShowConfirm(true);
+  const handleCancelConfirm = () => setShowConfirm(false);
+  const handleConfirmDelete = () => {
+    handleDelete();
+    setShowConfirm(false);
   };
 
   const handleLike = async () => {
@@ -101,7 +114,7 @@ const Post = (props) => {
               {is_owner && postPage && (
                 <MoreDropdown
                   handleEdit={handleEdit}
-                  handleDelete={handleDelete}
+                  handleShowConfirm={handleShowConfirm}
                 />
               )}
             </Col>
@@ -161,6 +174,12 @@ const Post = (props) => {
           </div>
         </Card.Body>
       </Card>
+
+      <Confirm
+        show={showConfirm}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelConfirm}
+      />
     </Container>
   );
 };
