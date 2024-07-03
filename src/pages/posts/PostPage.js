@@ -41,7 +41,7 @@ function PostPage() {
   }
 
   return (
-    <Row className="h-100">
+    <Row className="h-100 mx-auto">
       <Col className="d-flex flex-column justify-content-center mx-auto">
         <Post {...post.results[0]} setPosts={setPost} postPage />
         <Container className="mt-4 ">
