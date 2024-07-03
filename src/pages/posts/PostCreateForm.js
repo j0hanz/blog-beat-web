@@ -152,10 +152,14 @@ function PostCreateForm() {
         ))}
       </Form.Group>
 
-      <Button variant="secondary" onClick={() => navigate(-1)}>
+      <Button
+        variant="outline-warning text-white"
+        onClick={() => navigate(-1)}
+        className="mx-3 btn-lg"
+      >
         Cancel
       </Button>
-      <Button variant="primary" type="submit">
+      <Button variant="outline-primary" className="mx-3 btn-lg" type="submit">
         Create
       </Button>
     </div>
