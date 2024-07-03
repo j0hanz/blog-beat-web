@@ -1,10 +1,10 @@
 .tooltip-inner {
-  background-color: rgba(199, 199, 199, 0.8);
-  color: #050404;
+  background-color: rgba(0, 135, 245, 0.829);
+  color: #ffffff;
   font-size: 16px;
-  padding: 4px 8px;
+  padding: 3px 8px;
   border-radius: 10px;
-  margin-top: 13px;
+  margin-top: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
