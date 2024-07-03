@@ -3,20 +3,14 @@ import { Container } from 'react-bootstrap';
 import Asset from '../../components/Asset';
 import { useProfileData } from '../../contexts/ProfileDataContext';
 import Profile from './Profile';
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
-import styles from './styles/PopularProfiles.module.css'; // Import the CSS module
+import styles from './styles/PopularProfiles.module.css';
 
 const PopularProfiles = () => {
   const { popularProfiles } = useProfileData();
-  const currentUser = useCurrentUser();
-
-  const filteredProfiles = popularProfiles.results
-    .filter((profile) => profile.owner !== currentUser?.username)
-    .slice(0, 4);
 
   return (
     <Container>
-      {filteredProfiles.length ? (
+      {popularProfiles.results.length ? (
         <>
           <div className={styles.ProfilesSection}>
             <hr />
@@ -26,7 +20,7 @@ const PopularProfiles = () => {
             <div
               className={`d-flex flex-wrap justify-content-around bg-dark py-4 ${styles.PopularProfilesBorder}`}
             >
-              {filteredProfiles.map((profile) => (
+              {popularProfiles.results.slice(0, 4).map((profile) => (
                 <Profile key={profile.id} profile={profile} />
               ))}
             </div>
