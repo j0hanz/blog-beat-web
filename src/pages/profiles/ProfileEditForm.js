@@ -139,8 +139,8 @@ const ProfileEditForm = () => {
     formData.append('country', country);
     formData.append('bio', bio);
     social_media_links.forEach((link, index) => {
-      formData.append(`social_media_links[${index}].platform`, link.platform);
-      formData.append(`social_media_links[${index}].url`, link.url);
+      formData.append(`social_media_links[${index}][platform]`, link.platform);
+      formData.append(`social_media_links[${index}][url]`, link.url);
     });
 
     if (imageFile?.current?.files[0]) {
@@ -245,7 +245,7 @@ const ProfileEditForm = () => {
         </Alert>
       ))}
       <div className="mb-3">
-        <Form.Label className='d-block'>Social Media Links</Form.Label>
+        <Form.Label className="d-block">Social Media Links</Form.Label>
         {social_media_links.map((link, index) => (
           <InputGroup className="mb-2" key={index}>
             <DropdownButton
@@ -301,7 +301,11 @@ const ProfileEditForm = () => {
       >
         Cancel
       </Button>
-      <Button variant="outline-primary text-white" type="submit" className="mx-3 btn-lg">
+      <Button
+        variant="outline-primary text-white"
+        type="submit"
+        className="mx-3 btn-lg"
+      >
         Save
       </Button>
     </>
