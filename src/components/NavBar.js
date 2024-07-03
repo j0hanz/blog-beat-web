@@ -135,13 +135,13 @@ const NavBar = () => {
   return (
     <Navbar className="navbar-dark bg-dark fixed-top py-1">
       <Container fluid>
-        <Nav.Link href="/" className="position-relative">
+        <NavLink to="/" className="position-relative">
           <img
             src={logo}
             alt="Logo"
             className={`position-absolute translate-middle-y ${styles.logoNav}`}
           />
-        </Nav.Link>
+        </NavLink>
         <Nav className="mx-auto">
           <NavLink to="/" className={styles.navLinkEffect}>
             <TooltipWrapper message="Home">
