@@ -7,6 +7,7 @@ import CommentEditForm from './CommentEditForm';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { axiosRes } from '../../api/axiosDefaults';
 import styles from './styles/Comment.module.css';
+import Confirm from '../../components/Confirms';
 
 const Comment = (props) => {
   const {
@@ -21,6 +22,7 @@ const Comment = (props) => {
   } = props;
 
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
 
@@ -43,6 +45,13 @@ const Comment = (props) => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleShowConfirm = () => setShowConfirm(true);
+  const handleCancelConfirm = () => setShowConfirm(false);
+  const handleConfirmDelete = () => {
+    handleDelete();
+    setShowConfirm(false);
   };
 
   return (
@@ -70,7 +79,7 @@ const Comment = (props) => {
                 {is_owner && !showEditForm && (
                   <MoreDropdown
                     handleEdit={() => setShowEditForm(true)}
-                    handleDelete={handleDelete}
+                    handleShowConfirm={handleShowConfirm}
                   />
                 )}
               </div>
@@ -90,6 +99,11 @@ const Comment = (props) => {
           </Row>
         </Card.Body>
       </Card>
+      <Confirm
+        show={showConfirm}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelConfirm}
+      />
     </>
   );
 };
