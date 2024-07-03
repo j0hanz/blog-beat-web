@@ -42,10 +42,6 @@ function PostsPage({ message, filter = '' }) {
     };
   }, [filter, query, pathname, currentUser]);
 
-  if (!hasLoaded) {
-    return <Asset spinner />;
-  }
-
   return (
     <Row className="h-100 justify-content-center mx-auto">
       <Col lg={8}>
@@ -67,12 +63,20 @@ function PostsPage({ message, filter = '' }) {
           </Form>
         </div>
         <PopularProfiles />
-        {posts.results.length ? (
+        {!hasLoaded ? (
+          <div className="d-flex justify-content-center my-4">
+            <Asset spinner />
+          </div>
+        ) : posts.results.length ? (
           <InfiniteScroll
             dataLength={posts.results.length}
             next={() => fetchMoreData(posts, setPosts)}
             hasMore={!!posts.next}
-            loader={<Asset spinner />}
+            loader={
+              <div className="d-flex justify-content-center my-4">
+                <Asset spinner />
+              </div>
+            }
           >
             {posts.results.map((post) => (
               <div className="d-flex justify-content-center" key={post.id}>
