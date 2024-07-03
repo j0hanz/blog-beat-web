@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button, Image } from 'react-bootstrap';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import Asset from '../../components/Asset';
 import styles from './styles/ProfilePage.module.css';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
@@ -14,18 +14,23 @@ import Post from '../posts/Post';
 import { fetchMoreData } from '../../utils/utils';
 import NoResults from '../../assets/no-results.png';
 import { ProfileEditDropdown } from '../../components/MoreDropdown';
+import { FaFacebookF, FaInstagram, FaYoutube, FaGlobe } from 'react-icons/fa';
+
+const socialMediaIcons = {
+  facebook: <FaFacebookF />,
+  instagram: <FaInstagram />,
+  youtube: <FaYoutube />,
+  website: <FaGlobe />,
+};
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profilePosts, setProfilePosts] = useState({ results: [] });
-
   const currentUser = useCurrentUser();
   const { id } = useParams();
-
   const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();
   const { pageProfile } = useProfileData();
-
-  const [profile] = pageProfile.results;
+  const [profile] = pageProfile.results || [];
   const is_owner = currentUser?.username === profile?.owner;
 
   useEffect(() => {
@@ -58,10 +63,39 @@ function ProfilePage() {
             className={styles.ProfileImage}
             roundedCircle
             src={profile?.image}
+            alt={`${profile?.first_name} ${profile?.last_name}`}
           />
         </Col>
         <Col lg={6} className="d-flex flex-column align-items-center">
-          <h3 className="m-2">{profile?.owner}</h3>
+          <Row className="w-100 justify-content-center">
+            <Col xs={12} sm={4} className="my-2">
+              <div className="font-weight-bold">
+                {profile?.first_name} {profile?.last_name}
+              </div>
+              <div>Name</div>
+            </Col>
+            <Col xs={12} sm={4} className="my-2">
+              <div>{profile?.country}</div>
+              <div>Country</div>
+            </Col>
+            <Col xs={12} sm={4} className="my-2">
+              <div>{profile?.bio}</div>
+              <div>Bio</div>
+            </Col>
+          </Row>
+          {profile?.social_media_links &&
+            profile.social_media_links.map((link, index) => (
+              <a
+                key={index}
+                href={link?.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="d-flex align-items-center gap-2"
+              >
+                {socialMediaIcons[link?.platform?.toLowerCase()] || <FaGlobe />}
+                {link?.platform}
+              </a>
+            ))}
           <Row className="justify-content-center no-gutters w-100">
             <Col xs={4} className="my-2">
               <div>{profile?.posts_count}</div>
@@ -81,25 +115,21 @@ function ProfilePage() {
           lg={3}
           className="d-flex justify-content-center align-items-center"
         >
-          {currentUser &&
-            !is_owner &&
-            (profile?.following_id ? (
-              <Button
-                className={`${styles.Button} ${styles.BlackOutline}`}
-                onClick={() => handleUnfollow(profile)}
-              >
-                unfollow
-              </Button>
-            ) : (
-              <Button
-                className={`${styles.Button} ${styles.Black}`}
-                onClick={() => handleFollow(profile)}
-              >
-                follow
-              </Button>
-            ))}
+          {currentUser && !is_owner && (
+            <Button
+              className={`${styles.Button} ${
+                profile?.following_id ? styles.BlackOutline : styles.Black
+              }`}
+              onClick={() =>
+                profile?.following_id
+                  ? handleUnfollow(profile)
+                  : handleFollow(profile)
+              }
+            >
+              {profile?.following_id ? 'Unfollow' : 'Follow'}
+            </Button>
+          )}
         </Col>
-        {profile?.content && <Col className="p-3">{profile.content}</Col>}
       </Row>
     </>
   );
@@ -112,14 +142,15 @@ function ProfilePage() {
       <div className="d-flex justify-content-center">
         {profilePosts.results.length ? (
           <InfiniteScroll
-            children={profilePosts.results.map((post) => (
+            dataLength={profilePosts.results.length}
+            next={() => fetchMoreData(profilePosts, setProfilePosts)}
+            hasMore={!!profilePosts.next}
+            loader={<Asset spinner />}
+          >
+            {profilePosts.results.map((post) => (
               <Post key={post.id} {...post} setPosts={setProfilePosts} />
             ))}
-            dataLength={profilePosts.results.length}
-            loader={<Asset spinner />}
-            hasMore={!!profilePosts.next}
-            next={() => fetchMoreData(profilePosts, setProfilePosts)}
-          />
+          </InfiniteScroll>
         ) : (
           <Asset
             src={NoResults}
