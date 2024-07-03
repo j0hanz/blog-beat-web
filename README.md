@@ -1,6 +1,9 @@
-# Blog Beat
+<p align="center">
+  <img src="/docs/logo.png" alt="Blog Beat Logo">
+</p>
 
-Blog Beat is an interactive web application designed to provide a platform for users to read, write, and interact with blog posts on various topics. It targets bloggers, readers, and content creators seeking a user-friendly, accessible platform to express their ideas and engage with a community.
+Blog Beat is an interactive web application for reading, writing, and interacting with blog posts.
+It provides a user-friendly platform for bloggers, readers, and content creators to share ideas and engage with the community.
 
 ---
 
@@ -8,39 +11,39 @@ Blog Beat is an interactive web application designed to provide a platform for u
 
 - [Introduction](#introduction)
 - [User Experience (UX)](#user-experience-ux)
-  - [Strategy](#strategy)
-    - [Project Goals](#project-goals)
-    - [User Goals](#user-goals)
-    - [Site Owner Goals](#site-owner-goals)
-    - [Target Audience](#target-audience)
-    - [User Requirements and Expectations](#user-requirements-and-expectations)
-  - [Scope](#scope)
-    - [Features](#features)
-    - [Future Features](#future-features)
-  - [Structure](#structure)
-    - [Database Schema](#database-schema)
-  - [Component Architecture](#component-architecture)
-    - [Core Components](#core-components)
-    - [Reusable Components](#reusable-components)
-  - [Skeleton](#skeleton)
-    - [Wireframes](#wireframes)
-  - [Surface](#surface)
-    - [Design Choices](#design-choices)
-    - [Colors](#colors)
-    - [Typography](#typography)
+    - [Strategy](#strategy)
+        - [Project Goals](#project-goals)
+        - [User Goals](#user-goals)
+        - [Site Owner Goals](#site-owner-goals)
+        - [Target Audience](#target-audience)
+        - [User Requirements and Expectations](#user-requirements-and-expectations)
+    - [Scope](#scope)
+        - [Features](#features)
+        - [Future Features](#future-features)
+    - [Structure](#structure)
+        - [Database Schema](#database-schema)
+    - [Component Architecture](#component-architecture)
+        - [Core Components](#core-components)
+        - [Reusable Components](#reusable-components)
+    - [Skeleton](#skeleton)
+        - [Wireframes](#wireframes)
+    - [Surface](#surface)
+        - [Design Choices](#design-choices)
+        - [Colors](#colors)
+        - [Typography](#typography)
 - [Technologies Used](#technologies-used)
-  - [Front-End Technologies](#front-end-technologies)
-  - [Back-End Technologies](#back-end-technologies)
-  - [Development Tools and Libraries](#development-tools-and-libraries)
+    - [Front-End Technologies](#front-end-technologies)
+    - [Back-End Technologies](#back-end-technologies)
+    - [Development Tools and Libraries](#development-tools-and-libraries)
 - [Methodology](#methodology)
-  - [Agile Development](#agile-development)
-    - [MoSCoW Method](#moscow-method)
-    - [Story Points](#story-points)
-    - [Sprint](#sprint)
-  - [User Stories as GitHub Issues](#user-stories-as-github-issues)
+    - [Agile Development](#agile-development)
+        - [MoSCoW Method](#moscow-method)
+        - [Story Points](#story-points)
+        - [Sprint](#sprint)
+    - [User Stories as GitHub Issues](#user-stories-as-github-issues)
 - [Bugs](#bugs)
 - [Testing](#testing)
-  - [Manual Testing](#manual-testing)
+    - [Manual Testing](#manual-testing)
 - [Deployment](#deployment)
 - [Contributing](#contributing)
 - [Credits](#credits)
@@ -209,6 +212,7 @@ Additional features and functionalities were added incrementally.
 #### MoSCoW Method
 
 The MoSCoW method was used to prioritize features:
+
 - **Must Have**: Essential for project success.
 - **Should Have**: Important but not critical.
 - **Could Have**: Nice to have, consider for future.
