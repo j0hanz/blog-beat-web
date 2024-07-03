@@ -108,6 +108,10 @@ const ProfileEditForm = () => {
     handleMount();
   }, [currentUser, navigate, id]);
 
+  const handleClose = () => {
+    navigate(-1);
+  };
+
   const handleChange = (event) => {
     setProfileData({
       ...profileData,
@@ -153,14 +157,10 @@ const ProfileEditForm = () => {
         ...currentUser,
         profile_image: data.image,
       }));
-      navigate(-1);
+      navigate('/profiles/' + id);
     } catch (err) {
       setErrors(err.response?.data);
     }
-  };
-
-  const handleClose = () => {
-    navigate(-1);
   };
 
   const textFields = (
