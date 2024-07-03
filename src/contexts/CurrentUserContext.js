@@ -21,7 +21,6 @@ export const CurrentUserProvider = ({ children }) => {
       setCurrentUser(data);
     } catch (err) {
       console.log(err);
-      toast.error('Failed to load user data.');
     }
   };
 
