@@ -36,7 +36,7 @@ const UserEditProfile = React.forwardRef(({ onClick }, ref) => (
   />
 ));
 
-export const MoreDropdown = ({ handleEdit, handleDelete }) => {
+export const MoreDropdown = ({ handleEdit, handleShowConfirm }) => {
   return (
     <Dropdown drop="start">
       <Dropdown.Toggle as={ThreeDots} />
@@ -50,7 +50,7 @@ export const MoreDropdown = ({ handleEdit, handleDelete }) => {
         </Dropdown.Item>
         <Dropdown.Item
           className={styles.DropdownItem}
-          onClick={handleDelete}
+          onClick={handleShowConfirm}
           aria-label="delete"
         >
           <FontAwesomeIcon
@@ -66,18 +66,13 @@ export const MoreDropdown = ({ handleEdit, handleDelete }) => {
 export const ProfileEditDropdown = ({ id }) => {
   const navigate = useNavigate();
 
-  console.log(`ProfileEditDropdown ID: ${id}`);
-
   return (
     <Dropdown className={`ml-auto px-3 ${styles.Absolute}`} drop="left">
       <Dropdown.Toggle as={UserEditProfile} />
       <Dropdown.Menu className={`text-center ${styles.DropdownMenu}`}>
         <Dropdown.Item
           className={styles.DropdownItem}
-          onClick={() => {
-            console.log(`Navigating to /profiles/${id}/edit`);
-            navigate(`/profiles/${id}/edit`);
-          }}
+          onClick={() => navigate(`/profiles/${id}/edit`)}
           aria-label="edit-profile"
         >
           <FontAwesomeIcon className={`fa-lg ${styles.faEdit}`} icon={faEdit} />
@@ -85,10 +80,7 @@ export const ProfileEditDropdown = ({ id }) => {
         </Dropdown.Item>
         <Dropdown.Item
           className={styles.DropdownItem}
-          onClick={() => {
-            console.log(`Navigating to /profiles/${id}/edit/username`);
-            navigate(`/profiles/${id}/edit/username`);
-          }}
+          onClick={() => navigate(`/profiles/${id}/edit/username`)}
           aria-label="edit-username"
         >
           <FontAwesomeIcon
@@ -99,10 +91,7 @@ export const ProfileEditDropdown = ({ id }) => {
         </Dropdown.Item>
         <Dropdown.Item
           className={styles.DropdownItem}
-          onClick={() => {
-            console.log(`Navigating to /profiles/${id}/edit/password`);
-            navigate(`/profiles/${id}/edit/password`);
-          }}
+          onClick={() => navigate(`/profiles/${id}/edit/password`)}
           aria-label="edit-password"
         >
           <FontAwesomeIcon className={`fa-lg ${styles.faKey}`} icon={faKey} />
