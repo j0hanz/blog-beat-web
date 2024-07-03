@@ -38,7 +38,7 @@ export const ProfileDataProvider = ({ children }) => {
         },
       }));
     } catch (err) {
-      console.log(err);
+      console.error('Failed to follow the profile:', err);
     }
   };
 
@@ -60,12 +60,12 @@ export const ProfileDataProvider = ({ children }) => {
         },
       }));
     } catch (err) {
-      console.log(err);
+      console.error('Failed to unfollow the profile:', err);
     }
   };
 
   useEffect(() => {
-    const handleMount = async () => {
+    const fetchPopularProfiles = async () => {
       try {
         const { data } = await axiosReq.get(
           '/profiles/?ordering=-followers_count',
@@ -75,11 +75,13 @@ export const ProfileDataProvider = ({ children }) => {
           popularProfiles: data,
         }));
       } catch (err) {
-        console.log(err);
+        console.error('Failed to fetch popular profiles:', err);
       }
     };
 
-    handleMount();
+    if (currentUser) {
+      fetchPopularProfiles();
+    }
   }, [currentUser]);
 
   return (
