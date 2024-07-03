@@ -70,17 +70,17 @@ function ProfilePage() {
           <Row className="w-100 justify-content-center">
             <Col xs={12} sm={4} className="my-2">
               <div className="font-weight-bold">
+                <div>Name:</div>
                 {profile?.first_name} {profile?.last_name}
               </div>
-              <div>Name</div>
             </Col>
             <Col xs={12} sm={4} className="my-2">
+              <div>Country:</div>
               <div>{profile?.country}</div>
-              <div>Country</div>
             </Col>
             <Col xs={12} sm={4} className="my-2">
+              <div>Bio:</div>
               <div>{profile?.bio}</div>
-              <div>Bio</div>
             </Col>
           </Row>
           {profile?.social_media_links &&
