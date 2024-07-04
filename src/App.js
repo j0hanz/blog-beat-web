@@ -55,6 +55,15 @@ function App() {
               />
             }
           />
+          <Route
+            path="/favorites"
+            element={
+              <PostsPage
+                message="No results found. Adjust the search keyword or add a post to favorites."
+                filter={`favorites__owner__profile=${profile_id}&ordering=-favorites__created_at&`}
+              />
+            }
+          />
           <Route path="/about" element={<About />} />
           <Route
             path="/posts/create"
