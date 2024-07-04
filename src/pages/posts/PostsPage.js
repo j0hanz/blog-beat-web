@@ -64,7 +64,7 @@ function PostsPage({ message, filter = '' }) {
         </div>
         <PopularProfiles />
         {!hasLoaded ? (
-          <div className="d-flex justify-content-center my-4">
+          <div className="d-flex justify-content-center my-1">
             <Asset spinner />
           </div>
         ) : posts.results.length ? (
