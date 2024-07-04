@@ -143,10 +143,10 @@ const Post = (props) => {
             <Col xs="auto">
               <Link to={`/profiles/${profile_id}`}>
                 <Icon src={profile_image} height={35} />
-                <span className="mx-2">{owner}</span>
+                <span className='px-2'>{owner}</span>
               </Link>
             </Col>
-            <Col>{/* Leaves empty. */}</Col>
+            <Col className='p-0'>{/* Leaves empty. */}</Col>
             <Col
               xs="auto"
               className="d-flex justify-content-end align-items-center"
@@ -157,7 +157,7 @@ const Post = (props) => {
                     className="fa-md mx-1"
                     icon={faLocationDot}
                   />
-                  <span className="me-3">{location}</span>
+                  <span className="me-2">{location}</span>
                 </>
               )}
               <span className="text-white-50">{updated_at}</span>
