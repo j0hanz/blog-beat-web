@@ -12,7 +12,11 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import Icon from '../../components/Icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComments, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import {
+  faComments,
+  faThumbsUp,
+  faLocationDot,
+} from '@fortawesome/free-solid-svg-icons';
 import { axiosRes } from '../../api/axiosDefaults';
 import { toast } from 'react-toastify';
 import { MoreDropdown } from '../../components/MoreDropdown';
@@ -28,6 +32,7 @@ const Post = (props) => {
     likes_count,
     like_id,
     title,
+    location,
     content,
     image,
     updated_at,
@@ -98,19 +103,29 @@ const Post = (props) => {
   return (
     <Container className="mt-4">
       <Card className={`${styles.Post}`}>
-        <Card.Body>
-          <Row className="align-items-center">
+        <Card.Body className="p-2">
+          <Row>
             <Col xs="auto">
-              <Link
-                to={`/profiles/${profile_id}`}
-                className="d-flex align-items-center"
-              >
+              <Link to={`/profiles/${profile_id}`}>
                 <Icon src={profile_image} height={35} />
-                <span>{owner}</span>
+                <span className="mx-2">{owner}</span>
               </Link>
             </Col>
-            <Col className="d-flex justify-content-end align-items-center">
-              <span className="text-white-50 mx-2">{updated_at}</span>
+            <Col></Col>
+            <Col
+              xs="auto"
+              className="d-flex justify-content-end align-items-center"
+            >
+              {location && (
+                <>
+                  <FontAwesomeIcon
+                    className="fa-md mx-1"
+                    icon={faLocationDot}
+                  />
+                  <span className="me-3">{location}</span>
+                </>
+              )}
+              <span className="text-white-50">{updated_at}</span>
               {is_owner && postPage && (
                 <MoreDropdown
                   handleEdit={handleEdit}
@@ -119,17 +134,20 @@ const Post = (props) => {
               )}
             </Col>
           </Row>
-          <hr />
         </Card.Body>
+
         {image && (
           <Link to={`/posts/${id}`}>
             <Card.Img className={styles.CardImg} src={image} alt={title} />
           </Link>
         )}
-        {title && <Card.Title className="text-center my-3">{title}</Card.Title>}
+        {title && (
+          <Card.Title className="text-center mb-0 mt-2">{title}</Card.Title>
+        )}
+        <hr />
+        {content && <Card.Text>{content}</Card.Text>}
+        <hr />
         <Card.Body>
-          {content && <Card.Text>{content}</Card.Text>}
-          <hr />
           <div className={styles.PostBar}>
             {is_owner ? (
               <OverlayTrigger
