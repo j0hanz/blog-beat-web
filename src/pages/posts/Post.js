@@ -136,7 +136,7 @@ const Post = (props) => {
   };
 
   return (
-    <Container className="mt-4">
+    <Container className="my-4">
       <Card className={`${styles.Post}`}>
         <Card.Body className="p-2">
           <Row>
@@ -146,7 +146,7 @@ const Post = (props) => {
                 <span className="mx-2">{owner}</span>
               </Link>
             </Col>
-            <Col></Col>
+            <Col>{/* Leaves empty. */}</Col>
             <Col
               xs="auto"
               className="d-flex justify-content-end align-items-center"
@@ -182,61 +182,70 @@ const Post = (props) => {
         <hr />
         {content && <Card.Text>{content}</Card.Text>}
         <hr />
-        <Card.Body>
-          <div className={styles.PostBar}>
-            {is_owner ? (
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>You can't like your own post!</Tooltip>}
-              >
+        <Card.Body className="p-2">
+          <Row>
+            <Col className={styles.PostBar}>
+              {is_owner ? (
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip>You can't like your own post!</Tooltip>}
+                >
+                  <FontAwesomeIcon
+                    className={`fa-xl ${styles.faThumbsUp}`}
+                    icon={faThumbsUp}
+                  />
+                </OverlayTrigger>
+              ) : like_id ? (
+                <span onClick={handleUnlike}>
+                  <FontAwesomeIcon
+                    className={`fa-xl ${styles.faThumbsUp} ${styles.liked}`}
+                    icon={faThumbsUp}
+                  />
+                </span>
+              ) : currentUser ? (
+                <span onClick={handleLike}>
+                  <FontAwesomeIcon
+                    className={`fa-xl ${styles.faThumbsUp}`}
+                    icon={faThumbsUp}
+                  />
+                </span>
+              ) : (
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip>Log in to like posts!</Tooltip>}
+                >
+                  <FontAwesomeIcon className="fa-xl" icon={faThumbsUp} />
+                </OverlayTrigger>
+              )}
+              <span>{likes_count}</span>
+            </Col>
+            <Col>
+              <Link to={`/posts/${id}`}>
                 <FontAwesomeIcon
-                  className={`fa-xl ${styles.faThumbsUp}`}
-                  icon={faThumbsUp}
+                  className={`fa-xl ${styles.faComments}`}
+                  icon={faComments}
                 />
-              </OverlayTrigger>
-            ) : like_id ? (
-              <span onClick={handleUnlike}>
-                <FontAwesomeIcon
-                  className={`fa-xl ${styles.faThumbsUp} ${styles.liked}`}
-                  icon={faThumbsUp}
-                />
-              </span>
-            ) : currentUser ? (
-              <span onClick={handleLike}>
-                <FontAwesomeIcon
-                  className={`fa-xl ${styles.faThumbsUp}`}
-                  icon={faThumbsUp}
-                />
-              </span>
-            ) : (
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>Log in to like posts!</Tooltip>}
-              >
-                <FontAwesomeIcon className="fa-xl" icon={faThumbsUp} />
-              </OverlayTrigger>
-            )}
-            <span>{likes_count}</span>
-            <Link to={`/posts/${id}`}>
-              <FontAwesomeIcon
-                className={`fa-xl ${styles.faComments}`}
-                icon={faComments}
-              />
-            </Link>
-            <span>{comments_count}</span>
-            {is_favourited ? (
-              <span onClick={handleUnfavorite}>
-                <FontAwesomeIcon
-                  className={`fa-xl text-warning`}
-                  icon={faStarFilled}
-                />
-              </span>
-            ) : (
-              <span onClick={handleFavorite}>
-                <FontAwesomeIcon className="fa-xl" icon={faStar} />
-              </span>
-            )}
-          </div>
+              </Link>
+              <span>{comments_count}</span>
+            </Col>
+            <Col>
+              {is_favourited ? (
+                <span onClick={handleUnfavorite}>
+                  <FontAwesomeIcon
+                    className={`fa-xl text-warning`}
+                    icon={faStarFilled}
+                  />
+                </span>
+              ) : (
+                <span onClick={handleFavorite}>
+                  <FontAwesomeIcon
+                    className={`fa-xl ${styles.faStar}`}
+                    icon={faStar}
+                  />
+                </span>
+              )}
+            </Col>
+          </Row>
         </Card.Body>
       </Card>
 
