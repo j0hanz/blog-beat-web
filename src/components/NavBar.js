@@ -15,6 +15,7 @@ import {
   faBarsStaggered,
   faThumbsUp,
   faPersonWalkingArrowRight,
+  faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import logo from '../assets/logo.webp';
@@ -72,6 +73,15 @@ const NavBar = () => {
         <span className="mx-auto">Liked</span>
         <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
       </NavLink>
+      <NavLink
+        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+        to="/favorites"
+        onClick={toggleOffcanvas}
+      >
+        <FontAwesomeIcon className={`fa-xl ${styles.faStar}`} icon={faStar} />
+        <span className="mx-auto">Favorites</span>
+        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
+      </NavLink>
       <hr />
       <NavLink
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
@@ -108,7 +118,6 @@ const NavBar = () => {
       </NavLink>
     </>
   );
-
   const loggedOutIcons = (
     <>
       <NavLink
