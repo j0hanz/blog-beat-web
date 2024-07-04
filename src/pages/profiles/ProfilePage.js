@@ -14,14 +14,6 @@ import Post from '../posts/Post';
 import { fetchMoreData } from '../../utils/utils';
 import NoResults from '../../assets/no-results.png';
 import { ProfileEditDropdown } from '../../components/MoreDropdown';
-import { FaFacebookF, FaInstagram, FaYoutube, FaGlobe } from 'react-icons/fa';
-
-const socialMediaIcons = {
-  facebook: <FaFacebookF />,
-  instagram: <FaInstagram />,
-  youtube: <FaYoutube />,
-  website: <FaGlobe />,
-};
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -123,25 +115,6 @@ function ProfilePage() {
               <div>{profile?.bio}</div>
             </Col>
           </Row>
-          <Row className="w-100 justify-content-center">
-            <Col xs={12} sm={4} className="my-2 text-center">
-              {profile?.social_media_links &&
-                profile.social_media_links.map((link, index) => (
-                  <a
-                    key={index}
-                    href={link?.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="d-flex align-items-center gap-2"
-                  >
-                    {socialMediaIcons[link?.platform?.toLowerCase()] || (
-                      <FaGlobe />
-                    )}
-                    {link?.platform}
-                  </a>
-                ))}
-            </Col>
-          </Row>
         </Col>
         <Col
           lg={3}
@@ -175,6 +148,7 @@ function ProfilePage() {
       )}
     </>
   );
+
   return (
     <Row className="d-flex justify-content-center text-center mx-auto">
       <Col>
@@ -188,7 +162,7 @@ function ProfilePage() {
             <Asset spinner />
           )}
         </Container>
-        </Col>
+      </Col>
     </Row>
   );
 }
