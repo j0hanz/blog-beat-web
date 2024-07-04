@@ -2,8 +2,7 @@
   <img src="/docs/logo.png" alt="Blog Beat Logo">
 </p>
 
-Blog Beat is an interactive web application for reading, writing, and interacting with blog posts.
-It provides a user-friendly platform for bloggers, readers, and content creators to share ideas and engage with the community.
+Blog Beat is an interactive web application for reading, writing, and interacting with blog posts. It provides a user-friendly platform for bloggers, readers, and content creators to share ideas and engage with the community.
 
 ---
 
@@ -30,7 +29,7 @@ It provides a user-friendly platform for bloggers, readers, and content creators
   </a>
 </p>
 
-
+---
 
 # Table of Contents
 
@@ -46,7 +45,6 @@ It provides a user-friendly platform for bloggers, readers, and content creators
         - [Features](#features)
         - [Future Features](#future-features)
     - [Structure](#structure)
-        - [Database Schema](#database-schema)
     - [Component Architecture](#component-architecture)
         - [Core Components](#core-components)
         - [Reusable Components](#reusable-components)
@@ -68,7 +66,6 @@ It provides a user-friendly platform for bloggers, readers, and content creators
     - [User Stories as GitHub Issues](#user-stories-as-github-issues)
 - [Bugs](#bugs)
 - [Testing](#testing)
-    - [Manual Testing](#manual-testing)
 - [Deployment](#deployment)
 - [Contributing](#contributing)
 - [Credits](#credits)
@@ -76,11 +73,15 @@ It provides a user-friendly platform for bloggers, readers, and content creators
 
 ---
 
-<img src="/docs/mockup.png" alt="Blog Beat Mockup">
+<p align="center">
+  <img src="/docs/mockup.png" alt="Blog Beat Mockup">
+</p>
 
 ---
 
 ## Introduction
+
+Blog Beat is an all-in-one blogging platform designed to provide an enriching experience for both writers and readers. It enables users to create, share, and engage with content seamlessly.
 
 ---
 
@@ -134,17 +135,24 @@ Blog Beat is designed to deliver a blogging experience with the following featur
 - **CRUD Operations**: For creating, editing, deleting, and viewing posts.
 - **Interactive Comments**: A platform for users to comment and engage with the community.
 - **Search Capability**: Efficient keyword search to swiftly find relevant posts.
-- **Social Media Sharing**: Easily share posts across social media to broaden visibility.
 - **Like Functionality**: Allows users to like posts, enhancing interactive feedback.
 - **Popular Profiles**: Showcases leading user profiles based on activity and engagement.
 
 ### Future Features
 
+- **Rich Text Editor**: Enhance the post creation experience with a rich text editor.
+- **Analytics Dashboard**: Provide users with insights into their post performance.
+- **Content Scheduling**: Allow users to schedule posts for future publication.
+- **Multimedia Support**: Enable embedding of videos, images, and other media types in posts.
+- **Dark Mode**: Offer an alternative theme for better readability in low light conditions.
+
 ---
 
 ## Structure
 
-### Database Schema
+### Database
+
+You can find all details regarding the database in the [Backend repository](https://github.com/j0hanz/blog_beat_api).
 
 ---
 
@@ -152,9 +160,17 @@ Blog Beat is designed to deliver a blogging experience with the following featur
 
 ### Core Components
 
----
+- **Header**: Navigation bar with links to main sections.
+- **Footer**: Contains social media links and additional navigation options.
+- **PostList**: Displays a list of blog posts.
+- **PostDetail**: Shows detailed view of a single post.
+- **UserProfile**: Displays user information and their posts.
 
 ### Reusable Components
+
+- **Button**: Customizable button component.
+- **InputField**: Reusable input field with validation.
+- **Modal**: Reusable modal dialog for various actions.
 
 ---
 
@@ -162,9 +178,7 @@ Blog Beat is designed to deliver a blogging experience with the following featur
 
 ### Wireframes
 
-Blog Beat's wireframes where designed in Balsamiq.
-Serve as a visual guide to the layout and interface.
-Streamlining UI development and enhancing user experience.
+Blog Beat's wireframes were designed in Balsamiq to serve as a visual guide to the layout and interface, streamlining UI development and enhancing user experience.
 
 <details><summary>Home Page / Menu</summary>
 <img src="/docs/wireframes/home.png" alt="Home Page Wireframe">
@@ -193,11 +207,7 @@ Focus on minimalism and readability to enhance user experience.
 
 ### Colors
 
-A soothing color palette to create a welcoming environment.
-
 ### Typography
-
-Carefully selected fonts to ensure readability and aesthetic appeal.
 
 ---
 
@@ -215,6 +225,8 @@ Carefully selected fonts to ensure readability and aesthetic appeal.
 ### Back-End Technologies
 
 - **Node.js**: Platform for server-side JavaScript.
+- **Express.js**: Web framework for Node.js to build APIs.
+- **MongoDB**: NoSQL database for handling large volumes of data.
 - **JWT**: For secure information transmission and authentication.
 
 ### Development Tools and Libraries
@@ -231,8 +243,7 @@ Carefully selected fonts to ensure readability and aesthetic appeal.
 
 ### Agile Development
 
-Followed an agile methodology with an initial focus on developing a functional site that covered all key user stories.
-Additional features and functionalities were added incrementally.
+Followed an agile methodology with an initial focus on developing a functional site that covered all key user stories. Additional features and functionalities were added incrementally.
 
 #### MoSCoW Method
 
@@ -244,9 +255,7 @@ The MoSCoW method was used to prioritize features:
 
 #### Story Points
 
-**Story Points** are a way to estimate the effort required to complete a task.
-They take into account the complexity, risks, and time needed.
-Story points use numbers 1, 2, 3, 5, and 8 to represent different effort levels.
+**Story Points** are a way to estimate the effort required to complete a task. They take into account the complexity, risks, and time needed. Story points use numbers 1, 2, 3, 5, and 8 to represent different effort levels.
 
 #### Sprint
 
@@ -260,21 +269,15 @@ User stories are managed as GitHub issues, allowing for transparent tracking and
 
 ## Bugs
 
-A section to report known issues and their status.
-
 ---
 
 ## Testing
 
-### Manual Testing
-
-Detailed steps for how each feature was tested manually.
+[View detailed testing information here](TESTING.md).
 
 ---
 
 ## Deployment
-
-Instructions and notes on how to deploy Blog Beat to production environments.
 
 ---
 
