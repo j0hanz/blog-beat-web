@@ -8,8 +8,6 @@ import {
   Container,
   Modal,
   InputGroup,
-  DropdownButton,
-  Dropdown,
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -17,14 +15,7 @@ import {
   faGlobe,
   faPen,
   faTimes,
-  faPlus,
-  faEllipsis,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  faFacebook,
-  faInstagram,
-  faYoutube,
-} from '@fortawesome/free-brands-svg-icons';
 import { axiosReq } from '../../api/axiosDefaults';
 import {
   useCurrentUser,
@@ -34,29 +25,6 @@ import { CountryDropdown } from 'react-country-region-selector';
 import styles from './styles/ProfileEditForm.module.css';
 import { toast } from 'react-toastify';
 import Asset from '../../components/Asset';
-
-const SOCIAL_MEDIA_CHOICES = [
-  {
-    value: 'facebook',
-    icon: <FontAwesomeIcon className="fa-xl" icon={faFacebook} />,
-    label: 'Facebook',
-  },
-  {
-    value: 'instagram',
-    icon: <FontAwesomeIcon className="fa-xl" icon={faInstagram} />,
-    label: 'Instagram',
-  },
-  {
-    value: 'youtube',
-    icon: <FontAwesomeIcon className="fa-xl" icon={faYoutube} />,
-    label: 'YouTube',
-  },
-  {
-    value: 'website',
-    icon: <FontAwesomeIcon className="fa-xl" icon={faGlobe} />,
-    label: 'Website',
-  },
-];
 
 const ProfileEditForm = () => {
   const currentUser = useCurrentUser();
@@ -71,10 +39,8 @@ const ProfileEditForm = () => {
     country: '',
     bio: '',
     image: '',
-    social_media_links: [],
   });
-  const { first_name, last_name, country, bio, image, social_media_links } =
-    profileData;
+  const { first_name, last_name, country, bio, image } = profileData;
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
@@ -84,21 +50,13 @@ const ProfileEditForm = () => {
       if (currentUser?.pk?.toString() === id) {
         try {
           const { data } = await axiosReq.get(`/profiles/${id}/`);
-          const {
-            first_name,
-            last_name,
-            country,
-            bio,
-            image,
-            social_media_links,
-          } = data;
+          const { first_name, last_name, country, bio, image } = data;
           setProfileData({
             first_name,
             last_name,
             country,
             bio,
             image,
-            social_media_links: social_media_links || [],
           });
           setLoading(false);
         } catch (err) {
@@ -123,22 +81,6 @@ const ProfileEditForm = () => {
     });
   };
 
-  const handleSocialMediaChange = (index, field, value) => {
-    const newSocialMediaLinks = [...social_media_links];
-    newSocialMediaLinks[index][field] = value;
-    setProfileData({
-      ...profileData,
-      social_media_links: newSocialMediaLinks,
-    });
-  };
-
-  const addSocialMediaLink = () => {
-    setProfileData({
-      ...profileData,
-      social_media_links: [...social_media_links, { platform: '', url: '' }],
-    });
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -146,10 +88,6 @@ const ProfileEditForm = () => {
     formData.append('last_name', last_name);
     formData.append('country', country);
     formData.append('bio', bio);
-    social_media_links.forEach((link, index) => {
-      formData.append(`social_media_links[${index}][platform]`, link.platform);
-      formData.append(`social_media_links[${index}][url]`, link.url);
-    });
 
     if (imageFile?.current?.files[0]) {
       formData.append('image', imageFile?.current?.files[0]);
@@ -250,56 +188,6 @@ const ProfileEditForm = () => {
           {message}
         </Alert>
       ))}
-      <div className="mb-3">
-        <Form.Label className="d-block">Social Media Links</Form.Label>
-        {social_media_links.map((link, index) => (
-          <InputGroup className="mb-2" key={index}>
-            <DropdownButton
-              as={InputGroup.Prepend}
-              variant="outline-secondary"
-              title={
-                link.platform ? (
-                  SOCIAL_MEDIA_CHOICES.find(
-                    (choice) => choice.value === link.platform,
-                  )?.icon
-                ) : (
-                  <FontAwesomeIcon icon={faEllipsis} />
-                )
-              }
-              id={`social-media-dropdown-${index}`}
-            >
-              {SOCIAL_MEDIA_CHOICES.map((choice) => (
-                <Dropdown.Item
-                  key={choice.value}
-                  onClick={() =>
-                    handleSocialMediaChange(index, 'platform', choice.value)
-                  }
-                >
-                  {choice.icon}
-                  {choice.label}
-                </Dropdown.Item>
-              ))}
-            </DropdownButton>
-            <Form.Control
-              type="text"
-              placeholder="URL"
-              name="url"
-              value={link.url}
-              onChange={(e) =>
-                handleSocialMediaChange(index, 'url', e.target.value)
-              }
-              className="mb-2"
-            />
-          </InputGroup>
-        ))}
-        <Button
-          variant="outline-light"
-          onClick={addSocialMediaLink}
-          className="my-2"
-        >
-          Add <FontAwesomeIcon icon={faPlus} />
-        </Button>
-      </div>
       <Button
         variant="outline-warning"
         onClick={handleClose}
