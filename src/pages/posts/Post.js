@@ -16,6 +16,8 @@ import {
   faComments,
   faThumbsUp,
   faLocationDot,
+  faStar,
+  faStar as faStarFilled,
 } from '@fortawesome/free-solid-svg-icons';
 import { axiosRes } from '../../api/axiosDefaults';
 import { toast } from 'react-toastify';
@@ -38,6 +40,7 @@ const Post = (props) => {
     updated_at,
     postPage,
     setPosts,
+    is_favourited,
   } = props;
 
   const currentUser = useCurrentUser();
@@ -97,6 +100,38 @@ const Post = (props) => {
       }));
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const handleFavorite = async () => {
+    try {
+      await axiosRes.post(`/posts/${id}/favourite/`);
+      setPosts((prevPosts) => ({
+        ...prevPosts,
+        results: prevPosts.results.map((post) => {
+          return post.id === id ? { ...post, is_favourited: true } : post;
+        }),
+      }));
+      toast.success('Post added to favorites!');
+    } catch (err) {
+      console.log(err);
+      toast.error('Failed to add to favorites!');
+    }
+  };
+
+  const handleUnfavorite = async () => {
+    try {
+      await axiosRes.delete(`/posts/${id}/favourite/`);
+      setPosts((prevPosts) => ({
+        ...prevPosts,
+        results: prevPosts.results.map((post) => {
+          return post.id === id ? { ...post, is_favourited: false } : post;
+        }),
+      }));
+      toast.success('Post removed from favorites!');
+    } catch (err) {
+      console.log(err);
+      toast.error('Failed to remove from favorites!');
     }
   };
 
@@ -189,6 +224,18 @@ const Post = (props) => {
               />
             </Link>
             <span>{comments_count}</span>
+            {is_favourited ? (
+              <span onClick={handleUnfavorite}>
+                <FontAwesomeIcon
+                  className={`fa-xl text-warning`}
+                  icon={faStarFilled}
+                />
+              </span>
+            ) : (
+              <span onClick={handleFavorite}>
+                <FontAwesomeIcon className="fa-xl" icon={faStar} />
+              </span>
+            )}
           </div>
         </Card.Body>
       </Card>
