@@ -47,12 +47,11 @@ function SignInForm() {
     try {
       const { data } = await axios.post('/dj-rest-auth/login/', signInData);
       setCurrentUser(data.user);
-      setTokenTimestamp(data);
       toast.success('Logged in successfully!');
+      setTokenTimestamp(data);
       navigate(-1);
     } catch (err) {
       setErrors(err.response?.data);
-      toast.error('Failed to login. Please try again.');
     }
   };
 
