@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { axiosReq, axiosRes } from '../api/axiosDefaults';
 import { useNavigate } from 'react-router-dom';
+import { removeTokenTimestamp, shouldRefreshToken } from '../utils/utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -32,23 +34,23 @@ export const CurrentUserProvider = ({ children }) => {
     handleMount();
   }, []);
 
-  useEffect(() => {
-    const requestInterceptor = axiosReq.interceptors.request.use(
+  useMemo(() => {
+    axiosReq.interceptors.request.use(
       async (config) => {
-        if (!currentUser) {
-          return config;
-        }
-        try {
-          await axios.post('/dj-rest-auth/token/refresh/');
-        } catch (err) {
-          setCurrentUser((prevCurrentUser) => {
-            if (prevCurrentUser) {
-              navigate('/signin');
-              toast.error('Session expired. Please sign in again.');
-            }
-            return null;
-          });
-          throw err;
+        if (shouldRefreshToken()) {
+          try {
+            await axios.post('/dj-rest-auth/token/refresh/');
+          } catch (err) {
+            setCurrentUser((prevCurrentUser) => {
+              if (prevCurrentUser) {
+                navigate('/signin');
+                toast.error('Session expired. Please sign in again.');
+              }
+              return null;
+            });
+            removeTokenTimestamp();
+            return config;
+          }
         }
         return config;
       },
@@ -57,15 +59,13 @@ export const CurrentUserProvider = ({ children }) => {
         return Promise.reject(err);
       },
     );
-
-    const responseInterceptor = axiosRes.interceptors.response.use(
+    axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
         if (err.response?.status === 401 && currentUser) {
           try {
             await axios.post('/dj-rest-auth/token/refresh/');
-            return axiosRes(err.config);
-          } catch (refreshErr) {
+          } catch (err) {
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
                 navigate('/signin');
@@ -73,16 +73,13 @@ export const CurrentUserProvider = ({ children }) => {
               }
               return null;
             });
+            removeTokenTimestamp();
           }
+          return axios(err.config);
         }
         return Promise.reject(err);
       },
     );
-
-    return () => {
-      axiosReq.interceptors.request.eject(requestInterceptor);
-      axiosRes.interceptors.response.eject(responseInterceptor);
-    };
   }, [currentUser, navigate]);
 
   return (
