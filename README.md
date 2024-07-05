@@ -1,3 +1,5 @@
+---
+
 <p align="center">
   <img src="/docs/logo.png" alt="Blog Beat Logo">
 </p>
@@ -128,23 +130,31 @@ Bloggers, readers, and content creators from various backgrounds interested in s
 
 ### Features
 
-Blog Beat is designed to deliver a blogging experience with the following features:
+Blog Beat offers a rich blogging experience with the following features:
 
 - **Responsive Design**: Optimized for all devices, ensuring accessibility anywhere.
 - **User Authentication**: A robust system for secure logins and account management.
-- **CRUD Operations**: For creating, editing, deleting, and viewing posts.
-- **Interactive Comments**: A platform for users to comment and engage with the community.
-- **Search Capability**: Efficient keyword search to swiftly find relevant posts.
-- **Like Functionality**: Allows users to like posts, enhancing interactive feedback.
+- **CRUD Operations**: Create, edit, delete, and view posts.
+- **Interactive Comments**: Comment and engage with the community.
+- [Search Capability](https://github.com/j0hanz/blog-beat-web/issues/11): Efficient keyword search to quickly find relevant posts.
+- [Like Functionality](https://github.com/j0hanz/blog-beat-web/issues/5): Allows users to like posts, enhancing interactive feedback.
 - **Popular Profiles**: Showcases leading user profiles based on activity and engagement.
 
 ### Future Features
 
-- **Rich Text Editor**: Enhance the post creation experience with a rich text editor.
-- **Analytics Dashboard**: Provide users with insights into their post performance.
-- **Content Scheduling**: Allow users to schedule posts for future publication.
-- **Multimedia Support**: Enable embedding of videos, images, and other media types in posts.
-- **Dark Mode**: Offer an alternative theme for better readability in low light conditions.
+Blog Beat aims to continually improve and expand its functionality. Here are some of the planned future features:
+
+- [Bookmark Posts](https://github.com/j0hanz/blog-beat-web/issues/9): Allow users to bookmark posts for easy access later.
+- [Add Social Media Links](https://github.com/j0hanz/blog-beat-web/issues/7): Enable users to link their social media profiles.
+- [Receive Notifications](https://github.com/j0hanz/blog-beat-web/issues/13): Notify users about important activities and updates.
+- [Report Inappropriate Content](https://github.com/j0hanz/blog-beat-web/issues/14): Provide a way for users to report inappropriate content.
+- [View Post Analytics](https://github.com/j0hanz/blog-beat-web/issues/15): Offer detailed analytics for user posts.
+- [Save Drafts of Posts](https://github.com/j0hanz/blog-beat-web/issues/16): Allow users to save drafts of their posts for later editing.
+- [Filter Posts by Category](https://github.com/j0hanz/blog-beat-web/issues/17): Enable users to filter posts by different categories.
+- [Receive Email Notifications](https://github.com/j0hanz/blog-beat-web/issues/31): Send email notifications for important activities.
+- [Enable Two-Factor Authentication](https://github.com/j0hanz/blog-beat-web/issues/27): Enhance account security with two-factor authentication.
+- [User Mentions in Posts](https://github.com/j0hanz/blog-beat-web/issues/34): Allow users to mention others in their posts.
+- [Report Bugs or Issues](https://github.com/j0hanz/blog-beat-web/issues/32): Provide a way for users to report bugs or issues.
 
 ---
 
@@ -171,6 +181,13 @@ You can find all details regarding the database in the [Backend repository](http
 - **Button**: Customizable button component.
 - **InputField**: Reusable input field with validation.
 - **Modal**: Reusable modal dialog for various actions.
+- **Spinner**: Loading indicator for asynchronous operations.
+- **Dropdown**: Customizable dropdown menu for various selections.
+- **Offcanvas**: Sliding panel for additional navigation or content.
+- **OverlayTrigger**: Component to trigger overlays such as tooltips and popovers.
+- **Tooltip**: Informative text that appears on hover.
+- **Alert**: Notification component for messages and warnings.
+- **Form**: Reusable form component with validation.
 
 ---
 
@@ -203,11 +220,21 @@ Blog Beat's wireframes were designed in Balsamiq to serve as a visual guide to t
 
 ### Design Choices
 
-Focus on minimalism and readability to enhance user experience.
+Blog Beat focuses on minimalism and readability to enhance user experience:
+
+- **Minimalist Layout**: Clean and uncluttered design.
+- **High Readability**: Clear text with good contrast.
+- **Easy Navigation**: Simple and intuitive menus.
+- **Responsive Design**: Works well on all devices.
+- **Visual Consistency**: Uniform use of colors and fonts.
 
 ### Colors
 
-### Typography
+Blog Beat uses the following color scheme to ensure a visually appealing and accessible user interface:
+
+- **Background Color**: `#1e1e1e` (dark gray)
+- **Primary Color**: `#007bff` (blue)
+- **Text Color**: `#ffffff` (white)
 
 ---
 
@@ -221,12 +248,17 @@ Focus on minimalism and readability to enhance user experience.
 - **Font Awesome**: For interface enhancement with icons.
 - **Sass**: For advanced CSS features like variables and mixins.
 - **HTML5 & CSS3**: Standards for structuring and styling web content.
+- **JSX (JavaScript XML)**: Syntax extension for React that allows writing HTML in JavaScript.
+- **React Router**: For handling client-side routing.
+- **React-Bootstrap**: Integration of Bootstrap components with React.
+- **React Toastify**: For elegant toast notifications.
 
 ### Back-End Technologies
 
 - **Node.js**: Platform for server-side JavaScript.
 - **Express.js**: Web framework for Node.js to build APIs.
 - **MongoDB**: NoSQL database for handling large volumes of data.
+- **Mongoose**: ODM library for MongoDB and Node.js.
 - **JWT**: For secure information transmission and authentication.
 
 ### Development Tools and Libraries
@@ -234,8 +266,9 @@ Focus on minimalism and readability to enhance user experience.
 - **Git & GitHub**: For version control and collaboration.
 - **Heroku**: For deploying and managing the application.
 - **Webpack & Babel**: For bundling modules and compiling modern JavaScript.
-- **dotenv**: For managing environment variables.
 - **CORS**: For enabling cross-origin requests.
+- **ESLint & Prettier**: For maintaining code quality and formatting.
+- **Balsamiq**: For creating wireframes and mockups.
 
 ---
 
@@ -269,6 +302,10 @@ User stories are managed as GitHub issues, allowing for transparent tracking and
 
 ## Bugs
 
+### Known Bugs
+
+
+
 ---
 
 ## Testing
@@ -278,6 +315,51 @@ User stories are managed as GitHub issues, allowing for transparent tracking and
 ---
 
 ## Deployment
+
+Blog Beat is deployed using Heroku. Follow these steps to deploy your instance:
+
+1. **Create a Heroku Account**: Sign up for [Heroku](https://signup.heroku.com/) to manage cloud-based applications.
+
+2. **Prepare Your Application**:
+   - Push your code to the [Blog Beat Web Repository](https://github.com/j0hanz/blog-beat-web) on GitHub.
+   - Ensure all necessary changes are committed for deployment.
+
+3. **Create a New Heroku Application**:
+   - Log in to Heroku and create a new app.
+   - Choose a unique name and select a region.
+
+4. **Set Environment Variables**:
+   - Navigate to your app's settings on Heroku.
+   - Add required environment variables under "Config Vars" to secure sensitive data.
+
+5. **Deploy Your Application**:
+   - Go to the "Deploy" tab in your app's Heroku dashboard.
+   - Connect to your GitHub repository and choose the branch to deploy.
+   - Click "Deploy Branch" to start the deployment process.
+
+6. **Verify Deployment**:
+   - Once deployed, Heroku provides a URL for your live application.
+   - Open this URL in your browser to ensure the application is running correctly.
+
+---
+
+### Contributing to Blog Beat
+
+To contribute or make changes:
+
+1. **Fork the Repository**:
+   - Visit [Blog Beat Web Repository](https://github.com/j0hanz/blog-beat-web).
+   - Click "Fork" to create a copy in your GitHub account.
+
+2. **Clone the Repository**:
+   - Copy the repository URL using HTTPS, SSH, or GitHub CLI.
+   - Use Git Bash or terminal to clone the repository:
+     ```
+     git clone https://github.com/YOUR-USERNAME/blog-beat-web.git
+     ```
+   - Navigate to the cloned directory and start working locally.
+
+Now you're ready to deploy and contribute to Blog Beat!
 
 ---
 
@@ -297,11 +379,33 @@ Please follow the outlined steps:
 
 ## Credits
 
+This project was inspired by the Moments project, influencing similar code implementations. While both projects differ in appearance and functionality, certain features are shared.
+
+- **Websites:**
+  - [favicon.io](https://favicon.io): Used to create the project's favicon.
+  - [am I responsive](https://ami.responsivedesign.is/): Utilized for generating website preview images featured at the top of this README.
+
+These resources were instrumental in enhancing and refining the project's functionality and visual appeal.
+
 - **React**: For building a dynamic user interface.
 - **Node.js and Express**: For server-side logic.
 - **Bootstrap**: For responsive design elements.
 - **Axios**: For making HTTP requests from the front-end.
 
+
+### YouTube Channels
+
+- [ByteGrad](https://www.youtube.com/@ByteGrad)
+- [Web Dev Simplified](https://www.youtube.com/@WebDevSimplified)
+- [Cosden Solutions](https://www.youtube.com/@cosdensolutions)
+- [Jack Herrington](https://www.youtube.com/@jherr)
+- [Your Name](https://www.youtube.com/your-channel)
+
 ---
 
 ## Acknowledgements
+
+Special thanks to:
+
+- Namify and Logo.com for branding resources.
+- **Kristyna** - My cohort facilitator.
