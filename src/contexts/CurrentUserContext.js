@@ -75,7 +75,6 @@ export const CurrentUserProvider = ({ children }) => {
           }
           return axios(err.config);
         }
-        toast.error('Response failed. Please try again.');
         return Promise.reject(err);
       },
     );
