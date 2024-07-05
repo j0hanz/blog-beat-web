@@ -33,7 +33,7 @@ Blog Beat is an interactive web application for reading, writing, and interactin
 
 ---
 
-# Table of Contents
+## Table of Content
 
 - [Introduction](#introduction)
 - [User Experience (UX)](#user-experience-ux)
@@ -52,10 +52,10 @@ Blog Beat is an interactive web application for reading, writing, and interactin
         - [Reusable Components](#reusable-components)
     - [Skeleton](#skeleton)
         - [Wireframes](#wireframes)
+    - [Pages](#pages)
     - [Surface](#surface)
         - [Design Choices](#design-choices)
         - [Colors](#colors)
-        - [Typography](#typography)
 - [Technologies Used](#technologies-used)
     - [Front-End Technologies](#front-end-technologies)
     - [Back-End Technologies](#back-end-technologies)
@@ -98,6 +98,8 @@ Blog Beat is intuitive and user-friendly, enabling users to:
 - **Comment on Posts**: Interact with the community by commenting on posts.
 - **Search Functionality**: Use the search bar to quickly locate posts by keywords.
 
+[Back up](#table-of-content)
+
 ---
 
 ## Strategy
@@ -123,6 +125,8 @@ Bloggers, readers, and content creators from various backgrounds interested in s
 - A responsive and accessible website.
 - Secure and efficient user authentication and management.
 - Tools for content creation, editing, and interaction.
+
+[Back up](#table-of-content)
 
 ---
 
@@ -155,6 +159,8 @@ Blog Beat aims to continually improve and expand its functionality. Here are som
 - [Enable Two-Factor Authentication](https://github.com/j0hanz/blog-beat-web/issues/27): Enhance account security with two-factor authentication.
 - [User Mentions in Posts](https://github.com/j0hanz/blog-beat-web/issues/34): Allow users to mention others in their posts.
 - [Report Bugs or Issues](https://github.com/j0hanz/blog-beat-web/issues/32): Provide a way for users to report bugs or issues.
+
+[Back up](#table-of-content)
 
 ---
 
@@ -189,6 +195,8 @@ You can find all details regarding the database in the [Backend repository](http
 - **Alert**: Notification component for messages and warnings.
 - **Form**: Reusable form component with validation.
 
+[Back up](#table-of-content)
+
 ---
 
 ## Skeleton
@@ -214,7 +222,77 @@ Blog Beat's wireframes were designed in Balsamiq to serve as a visual guide to t
 <img src="/docs/wireframes/Post-Detail.png" alt="Post Detail Wireframe">
 </details>
 
+[Back up](#table-of-content)
+
 ---
+
+## Pages
+
+Explore the various pages of Blog Beat, each designed to provide a seamless and engaging user experience:
+
+<p align="center">
+  <img src="/docs/readme_pages/About_page.png" alt="About Page" title="About Page">
+  <br>
+  <strong>About Page:</strong> Learn more about Blog Beat and its features.
+</p>
+
+---
+
+<p align="center">
+  <img src="/docs/readme_pages/Edit_Profile.png" alt="Edit Profile Page" title="Edit Profile Page">
+  <br>
+  <strong>Edit Profile Page:</strong> Customize your profile information and settings.
+</p>
+
+---
+
+<p align="center">
+  <img src="/docs/readme_pages/Home.png" alt="Home Page" title="Home Page">
+  <br>
+  <strong>Home Page:</strong> Browse the latest blog posts and explore trending topics.
+</p>
+
+---
+
+<p align="center">
+  <img src="/docs/readme_pages/Login_Signup.png" alt="Login and Signup Page" title="Login and Signup Page">
+  <br>
+  <strong>Login and Signup Page:</strong> Access your account or create a new one to start blogging.
+</p>
+
+---
+
+<p align="center">
+  <img src="/docs/readme_pages/Menu_Logged_In.png" alt="Menu for Logged-In Users" title="Menu for Logged-In Users">
+  <br>
+  <strong>Menu for Logged-In Users:</strong> Navigate through your account options and site features.
+</p>
+
+---
+
+<p align="center">
+  <img src="/docs/readme_pages/Menu.png" alt="Menu" title="Menu">
+  <br>
+  <strong>Menu:</strong> Access various sections of the site easily.
+</p>
+
+---
+
+<p align="center">
+  <img src="/docs/readme_pages/Post_Page.png" alt="Post Page" title="Post Page">
+  <br>
+  <strong>Post Page:</strong> View detailed information about individual blog posts.
+</p>
+
+---
+
+<p align="center">
+  <img src="/docs/readme_pages/Profile_Page.png" alt="Profile Page" title="Profile Page">
+  <br>
+  <strong>Profile Page:</strong> Check out user profiles and their published posts.
+</p>
+
+[Back up](#table-of-content)
 
 ## Surface
 
@@ -235,6 +313,8 @@ Blog Beat uses the following color scheme to ensure a visually appealing and acc
 - **Background Color**: `#1e1e1e` (dark gray)
 - **Primary Color**: `#007bff` (blue)
 - **Text Color**: `#ffffff` (white)
+
+[Back up](#table-of-content)
 
 ---
 
@@ -270,6 +350,8 @@ Blog Beat uses the following color scheme to ensure a visually appealing and acc
 - **ESLint & Prettier**: For maintaining code quality and formatting.
 - **Balsamiq**: For creating wireframes and mockups.
 
+[Back up](#table-of-content)
+
 ---
 
 ## Methodology
@@ -298,13 +380,13 @@ Details of sprint cycles and their outcomes are provided to showcase the iterati
 
 User stories are managed as GitHub issues, allowing for transparent tracking and updates.
 
+[Back up](#table-of-content)
+
 ---
 
 ## Bugs
 
 ### Known Bugs
-
-
 
 ---
 
@@ -361,6 +443,8 @@ To contribute or make changes:
 
 Now you're ready to deploy and contribute to Blog Beat!
 
+[Back up](#table-of-content)
+
 ---
 
 ## Contributing
@@ -392,8 +476,9 @@ These resources were instrumental in enhancing and refining the project's functi
 - **Bootstrap**: For responsive design elements.
 - **Axios**: For making HTTP requests from the front-end.
 
-
 ### YouTube Channels
+
+These channels offered valuable content on various topics related to this project:
 
 - [ByteGrad](https://www.youtube.com/@ByteGrad)
 - [Web Dev Simplified](https://www.youtube.com/@WebDevSimplified)
@@ -408,4 +493,6 @@ These resources were instrumental in enhancing and refining the project's functi
 Special thanks to:
 
 - Namify and Logo.com for branding resources.
-- **Kristyna** - My cohort facilitator.
+- **Kristyna** - My cohort facilitator. Thank you for all the support I got from you!
+
+[Back up](#table-of-content)
