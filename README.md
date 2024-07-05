@@ -106,15 +106,15 @@ Blog Beat is intuitive and user-friendly, enabling users to:
 
 ### Project Goals
 
-To provide a rich blogging experience that encourages interaction and content creation.
+To provide a rich and engaging blogging experience that fosters interaction and encourages content creation.
 
 ### User Goals
 
-To access a platform that is intuitive and enhances the blogging experience through user-centric design.
+To access a platform that is intuitive and enhances their blogging experience through user-centric design.
 
 ### Site Owner Goals
 
-To grow a community around diverse blog content and provide tools that foster user engagement.
+To build a community centered around diverse blog content and provide tools that promote user engagement.
 
 ### Target Audience
 
@@ -358,23 +358,26 @@ Blog Beat uses the following color scheme to ensure a visually appealing and acc
 
 ### Agile Development
 
-Followed an agile methodology with an initial focus on developing a functional site that covered all key user stories. Additional features and functionalities were added incrementally.
+Blog Beat was developed using an agile methodology, initially focusing on creating a functional site that addressed all key user stories.
+Additional features and functionalities were added incrementally, ensuring continuous improvement and adaptation.
 
 #### MoSCoW Method
 
-The MoSCoW method was used to prioritize features:
+The MoSCoW method was utilized to prioritize features effectively:
 
-- **Must Have**: Essential for project success.
-- **Should Have**: Important but not critical.
-- **Could Have**: Nice to have, consider for future.
+- **Must Have**: Essential for the project's success.
+- **Should Have**: Important but not critical for the initial release.
+- **Could Have**: Desirable features to consider for future updates.
 
 #### Story Points
 
-**Story Points** are a way to estimate the effort required to complete a task. They take into account the complexity, risks, and time needed. Story points use numbers 1, 2, 3, 5, and 8 to represent different effort levels.
+Story Points were used to estimate the effort required for tasks.
+This system considers complexity, risks, and time, using numbers 1, 2, 3, 5, and 8 to represent different levels of effort.
 
 #### Sprint
 
-Details of sprint cycles and their outcomes are provided to showcase the iterative development approach.
+Sprint cycles were employed to structure the development process.
+Each sprint focused on specific tasks and user stories, with outcomes documented to demonstrate the iterative development approach.
 
 ### User Stories as GitHub Issues
 
@@ -400,7 +403,13 @@ User stories are managed as GitHub issues, allowing for transparent tracking and
 
 ## Bugs
 
-### Known Bugs
+### Unsolved Bugs
+
+- **Profile Image Disappears in Navbar**: The profile image disappears from the navbar upon page reload. It reappears after navigating to the edit profile page and clicking save.
+- **New Account Profile Image**: When a user creates a new account, the profile image initially appears blank.
+
+
+
 
 ---
 
@@ -477,7 +486,7 @@ Please follow the outlined steps:
 
 ## Credits
 
-This project was inspired by the Moments project, influencing similar code implementations. While both projects differ in appearance and functionality, certain features are shared.
+This project was inspired by the [Moments](https://github.com/mr-fibonacci/moments/tree/master) project, influencing similar code implementations.
 
 - **Websites:**
   - [favicon.io](https://favicon.io): Used to create the project's favicon.
