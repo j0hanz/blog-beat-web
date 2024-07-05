@@ -1,5 +1,4 @@
-import React from 'react';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { axiosReq, axiosRes } from '../api/axiosDefaults';
 import { useNavigate } from 'react-router-dom';
@@ -33,8 +32,8 @@ export const CurrentUserProvider = ({ children }) => {
     handleMount();
   }, []);
 
-  useMemo(() => {
-    axiosReq.interceptors.request.use(
+  useEffect(() => {
+    const requestInterceptor = axiosReq.interceptors.request.use(
       async (config) => {
         if (!currentUser) {
           return config;
@@ -49,7 +48,7 @@ export const CurrentUserProvider = ({ children }) => {
             }
             return null;
           });
-          return config;
+          throw err;
         }
         return config;
       },
@@ -58,13 +57,15 @@ export const CurrentUserProvider = ({ children }) => {
         return Promise.reject(err);
       },
     );
-    axiosRes.interceptors.response.use(
+
+    const responseInterceptor = axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
         if (err.response?.status === 401 && currentUser) {
           try {
             await axios.post('/dj-rest-auth/token/refresh/');
-          } catch (err) {
+            return axiosRes(err.config);
+          } catch (refreshErr) {
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
                 navigate('/signin');
@@ -73,11 +74,15 @@ export const CurrentUserProvider = ({ children }) => {
               return null;
             });
           }
-          return axios(err.config);
         }
         return Promise.reject(err);
       },
     );
+
+    return () => {
+      axiosReq.interceptors.request.eject(requestInterceptor);
+      axiosRes.interceptors.response.eject(responseInterceptor);
+    };
   }, [currentUser, navigate]);
 
   return (
