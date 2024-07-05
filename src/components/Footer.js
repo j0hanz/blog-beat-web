@@ -1,13 +1,13 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFacebook,
   faGithub,
   faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
-import { faCopyright } from "@fortawesome/free-regular-svg-icons";
-import styles from "./styles/Footer.module.css";
+} from '@fortawesome/free-brands-svg-icons';
+import { faCopyright } from '@fortawesome/free-regular-svg-icons';
+import styles from './styles/Footer.module.css';
 
 const Footer = () => {
   return (
@@ -24,19 +24,19 @@ const Footer = () => {
             <div className={`fa-lg ${styles.socialLinks}`}>
               {[
                 {
-                  href: "https://www.facebook.com",
+                  href: 'https://www.facebook.com',
                   icon: faFacebook,
-                  label: "Facebook",
+                  label: 'Facebook',
                 },
                 {
-                  href: "https://github.com/j0hanz/blog-beat-web",
+                  href: 'https://github.com/j0hanz/blog-beat-web',
                   icon: faGithub,
-                  label: "GitHub",
+                  label: 'GitHub',
                 },
                 {
-                  href: "https://www.instagram.com",
+                  href: 'https://www.instagram.com',
                   icon: faInstagram,
-                  label: "Instagram",
+                  label: 'Instagram',
                 },
               ].map(({ href, icon, label }, index) => (
                 <a
