@@ -30,6 +30,7 @@ import {
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import About from '../pages/About';
+import { removeTokenTimestamp } from '../utils/utils';
 
 /* NavBar component to manage navigation and user interactions */
 const NavBar = () => {
@@ -50,6 +51,7 @@ const NavBar = () => {
     try {
       await axios.post('dj-rest-auth/logout/');
       setCurrentUser(null);
+      removeTokenTimestamp();
       toast.info('You have logged out!');
     } catch (err) {
       console.log(err);
