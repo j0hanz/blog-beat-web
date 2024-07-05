@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles/Confirms.module.css';
 
+/* Confirm component */
 const Confirm = ({ show, onConfirm, onCancel }) => {
   return (
     <Modal show={show} onHide={onCancel} centered>

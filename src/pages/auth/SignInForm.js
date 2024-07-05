@@ -9,31 +9,38 @@ import styles from './styles/Login.module.css';
 import { useSetCurrentUser } from '../../contexts/CurrentUserContext';
 import { useRedirect } from '../../hooks/useRedirect';
 
+/* SignInForm component for user login */
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
   useRedirect('loggedIn');
 
+  /* State to manage sign in data */
   const [signInData, setSignInData] = useState({
     username: '',
     password: '',
   });
   const { username, password } = signInData;
 
+  /* State to manage errors */
   const [errors, setErrors] = useState({});
+  /* State to manage modal visibility */
   const [showModal, setShowModal] = useState(true);
 
   const navigate = useNavigate();
 
+  /* Function to handle closing the modal */
   const handleClose = () => {
     setShowModal(false);
     navigate('/');
   };
 
+  /* Function to handle sign up redirection */
   const handleSignUp = () => {
     setShowModal(false);
     navigate('/signup');
   };
 
+  /* Function to handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -47,6 +54,7 @@ function SignInForm() {
     }
   };
 
+  /* Function to handle input change */
   const handleChange = (event) => {
     setSignInData({
       ...signInData,

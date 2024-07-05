@@ -9,6 +9,7 @@ import { axiosRes } from '../../api/axiosDefaults';
 import styles from './styles/Comment.module.css';
 import Confirm from '../../components/Confirms';
 
+/* Comment component to display a single comment */
 const Comment = (props) => {
   const {
     profile_id,
@@ -21,11 +22,14 @@ const Comment = (props) => {
     setComments,
   } = props;
 
+  /* State to manage edit form visibility */
   const [showEditForm, setShowEditForm] = useState(false);
+  /* State to manage confirmation modal visibility */
   const [showConfirm, setShowConfirm] = useState(false);
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
 
+  /* Handle comment deletion */
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/comments/${id}/`);
@@ -47,8 +51,11 @@ const Comment = (props) => {
     }
   };
 
+  /* Show confirmation modal */
   const handleShowConfirm = () => setShowConfirm(true);
+  /* Cancel confirmation modal */
   const handleCancelConfirm = () => setShowConfirm(false);
+  /* Confirm and delete the comment */
   const handleConfirmDelete = () => {
     handleDelete();
     setShowConfirm(false);

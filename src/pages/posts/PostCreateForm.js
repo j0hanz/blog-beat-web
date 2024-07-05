@@ -19,6 +19,7 @@ import { axiosReq } from '../../api/axiosDefaults';
 import { useRedirect } from '../../hooks/useRedirect';
 import { toast } from 'react-toastify';
 
+/* PostCreateForm component for creating a new post */
 function PostCreateForm() {
   useRedirect('loggedOut');
   const [errors, setErrors] = useState({});
@@ -33,6 +34,7 @@ function PostCreateForm() {
   const imageInput = useRef(null);
   const navigate = useNavigate();
 
+  /* Handle input change */
   const handleChange = (event) => {
     setPostData({
       ...postData,
@@ -40,6 +42,7 @@ function PostCreateForm() {
     });
   };
 
+  /* Handle image change */
   const handleChangeImage = (event) => {
     if (event.target.files.length) {
       URL.revokeObjectURL(image);
@@ -50,6 +53,7 @@ function PostCreateForm() {
     }
   };
 
+  /* Handle removing the image */
   const handleRemoveImage = () => {
     URL.revokeObjectURL(image);
     setPostData({
@@ -61,6 +65,7 @@ function PostCreateForm() {
     }
   };
 
+  /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();

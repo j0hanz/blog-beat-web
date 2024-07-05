@@ -13,6 +13,7 @@ import { fetchMoreData } from '../../utils/utils';
 import PopularProfiles from '../profiles/PopularProfiles';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 
+/* PostsPage component to display a list of posts with search and filter functionality */
 function PostsPage({ message, filter = '' }) {
   const [posts, setPosts] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -22,6 +23,7 @@ function PostsPage({ message, filter = '' }) {
   const currentUser = useCurrentUser();
 
   useEffect(() => {
+    /* Fetch posts data when component mounts or dependencies change */
     const fetchPosts = async () => {
       try {
         const { data } = await axiosReq.get(`/posts/?${filter}search=${query}`);

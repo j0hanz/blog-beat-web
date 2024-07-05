@@ -8,13 +8,17 @@ import 'react-toastify/dist/ReactToastify.css';
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
 
+/* Hook to use current user context */
 export const useCurrentUser = () => useContext(CurrentUserContext);
+/* Hook to use set current user context */
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 
+/* CurrentUserProvider component to manage current user state */
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
+  /* Function to handle component mount */
   const handleMount = async () => {
     try {
       const { data } = await axiosRes.get('dj-rest-auth/user/');

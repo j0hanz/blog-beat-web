@@ -24,6 +24,7 @@ import { toast } from 'react-toastify';
 import { MoreDropdown } from '../../components/MoreDropdown';
 import Confirm from '../../components/Confirms';
 
+/* Post component to display a single post with actions for edit, delete, like, and favorite */
 const Post = (props) => {
   const {
     id,
@@ -47,12 +48,15 @@ const Post = (props) => {
   const is_owner = currentUser?.username === owner;
   const navigate = useNavigate();
 
+  /* State to manage confirmation modal visibility */
   const [showConfirm, setShowConfirm] = useState(false);
 
+  /* Navigate to the edit post page */
   const handleEdit = () => {
     navigate(`/posts/${id}/edit`);
   };
 
+  /* Handle post deletion */
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/posts/${id}/`);
@@ -64,13 +68,17 @@ const Post = (props) => {
     }
   };
 
+  /* Show confirmation modal */
   const handleShowConfirm = () => setShowConfirm(true);
+  /* Cancel confirmation modal */
   const handleCancelConfirm = () => setShowConfirm(false);
+  /* Confirm and delete the post */
   const handleConfirmDelete = () => {
     handleDelete();
     setShowConfirm(false);
   };
 
+  /* Handle like action */
   const handleLike = async () => {
     try {
       const { data } = await axiosRes.post('/likes/', { post: id });
@@ -87,6 +95,7 @@ const Post = (props) => {
     }
   };
 
+  /* Handle unlike action */
   const handleUnlike = async () => {
     try {
       await axiosRes.delete(`/likes/${like_id}/`);
@@ -103,6 +112,7 @@ const Post = (props) => {
     }
   };
 
+  /* Handle adding post to favorites */
   const handleFavorite = async () => {
     try {
       await axiosRes.post(`/posts/${id}/favourite/`);
@@ -119,6 +129,7 @@ const Post = (props) => {
     }
   };
 
+  /* Handle removing post from favorites */
   const handleUnfavorite = async () => {
     try {
       await axiosRes.delete(`/posts/${id}/favourite/`);
@@ -143,10 +154,10 @@ const Post = (props) => {
             <Col xs="auto">
               <Link to={`/profiles/${profile_id}`}>
                 <Icon src={profile_image} height={35} />
-                <span className='px-2'>{owner}</span>
+                <span className="px-2">{owner}</span>
               </Link>
             </Col>
-            <Col className='p-0'>{/* Leaves empty. */}</Col>
+            <Col className="p-0">{/* Leaves empty. */}</Col>
             <Col
               xs="auto"
               className="d-flex justify-content-end align-items-center"

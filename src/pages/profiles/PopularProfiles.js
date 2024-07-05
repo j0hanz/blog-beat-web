@@ -5,6 +5,7 @@ import { useProfileData } from '../../contexts/ProfileDataContext';
 import Profile from './Profile';
 import styles from './styles/PopularProfiles.module.css';
 
+/* PopularProfiles component to display a list of popular profiles */
 const PopularProfiles = () => {
   const { popularProfiles } = useProfileData();
 

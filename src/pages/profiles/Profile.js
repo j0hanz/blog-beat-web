@@ -6,6 +6,7 @@ import Icon from '../../components/Icon';
 import { Button } from 'react-bootstrap';
 import { useSetProfileData } from '../../contexts/ProfileDataContext';
 
+/* Profile component to display a user profile with follow/unfollow functionality */
 const Profile = (props) => {
   const { profile, imageSize = 45 } = props;
   const { id, following_id, image, owner } = profile;

@@ -31,15 +31,21 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import About from '../pages/About';
 
+/* NavBar component to manage navigation and user interactions */
 const NavBar = () => {
+  /* Get current user from context */
   const currentUser = useCurrentUser();
+  /* Set current user in context */
   const setCurrentUser = useSetCurrentUser();
+  /* State to manage offcanvas visibility */
   const [show, setShow] = useState(false);
   const toggleOffcanvas = () => setShow(!show);
+  /* State to manage About modal visibility */
   const [showAbout, setShowAbout] = useState(false);
   const handleShowAbout = () => setShowAbout(true);
   const handleCloseAbout = () => setShowAbout(false);
 
+  /* Function to handle user sign out */
   const handleSignOut = async () => {
     try {
       await axios.post('dj-rest-auth/logout/');
@@ -51,6 +57,7 @@ const NavBar = () => {
     }
   };
 
+  /* Icons and links for logged-in users */
   const loggedInIcons = (
     <>
       <NavLink
@@ -122,6 +129,8 @@ const NavBar = () => {
       </NavLink>
     </>
   );
+
+  /* Icons and links for logged-out users */
   const loggedOutIcons = (
     <>
       <NavLink

@@ -10,6 +10,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Asset from '../../components/Asset';
 import { fetchMoreData } from '../../utils/utils';
 
+/* PostPage component to display a single post with comments */
 function PostPage() {
   const { id } = useParams();
   const [post, setPost] = useState({ results: [] });
@@ -19,6 +20,7 @@ function PostPage() {
   const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
+    /* Fetch post and comments data when component mounts */
     const fetchPost = async () => {
       try {
         const [{ data: post }, { data: comments }] = await Promise.all([

@@ -1,5 +1,6 @@
 import { axiosReq } from '../api/axiosDefaults';
 
+/* Function to fetch more data and update the resource state */
 export const fetchMoreData = async (resource, setResource) => {
   try {
     const { data } = await axiosReq.get(resource.next);
@@ -15,6 +16,7 @@ export const fetchMoreData = async (resource, setResource) => {
   } catch (err) {}
 };
 
+/* Helper function to update profile data when a user is followed */
 export const followHelper = (profile, clickedProfile, following_id) => {
   return profile.id === clickedProfile.id
     ? {
@@ -27,6 +29,7 @@ export const followHelper = (profile, clickedProfile, following_id) => {
     : profile;
 };
 
+/* Helper function to update profile data when a user is unfollowed */
 export const unfollowHelper = (profile, clickedProfile) => {
   return profile.id === clickedProfile.id
     ? {

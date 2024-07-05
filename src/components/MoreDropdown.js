@@ -12,6 +12,7 @@ import {
 import styles from './styles/MoreDropdown.module.css';
 import { useNavigate } from 'react-router-dom';
 
+/* ThreeDots component function using forwardRef */
 const ThreeDots = React.forwardRef(({ onClick }, ref) => (
   <FontAwesomeIcon
     className="btn btn-outline-light p-1"
@@ -24,6 +25,7 @@ const ThreeDots = React.forwardRef(({ onClick }, ref) => (
   />
 ));
 
+/* UserEditProfile component function using forwardRef */
 const UserEditProfile = React.forwardRef(({ onClick }, ref) => (
   <FontAwesomeIcon
     className="btn btn-outline-light"
@@ -36,6 +38,7 @@ const UserEditProfile = React.forwardRef(({ onClick }, ref) => (
   />
 ));
 
+/* MoreDropdown component function */
 export const MoreDropdown = ({ handleEdit, handleShowConfirm }) => {
   return (
     <Dropdown drop="start">
@@ -63,6 +66,7 @@ export const MoreDropdown = ({ handleEdit, handleShowConfirm }) => {
   );
 };
 
+/* ProfileEditDropdown component function */
 export const ProfileEditDropdown = ({ id }) => {
   const navigate = useNavigate();
 

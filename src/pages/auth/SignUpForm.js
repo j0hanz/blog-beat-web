@@ -8,8 +8,11 @@ import { toast } from 'react-toastify';
 import styles from './styles/Signup.module.css';
 import { useRedirect } from '../../hooks/useRedirect';
 
+/* SignUpForm component for user registration */
 function SignUpForm() {
   useRedirect('loggedIn');
+
+  /* State to manage sign up data */
   const [signUpData, setSignUpData] = useState({
     username: '',
     password1: '',
@@ -17,11 +20,14 @@ function SignUpForm() {
   });
   const { username, password1, password2 } = signUpData;
 
+  /* State to manage errors */
   const [errors, setErrors] = useState({});
+  /* State to manage modal visibility */
   const [showModal, setShowModal] = useState(true);
 
   const navigate = useNavigate();
 
+  /* Handle input change */
   const handleChange = (event) => {
     setSignUpData({
       ...signUpData,
@@ -29,6 +35,7 @@ function SignUpForm() {
     });
   };
 
+  /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -41,11 +48,13 @@ function SignUpForm() {
     }
   };
 
+  /* Handle closing the modal */
   const handleClose = () => {
     setShowModal(false);
     navigate('/');
   };
 
+  /* Handle login redirection */
   const handleLogin = () => {
     setShowModal(false);
     navigate('/signin');

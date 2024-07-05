@@ -9,6 +9,7 @@ import {
 import { faCopyright } from '@fortawesome/free-regular-svg-icons';
 import styles from './styles/Footer.module.css';
 
+/* Footer component */
 const Footer = () => {
   return (
     <footer className={`footer bg-dark text-white py-2 ${styles.footer}`}>

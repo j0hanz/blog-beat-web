@@ -6,14 +6,18 @@ import styles from './styles/CommentCreateEditForm.module.css';
 import { axiosRes } from '../../api/axiosDefaults';
 import { toast } from 'react-toastify';
 
+/* CommentCreateForm component for creating a new comment */
 function CommentCreateForm(props) {
   const { post, setPost, setComments } = props;
+  /* State to manage the content of the comment */
   const [content, setContent] = useState('');
 
+  /* Handle input change */
   const handleChange = (event) => {
     setContent(event.target.value);
   };
 
+  /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {

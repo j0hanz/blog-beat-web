@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles/ProfileEditForm.module.css';
 
+/* UserPasswordForm component for changing the user's password */
 const UserPasswordForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -21,10 +22,12 @@ const UserPasswordForm = () => {
 
   const [errors, setErrors] = useState({});
 
+  /* Handle closing the form */
   const handleClose = () => {
     navigate(-1);
   };
 
+  /* Handle input change */
   const handleChange = (event) => {
     setUserData({
       ...userData,
@@ -33,11 +36,13 @@ const UserPasswordForm = () => {
   };
 
   useEffect(() => {
+    /* Redirect if the current user ID does not match the URL parameter */
     if (currentUser?.pk?.toString() !== id) {
       navigate('/');
     }
   }, [currentUser, navigate, id]);
 
+  /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {

@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles/ProfileEditForm.module.css';
 
+/* UsernameForm component for updating the username */
 const UsernameForm = () => {
   const [username, setUsername] = useState('');
   const [errors, setErrors] = useState({});
@@ -21,11 +22,13 @@ const UsernameForm = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
 
+  /* Handle closing the form */
   const handleClose = () => {
     navigate(-1);
   };
 
   useEffect(() => {
+    /* Set the current username if the user ID matches */
     if (currentUser?.pk?.toString() === id) {
       setUsername(currentUser.username);
     } else {
@@ -33,6 +36,7 @@ const UsernameForm = () => {
     }
   }, [currentUser, navigate, id]);
 
+  /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {

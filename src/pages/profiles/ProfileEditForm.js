@@ -26,6 +26,7 @@ import styles from './styles/ProfileEditForm.module.css';
 import { toast } from 'react-toastify';
 import Asset from '../../components/Asset';
 
+/* ProfileEditForm component for editing user profile */
 const ProfileEditForm = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
@@ -46,6 +47,7 @@ const ProfileEditForm = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    /* Fetch profile data when component mounts */
     const handleMount = async () => {
       if (currentUser?.pk?.toString() === id) {
         try {
@@ -70,10 +72,12 @@ const ProfileEditForm = () => {
     handleMount();
   }, [currentUser, navigate, id]);
 
+  /* Handle closing the form */
   const handleClose = () => {
     navigate(-1);
   };
 
+  /* Handle input change */
   const handleChange = (event) => {
     setProfileData({
       ...profileData,
@@ -81,6 +85,7 @@ const ProfileEditForm = () => {
     });
   };
 
+  /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();

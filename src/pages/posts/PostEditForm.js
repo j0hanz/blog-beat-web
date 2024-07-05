@@ -19,6 +19,7 @@ import Asset from '../../components/Asset';
 import { axiosReq } from '../../api/axiosDefaults';
 import { toast } from 'react-toastify';
 
+/* PostEditForm component for editing an existing post */
 function PostEditForm() {
   const [errors, setErrors] = useState({});
   const [postData, setPostData] = useState({
@@ -34,6 +35,7 @@ function PostEditForm() {
   const { id } = useParams();
 
   useEffect(() => {
+    /* Fetch post data when component mounts */
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/posts/${id}/`);
@@ -50,6 +52,7 @@ function PostEditForm() {
     handleMount();
   }, [navigate, id]);
 
+  /* Handle input change */
   const handleChange = (event) => {
     setPostData({
       ...postData,
@@ -57,6 +60,7 @@ function PostEditForm() {
     });
   };
 
+  /* Handle image change */
   const handleChangeImage = (event) => {
     if (event.target.files.length) {
       URL.revokeObjectURL(image);
@@ -67,6 +71,7 @@ function PostEditForm() {
     }
   };
 
+  /* Handle removing the image */
   const handleRemoveImage = () => {
     URL.revokeObjectURL(image);
     setPostData({
@@ -78,6 +83,7 @@ function PostEditForm() {
     }
   };
 
+  /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();

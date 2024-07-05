@@ -7,9 +7,12 @@ import { toast } from 'react-toastify';
 const ProfileDataContext = createContext();
 const SetProfileDataContext = createContext();
 
+/* Hook to use profile data context */
 export const useProfileData = () => useContext(ProfileDataContext);
+/* Hook to use set profile data context */
 export const useSetProfileData = () => useContext(SetProfileDataContext);
 
+/* ProfileDataProvider component to manage profile data state */
 export const ProfileDataProvider = ({ children }) => {
   const [profileData, setProfileData] = useState({
     pageProfile: { results: [] },
@@ -18,6 +21,7 @@ export const ProfileDataProvider = ({ children }) => {
 
   const currentUser = useCurrentUser();
 
+  /* Function to handle follow action */
   const handleFollow = async (clickedProfile) => {
     try {
       const { data } = await axiosRes.post('/followers/', {
@@ -47,6 +51,7 @@ export const ProfileDataProvider = ({ children }) => {
     }
   };
 
+  /* Function to handle unfollow action */
   const handleUnfollow = async (clickedProfile) => {
     try {
       await axiosRes.delete(`/followers/${clickedProfile.following_id}/`);
@@ -69,7 +74,10 @@ export const ProfileDataProvider = ({ children }) => {
           clickedProfile.owner || clickedProfile.username
         }.`,
       );
-    } catch (err) {}
+    } catch (err) {
+      console.error('Failed to unfollow the profile:', err);
+      toast.error('Failed to unfollow the profile. Please try again.');
+    }
   };
 
   useEffect(() => {

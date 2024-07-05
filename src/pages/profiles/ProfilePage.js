@@ -15,6 +15,7 @@ import { fetchMoreData } from '../../utils/utils';
 import NoResults from '../../assets/no-results.png';
 import { ProfileEditDropdown } from '../../components/MoreDropdown';
 
+/* ProfilePage component to display a user's profile and their posts */
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [profilePosts, setProfilePosts] = useState({ results: [] });
@@ -26,6 +27,7 @@ function ProfilePage() {
   const is_owner = currentUser?.username === profile?.owner;
 
   useEffect(() => {
+    /* Fetch profile and profile posts data when component mounts */
     const fetchData = async () => {
       try {
         const [{ data: pageProfile }, { data: profilePosts }] =

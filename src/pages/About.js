@@ -11,6 +11,7 @@ import {
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
+/* Array of team members with their roles */
 const teamMembers = [
   {
     name: 'Linus Johansson',
@@ -18,6 +19,7 @@ const teamMembers = [
   },
 ];
 
+/* Array of features offered by the platform */
 const features = [
   'Create and share blog posts',
   'Engage with the community through comments and likes',
@@ -27,15 +29,18 @@ const features = [
   'Search and filter posts by categories and tags',
 ];
 
+/* About component to display information about the platform */
 const About = ({ show, handleClose }) => {
   const currentUser = useCurrentUser();
   const navigate = useNavigate();
 
+  /* Handle navigation to sign up page */
   const handleSignUp = () => {
     handleClose();
     navigate('/signup');
   };
 
+  /* Handle navigation to login page */
   const handleLogin = () => {
     handleClose();
     navigate('/signin');
