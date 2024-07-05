@@ -110,9 +110,9 @@ const About = ({ show, handleClose }) => {
           </Row>
           <Row>
             {teamMembers.map((member, index) => (
-              <Col xs={12} sm={6} md={4} lg={3} className="mb-4" key={index}>
+              <Col lg={4} className="mb-4" key={index}>
                 <Card className={styles.TeamCard}>
-                  <Card.Body className="bg-dark rounded">
+                  <Card.Body className="bg-dark bg-opacity-10">
                     <Card.Title className="text-white">
                       {member.name}
                     </Card.Title>
