@@ -478,13 +478,10 @@ These resources were instrumental in enhancing and refining the project's functi
 
 ### YouTube Channels
 
-These channels offered valuable content on various topics related to this project:
-
 - [ByteGrad](https://www.youtube.com/@ByteGrad)
 - [Web Dev Simplified](https://www.youtube.com/@WebDevSimplified)
 - [Cosden Solutions](https://www.youtube.com/@cosdensolutions)
 - [Jack Herrington](https://www.youtube.com/@jherr)
-- [Your Name](https://www.youtube.com/your-channel)
 
 ---
 
