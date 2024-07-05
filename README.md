@@ -380,6 +380,20 @@ Details of sprint cycles and their outcomes are provided to showcase the iterati
 
 User stories are managed as GitHub issues, allowing for transparent tracking and updates.
 
+#### User Stories
+
+- As a User, I want to register an account so that I can create and interact with content on the blog site. [3#](https://github.com/j0hanz/blog-beat-web/issues/3#issue-2370591512)
+- As a User, I want to like blog posts to engage with the content. [5#](https://github.com/j0hanz/blog-beat-web/issues/5#issue-2370603973)
+- As a User, I want to view other users' profiles so that I can learn more about them and see their posts. [12#](https://github.com/j0hanz/blog-beat-web/issues/12#issue-2370621259)
+- As a User, I want to edit my published posts so that I can correct errors or update information. [26#](https://github.com/j0hanz/blog-beat-web/issues/26#issue-2370657407)
+- As a User, I want to search for posts so that I can find specific content quickly. [11#](https://github.com/j0hanz/blog-beat-web/issues/11#issue-2370619104)
+
+#### Site Owner Stories
+
+- As a Site Owner, I want to manage posts and comments submitted by users to ensure content quality and relevance. [2#](https://github.com/j0hanz/blog-beat-web/issues/2#issue-2370587484)
+- As a Site Owner, I want to create and manage user accounts so that I can control access to the blog site. [1#](https://github.com/j0hanz/blog-beat-web/issues/1#issue-2369664130)
+
+
 [Back up](#table-of-content)
 
 ---
