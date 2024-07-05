@@ -29,7 +29,7 @@ const Footer = () => {
                   label: "Facebook",
                 },
                 {
-                  href: "https://www.github.com",
+                  href: "https://github.com/j0hanz/blog-beat-web",
                   icon: faGithub,
                   label: "GitHub",
                 },
