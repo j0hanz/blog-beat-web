@@ -1,0 +1,42 @@
+.About {
+  padding: 2rem;
+}
+
+.TeamCard {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  background-color: #0664d648;
+}
+
+.logo {
+  width: 60vh;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.Border {
+  border-color: #007bff;
+}
+
+.TeamCard:hover {
+  transform: scale(1.05);
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.FeaturesList {
+  padding: 0;
+  font-size: 1.1rem;
+}
+
+.FeaturesList li {
+  margin: 1em;
+  margin-bottom: 0.5rem;
+}
