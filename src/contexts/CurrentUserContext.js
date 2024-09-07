@@ -1,90 +1,87 @@
-import React from 'react';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useMemo,
+  useCallback,
+} from 'react';
 import axios from 'axios';
-import { axiosReq, axiosRes } from '../api/axiosDefaults';
-import { useNavigate } from 'react-router-dom';
-import { removeTokenTimestamp, shouldRefreshToken } from '../utils/utils';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { axiosRes, axiosReq } from '../api/axiosDefaults';
 
-export const CurrentUserContext = createContext();
-export const SetCurrentUserContext = createContext();
-
-/* Hook to use current user context */
+export const CurrentUserContext = createContext(null);
+export const SetCurrentUserContext = createContext(null);
 export const useCurrentUser = () => useContext(CurrentUserContext);
-/* Hook to use set current user context */
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
-
-/* CurrentUserProvider component to manage current user state */
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const navigate = useNavigate();
 
-  /* Function to handle component mount */
-  const handleMount = async () => {
+  const fetchCurrentUser = useCallback(async () => {
     try {
-      const { data } = await axiosRes.get('dj-rest-auth/user/');
+      const { data } = await axiosRes.get('/dj-rest-auth/user/');
       setCurrentUser(data);
     } catch (err) {
-      console.log(err);
+      console.error('Error fetching current user:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, [fetchCurrentUser]);
+
+  const refreshAuthToken = async () => {
+    try {
+      await axios.post('/dj-rest-auth/token/refresh/');
+    } catch (err) {
+      console.error('Error refreshing token:', err);
+      setCurrentUser(null);
+      throw err;
     }
   };
 
-  useEffect(() => {
-    handleMount();
-  }, []);
-
-  useMemo(() => {
-    axiosReq.interceptors.request.use(
+  const setupInterceptors = useCallback(() => {
+    const requestInterceptor = axiosReq.interceptors.request.use(
       async (config) => {
-        if (shouldRefreshToken()) {
-          try {
-            await axios.post('/dj-rest-auth/token/refresh/');
-          } catch (err) {
-            setCurrentUser((prevCurrentUser) => {
-              if (prevCurrentUser) {
-                navigate('/signin');
-                toast.error('Session expired. Please sign in again.');
-              }
-              return null;
-            });
-            removeTokenTimestamp();
-            return config;
-          }
+        if (currentUser) {
+          await refreshAuthToken();
         }
         return config;
       },
-      (err) => {
-        toast.error('Request failed. Please try again.');
-        return Promise.reject(err);
-      },
+      (err) => Promise.reject(err)
     );
-    axiosRes.interceptors.response.use(
+
+    const responseInterceptor = axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
         if (err.response?.status === 401 && currentUser) {
           try {
-            await axios.post('/dj-rest-auth/token/refresh/');
-          } catch (err) {
-            setCurrentUser((prevCurrentUser) => {
-              if (prevCurrentUser) {
-                navigate('/signin');
-                toast.error('Session expired. Please sign in again.');
-              }
-              return null;
-            });
-            removeTokenTimestamp();
+            await refreshAuthToken();
+            return axios(err.config);
+          } catch (error) {
+            console.error('Error refreshing token:', error);
           }
-          return axios(err.config);
         }
         return Promise.reject(err);
-      },
+      }
     );
-  }, [currentUser, navigate]);
+
+    return () => {
+      axiosReq.interceptors.request.eject(requestInterceptor);
+      axiosRes.interceptors.response.eject(responseInterceptor);
+    };
+  }, [currentUser]);
+
+  useEffect(() => {
+    const cleanupInterceptors = setupInterceptors();
+    return cleanupInterceptors;
+  }, [setupInterceptors]);
+
+  const contextValue = useMemo(() => currentUser, [currentUser]);
+  const setContextValue = useMemo(() => setCurrentUser, []);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <SetCurrentUserContext.Provider value={setCurrentUser}>
+    <CurrentUserContext.Provider value={contextValue}>
+      <SetCurrentUserContext.Provider value={setContextValue}>
         {children}
       </SetCurrentUserContext.Provider>
     </CurrentUserContext.Provider>
