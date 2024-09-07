@@ -33,23 +33,6 @@
   padding: 1.5rem;
 }
 
-.faKey {
-  color: #ffff00;
-}
-
-.faStar {
-  color: #ffc107;
-}
-
-.faSignOutAlt,
-.faThumbsUp {
-  color: #007bff;
-}
-
-.faBarsStaggered {
-  color: #a83198;
-}
-
 @media (max-width: 650px) {
   .logoNav {
     display: none;
