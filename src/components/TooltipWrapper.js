@@ -7,7 +7,7 @@ const TooltipWrapper = React.memo(
   ({ children, message, placement = 'bottom', tooltipClass }) => {
     const [showTooltip, setShowTooltip] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(
-      window.innerWidth <= 768,
+      window.innerWidth <= 768
     );
 
     /* Function to render the tooltip */
@@ -21,7 +21,7 @@ const TooltipWrapper = React.memo(
           {message}
         </Tooltip>
       ),
-      [message, tooltipClass],
+      [message, tooltipClass]
     );
 
     useEffect(() => {
@@ -52,7 +52,7 @@ const TooltipWrapper = React.memo(
         {children}
       </OverlayTrigger>
     );
-  },
+  }
 );
 
 export default TooltipWrapper;
