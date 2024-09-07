@@ -10,26 +10,22 @@ const PopularProfiles = () => {
   const { popularProfiles } = useProfileData();
 
   return (
-    <Container>
+    <Container fluid className={styles.Container}>
       {popularProfiles.results.length ? (
-        <>
-          <div className={styles.ProfilesSection}>
-            <hr />
-            <div className={`text-center py-3 ${styles.Header}`}>
-              <h3>Most Followed Profiles</h3>
-            </div>
-            <div
-              className={`d-flex flex-wrap justify-content-around bg-dark py-4 ${styles.PopularProfilesBorder}`}
-            >
-              {popularProfiles.results.slice(0, 4).map((profile) => (
-                <Profile key={profile.id} profile={profile} />
-              ))}
-            </div>
-            <hr />
+        <div className={styles.ProfilesSection}>
+          <div className={`text-center py-3 ${styles.Header}`}>
+            <h3>Most Followed Profiles</h3>
           </div>
-        </>
+          <div
+            className={`d-flex flex-wrap justify-content-around ${styles.ProfilesWrapper}`}
+          >
+            {popularProfiles.results.slice(0, 4).map((profile) => (
+              <Profile key={profile.id} profile={profile} />
+            ))}
+          </div>
+        </div>
       ) : (
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center align-items-center min-vh-50">
           <Asset spinner />
         </div>
       )}
