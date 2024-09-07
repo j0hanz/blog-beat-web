@@ -13,8 +13,8 @@ import styles from './styles/Footer.module.css';
 const Footer = () => {
   return (
     <footer className={`footer bg-dark text-white py-2 ${styles.footer}`}>
-      <Container>
-        <Row className="align-items-center">
+      <Container fluid className="px-2">
+        <Row className="align-items-center mx-auto">
           <Col className="px-0">
             <p className="mb-0 text-white-50">
               <FontAwesomeIcon className="fa-sm px-1" icon={faCopyright} />
