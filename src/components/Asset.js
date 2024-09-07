@@ -5,7 +5,9 @@ import styles from './styles/Asset.module.css';
 /* Asset component function */
 const Asset = ({ spinner, src, message }) => {
   return (
-    <div className={`${styles.Asset} p-5`}>
+    <div
+      className={`${styles.Asset} p-5 d-flex flex-column align-items-center justify-content-center`}
+    >
       {spinner && <Spinner animation="border" className={styles.spinner} />}
       {src && <img src={src} alt={message} />}
       {message && <p className="mt-4">{message}</p>}
