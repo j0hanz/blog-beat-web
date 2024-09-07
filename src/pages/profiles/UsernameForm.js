@@ -59,7 +59,7 @@ const UsernameForm = () => {
   return (
     <Modal show={true} onHide={handleClose} centered>
       <Modal.Header
-        className={`d-flex justify-content-center p-3 ${styles.modalHeadBg} position-relative`}
+        className={`d-flex justify-content-center p-3 border-0 ${styles.modalHeadBg} position-relative`}
       >
         <Modal.Title className="text-center">Edit Username</Modal.Title>
         <Button
