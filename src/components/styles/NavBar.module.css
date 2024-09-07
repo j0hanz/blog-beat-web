@@ -1,7 +1,9 @@
 .navLinkEffect {
   color: #ffffff;
   text-decoration: none;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .navLinkEffect:hover {
@@ -14,8 +16,13 @@
 }
 
 .logoNav {
-  width: 125px;
-  overflow: hidden;
+  width: 135px;
+  display: block;
+}
+
+.logoNavMobile {
+  display: none;
+  width: 21px;
 }
 
 .offcanvasWidth {
@@ -31,8 +38,7 @@
 }
 
 .faStar {
-  color: #FFC107;
-
+  color: #ffc107;
 }
 
 .faSignOutAlt,
@@ -47,5 +53,9 @@
 @media (max-width: 650px) {
   .logoNav {
     display: none;
+  }
+
+  .logoNavMobile {
+    display: block;
   }
 }
