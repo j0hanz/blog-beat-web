@@ -11,11 +11,18 @@ import { axiosRes, axiosReq } from '../api/axiosDefaults';
 
 export const CurrentUserContext = createContext(null);
 export const SetCurrentUserContext = createContext(null);
+
+// Custom hook to access the current user
 export const useCurrentUser = () => useContext(CurrentUserContext);
+
+// Custom hook to set the current user
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
+
+// Provider component for managing current user state
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
+  // Fetch the current user data from the API
   const fetchCurrentUser = useCallback(async () => {
     try {
       const { data } = await axiosRes.get('/dj-rest-auth/user/');
@@ -29,6 +36,7 @@ export const CurrentUserProvider = ({ children }) => {
     fetchCurrentUser();
   }, [fetchCurrentUser]);
 
+  // Refresh the authentication token
   const refreshAuthToken = async () => {
     try {
       await axios.post('/dj-rest-auth/token/refresh/');
@@ -39,6 +47,7 @@ export const CurrentUserProvider = ({ children }) => {
     }
   };
 
+  // Set up interceptors for handling authentication
   const setupInterceptors = useCallback(() => {
     const requestInterceptor = axiosReq.interceptors.request.use(
       async (config) => {
