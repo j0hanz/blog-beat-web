@@ -23,7 +23,10 @@ function ProfilePage() {
   const { id } = useParams();
   const { setProfileData, handleFollow, handleUnfollow } = useSetProfileData();
   const { pageProfile } = useProfileData();
-  const [profile] = pageProfile.results || [];
+  const [profile] =
+    pageProfile.results && pageProfile.results.length > 0
+      ? pageProfile.results
+      : [{}];
   const is_owner = currentUser?.username === profile?.owner;
 
   useEffect(() => {
@@ -68,11 +71,12 @@ function ProfilePage() {
           <div className="mt-2">
             {currentUser && !is_owner && (
               <Button
-                variant={
+                variant="outline-primary"
+                className={`${
                   profile?.following_id
-                    ? 'outline-secondary'
-                    : 'outline-primary'
-                }
+                    ? `${styles.Button} ${styles.unfollowButton}`
+                    : `${styles.Button} ${styles.followButton}`
+                }`}
                 onClick={() =>
                   profile?.following_id
                     ? handleUnfollow(profile)
