@@ -20,7 +20,9 @@ import UsernameForm from './pages/profiles/UsernameForm';
 import UserPasswordForm from './pages/profiles/UserPasswordForm';
 import ProfileEditForm from './pages/profiles/ProfileEditForm';
 import NotFound from './components/NotFound';
+import PrivateRoute from './components/PrivateRoute';
 
+/* App component to get the current user's profile ID */
 function App() {
   const currentUser = useCurrentUser();
   const profile_id = currentUser?.pk || '';
@@ -68,29 +70,43 @@ function App() {
           <Route
             path="/posts/create"
             element={
-              currentUser ? <PostCreateForm /> : <Navigate to="/signin" />
+              <PrivateRoute>
+                <PostCreateForm />
+              </PrivateRoute>
             }
           />
           <Route path="/posts/:id" element={<PostPage />} />
           <Route
             path="/posts/:id/edit"
-            element={currentUser ? <PostEditForm /> : <Navigate to="/signin" />}
+            element={
+              <PrivateRoute>
+                <PostEditForm />
+              </PrivateRoute>
+            }
           />
           <Route path="/profiles/:id" element={<ProfilePage />} />
           <Route
             path="/profiles/:id/edit/username"
-            element={currentUser ? <UsernameForm /> : <Navigate to="/signin" />}
+            element={
+              <PrivateRoute>
+                <UsernameForm />
+              </PrivateRoute>
+            }
           />
           <Route
             path="/profiles/:id/edit/password"
             element={
-              currentUser ? <UserPasswordForm /> : <Navigate to="/signin" />
+              <PrivateRoute>
+                <UserPasswordForm />
+              </PrivateRoute>
             }
           />
           <Route
             path="/profiles/:id/edit"
             element={
-              currentUser ? <ProfileEditForm /> : <Navigate to="/signin" />
+              <PrivateRoute>
+                <ProfileEditForm />
+              </PrivateRoute>
             }
           />
           <Route
