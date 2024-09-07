@@ -7,49 +7,71 @@
   text-align: center;
   background-color: #242424;
   margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.iconButton {
+  color: #ffffff;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.iconButton:hover {
+  transform: scale(1.15);
 }
 
 .faThumbsUp,
-.faComments {
-  color: #ffffff;
-  transition: color 0.3s ease, transform 0.3s ease;
+.faComments,
+.faStar,
+.faStarFilled {
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
   cursor: pointer;
-  margin-right: 7px;
 }
 
 .faThumbsUp:hover,
 .faComments:hover {
   color: #007bff;
-  transform: scale(1.15);
 }
 
-.faStar {
-  transition: color 0.3s ease, transform 0.3s ease;
-  cursor: pointer;
-}
-
-.faStar:hover {
+.faStar:hover,
+.faStarFilled:hover {
   color: #ffc107;
-  transform: scale(1.15);
+}
+
+.faStarFilled {
+  color: #ffc107;
 }
 
 .liked {
   color: #007bff;
 }
 
-.PostBar {
-  gap: 10px;
-}
-
 .CardImg {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: auto;
   object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.Content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
+.Username {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.UpdatedAt {
+  font-size: 0.9rem;
+}
+
+.ContentText {
+  padding: 0 1rem;
+  color: #d3d3d3;
+  text-align: justify;
 }
