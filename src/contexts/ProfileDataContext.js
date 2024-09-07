@@ -1,18 +1,16 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { axiosReq, axiosRes } from '../api/axiosDefaults';
-import { useCurrentUser } from './CurrentUserContext';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { axiosRes, axiosReq } from '../api/axiosDefaults';
 import { followHelper, unfollowHelper } from '../utils/utils';
+import { useCurrentUser } from './CurrentUserContext';
 import { toast } from 'react-toastify';
 
 const ProfileDataContext = createContext();
 const SetProfileDataContext = createContext();
 
-/* Hook to use profile data context */
+// Custom hooks to access profile data and related functions
 export const useProfileData = () => useContext(ProfileDataContext);
-/* Hook to use set profile data context */
 export const useSetProfileData = () => useContext(SetProfileDataContext);
 
-/* ProfileDataProvider component to manage profile data state */
 export const ProfileDataProvider = ({ children }) => {
   const [profileData, setProfileData] = useState({
     pageProfile: { results: [] },
@@ -21,7 +19,7 @@ export const ProfileDataProvider = ({ children }) => {
 
   const currentUser = useCurrentUser();
 
-  /* Function to handle follow action */
+  // Handle following a profile
   const handleFollow = async (clickedProfile) => {
     try {
       const { data } = await axiosRes.post('/followers/', {
@@ -32,18 +30,18 @@ export const ProfileDataProvider = ({ children }) => {
         ...prevState,
         pageProfile: {
           results: prevState.pageProfile.results.map((profile) =>
-            followHelper(profile, clickedProfile, data.id),
+            followHelper(profile, clickedProfile, data.id)
           ),
         },
         popularProfiles: {
           ...prevState.popularProfiles,
           results: prevState.popularProfiles.results.map((profile) =>
-            followHelper(profile, clickedProfile, data.id),
+            followHelper(profile, clickedProfile, data.id)
           ),
         },
       }));
       toast.success(
-        `You now follow ${clickedProfile.owner || clickedProfile.username}.`,
+        `You now follow ${clickedProfile.owner || clickedProfile.username}.`
       );
     } catch (err) {
       console.error('Failed to follow the profile:', err);
@@ -51,7 +49,7 @@ export const ProfileDataProvider = ({ children }) => {
     }
   };
 
-  /* Function to handle unfollow action */
+  // Handle unfollowing a profile
   const handleUnfollow = async (clickedProfile) => {
     try {
       await axiosRes.delete(`/followers/${clickedProfile.following_id}/`);
@@ -59,20 +57,20 @@ export const ProfileDataProvider = ({ children }) => {
         ...prevState,
         pageProfile: {
           results: prevState.pageProfile.results.map((profile) =>
-            unfollowHelper(profile, clickedProfile),
+            unfollowHelper(profile, clickedProfile)
           ),
         },
         popularProfiles: {
           ...prevState.popularProfiles,
           results: prevState.popularProfiles.results.map((profile) =>
-            unfollowHelper(profile, clickedProfile),
+            unfollowHelper(profile, clickedProfile)
           ),
         },
       }));
       toast.info(
         `You have unfollowed ${
           clickedProfile.owner || clickedProfile.username
-        }.`,
+        }.`
       );
     } catch (err) {
       console.error('Failed to unfollow the profile:', err);
@@ -80,11 +78,12 @@ export const ProfileDataProvider = ({ children }) => {
     }
   };
 
+  // Fetch popular profiles
   useEffect(() => {
     const fetchPopularProfiles = async () => {
       try {
         const { data } = await axiosReq.get(
-          '/profiles/?ordering=-followers_count',
+          '/profiles/?ordering=-followers_count'
         );
         setProfileData((prevState) => ({
           ...prevState,
