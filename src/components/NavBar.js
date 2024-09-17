@@ -31,34 +31,14 @@ import {
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import About from '../pages/About';
-import { removeTokens, getAccessToken } from '../utils/utils';
+import { removeTokenTimestamp } from '../utils/utils';
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(!!getAccessToken());
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkAuthStatus = () => {
-      const token = getAccessToken();
-      setIsAuthenticated(!!token);
-    };
-
-    checkAuthStatus();
-    window.addEventListener('storage', checkAuthStatus);
-
-    return () => {
-      window.removeEventListener('storage', checkAuthStatus);
-    };
-  }, []);
-
-  useEffect(() => {
-    setIsAuthenticated(!!currentUser);
-  }, [currentUser]);
-
   const toggleOffcanvas = () => setShowOffcanvas((prev) => !prev);
   const toggleAboutModal = () => setShowAbout((prev) => !prev);
 
@@ -66,8 +46,7 @@ const NavBar = () => {
     try {
       await axios.post('dj-rest-auth/logout/');
       setCurrentUser(null);
-      removeTokens();
-      setIsAuthenticated(false);
+      removeTokenTimestamp();
       toast.info('You have logged out!');
       navigate('/');
     } catch (err) {
@@ -181,7 +160,7 @@ const NavBar = () => {
               onClick={toggleOffcanvas}
               className="position-absolute translate-middle-y top-0 end-0"
             >
-              {isAuthenticated ? (
+              {currentUser ? (
                 <Icon
                   src={currentUser?.profile_image || defaultProfileImage}
                   height={30}
@@ -202,7 +181,7 @@ const NavBar = () => {
             className={`bg-dark text-white ${styles.offcanvasWidth}`}
           >
             <Offcanvas.Header>
-              {isAuthenticated ? (
+              {currentUser ? (
                 <>
                   <TooltipWrapper message="Profile">
                     <NavLink to={`/profiles/${currentUser?.pk}/`}>
@@ -232,7 +211,7 @@ const NavBar = () => {
             <hr />
             <Offcanvas.Body className={styles.offcanvasBody}>
               <Nav className="flex-column">
-                {isAuthenticated ? loggedInIcons : loggedOutIcons}
+                {currentUser ? loggedInIcons : loggedOutIcons}
               </Nav>
             </Offcanvas.Body>
           </Offcanvas>
