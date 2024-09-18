@@ -25,7 +25,7 @@ import PrivateRoute from './components/PrivateRoute';
 /* App component to get the current user's profile ID */
 function App() {
   const currentUser = useCurrentUser();
-  const profile_id = currentUser?.pk || '';
+  const profile_id = currentUser?.profile_id;
 
   return (
     <div className={styles.App}>
