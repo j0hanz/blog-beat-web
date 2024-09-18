@@ -28,6 +28,7 @@ import Asset from '../../components/Asset';
 
 /* ProfileEditForm component for editing user profile */
 const ProfileEditForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
   const { id } = useParams();
@@ -49,7 +50,7 @@ const ProfileEditForm = () => {
 
   /* Fetch profile data from the server */
   const fetchProfileData = useCallback(async () => {
-    if (currentUser?.pk?.toString() !== id) {
+    if (currentUser?.profile_id?.toString() !== id) {
       navigate('/');
       return;
     }
@@ -97,6 +98,7 @@ const ProfileEditForm = () => {
   /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     const formData = new FormData();
     formData.append('first_name', first_name);
     formData.append('last_name', last_name);
@@ -118,6 +120,8 @@ const ProfileEditForm = () => {
     } catch (err) {
       setErrors(err.response?.data || {});
       toast.error('Failed to update profile. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -212,8 +216,19 @@ const ProfileEditForm = () => {
           variant="outline-primary text-white"
           type="submit"
           className="btn-lg"
+          disabled={isSubmitting}
         >
-          Save
+          {isSubmitting ? (
+            <>
+              <span
+                className="spinner-border spinner-border-sm mr-2"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            </>
+          ) : (
+            'Save'
+          )}
         </Button>
       </div>
     </>
