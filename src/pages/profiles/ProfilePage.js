@@ -156,9 +156,9 @@ function ProfilePage() {
   );
 
   return (
-    <Row className="d-flex justify-content-center text-center mx-auto">
-      <Col>
-        <Container fluid className={styles.Content}>
+    <Container fluid className="px-0">
+      <Row className="d-flex justify-content-center text-center mx-auto">
+        <Col lg={8} className="px-0">
           {hasLoaded ? (
             <>
               {mainProfile}
@@ -167,9 +167,9 @@ function ProfilePage() {
           ) : (
             <Asset spinner />
           )}
-        </Container>
-      </Col>
-    </Row>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
