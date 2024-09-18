@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 
 /* CommentCreateForm component for creating a new comment */
 function CommentCreateForm(props) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { post, setPost, setComments } = props;
   /* State to manage the content of the comment */
   const [content, setContent] = useState('');
@@ -20,6 +21,7 @@ function CommentCreateForm(props) {
   /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     try {
       const { data } = await axiosRes.post('/comments/', {
         content,
@@ -41,6 +43,8 @@ function CommentCreateForm(props) {
     } catch (err) {
       console.log(err);
       toast.error('Failed to add comment. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -66,10 +70,20 @@ function CommentCreateForm(props) {
           <div className="d-flex justify-content-end mt-2">
             <Button
               variant="outline-primary text-white"
-              disabled={!content.trim()}
+              disabled={!content.trim() || isSubmitting}
               type="submit"
             >
-              Post
+              {isSubmitting ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm mr-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                </>
+              ) : (
+                'Post'
+              )}
             </Button>
           </div>
         </Form>
@@ -77,5 +91,4 @@ function CommentCreateForm(props) {
     </Card>
   );
 }
-
 export default CommentCreateForm;
