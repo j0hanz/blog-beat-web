@@ -21,12 +21,12 @@ const teamMembers = [
 
 /* Array of features offered by the platform */
 const features = [
-  'Create and share blog posts',
-  'Engage with the community through comments and likes',
-  'Personalize your profile',
-  'Follow your favorite bloggers',
-  'Bookmark favorite posts',
-  'Search and filter posts by categories and tags',
+  'Create and share posts',
+  'Comment and like',
+  'Customize your profile',
+  'Follow other users',
+  'Save favorite posts',
+  'Search for content',
 ];
 
 /* About component to display information about the platform */
