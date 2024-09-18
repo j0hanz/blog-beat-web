@@ -29,6 +29,7 @@ function PostCreateForm() {
   });
 
   const { title, location, content, image } = postData;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const imageInput = useRef(null);
   const navigate = useNavigate();
 
@@ -74,6 +75,7 @@ function PostCreateForm() {
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     const formData = new FormData();
     formData.append('title', title);
     formData.append('location', location);
@@ -95,6 +97,8 @@ function PostCreateForm() {
         );
         toast.error('Failed to create post. Please try again.');
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -199,8 +203,19 @@ function PostCreateForm() {
                 variant="outline-primary"
                 className="mx-3 btn-lg"
                 type="submit"
+                disabled={isSubmitting}
               >
-                Create
+                {isSubmitting ? (
+                  <>
+                    <span
+                      className="spinner-border spinner-border-sm mr-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  </>
+                ) : (
+                  'Create'
+                )}
               </Button>
             </div>
           </Col>
