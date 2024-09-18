@@ -73,13 +73,13 @@ const NavBar = () => {
       {generateNavItem('/favorites', faStar, 'Favorites', toggleOffcanvas)}
       <hr />
       {generateNavItem(
-        `/profiles/${currentUser?.pk}/edit`,
+        `/profiles/${currentUser?.profile_id}/edit`,
         faUserEdit,
         'Edit Profile',
         toggleOffcanvas
       )}
       {generateNavItem(
-        `/profiles/${currentUser?.pk}/edit/password`,
+        `/profiles/${currentUser?.profile_id}/edit/password`,
         faKey,
         'Update Password',
         toggleOffcanvas
@@ -184,7 +184,7 @@ const NavBar = () => {
               {currentUser ? (
                 <>
                   <TooltipWrapper message="Profile">
-                    <NavLink to={`/profiles/${currentUser?.pk}/`}>
+                    <NavLink to={`/profiles/${currentUser?.profile_id}/`}>
                       <Icon
                         src={currentUser?.profile_image || defaultProfileImage}
                         height={55}
