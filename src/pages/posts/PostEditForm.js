@@ -29,6 +29,7 @@ function PostEditForm() {
   });
 
   const { title, location, content, image } = postData;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const imageInput = useRef(null);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -85,6 +86,7 @@ function PostEditForm() {
   /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     const formData = new FormData();
 
     formData.append('title', title);
@@ -104,6 +106,8 @@ function PostEditForm() {
         setErrors(err.response?.data);
         toast.error('Failed to update post. Please try again.');
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -208,8 +212,19 @@ function PostEditForm() {
                 variant="outline-primary"
                 className="mx-3 btn-lg"
                 type="submit"
+                disabled={isSubmitting}
               >
-                Save
+                {isSubmitting ? (
+                  <>
+                    <span
+                      className="spinner-border spinner-border-sm mr-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  </>
+                ) : (
+                  'Save'
+                )}
               </Button>
             </div>
           </Col>
