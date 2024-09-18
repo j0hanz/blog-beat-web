@@ -5,7 +5,6 @@ import {
   faEllipsis,
   faEdit,
   faTrashAlt,
-  faUserPen,
   faIdCard,
   faKey,
 } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 /* ThreeDots component function using forwardRef */
 const ThreeDots = React.forwardRef(({ onClick }, ref) => (
   <FontAwesomeIcon
-    className="btn btn-outline-light p-1"
+    className="btn btn-outline-light p-1 ms-1"
     icon={faEllipsis}
     ref={ref}
     onClick={(e) => {
@@ -28,8 +27,8 @@ const ThreeDots = React.forwardRef(({ onClick }, ref) => (
 /* UserEditProfile component function using forwardRef */
 const UserEditProfile = React.forwardRef(({ onClick }, ref) => (
   <FontAwesomeIcon
-    className="btn btn-outline-light"
-    icon={faUserPen}
+    className="btn btn-outline-light p-1"
+    icon={faEllipsis}
     ref={ref}
     onClick={(e) => {
       e.preventDefault();
@@ -50,6 +49,7 @@ export const MoreDropdown = ({ handleEdit, handleShowConfirm }) => {
           aria-label="edit"
         >
           <FontAwesomeIcon className={`fa-lg ${styles.faEdit}`} icon={faEdit} />
+          <span>Edit</span>
         </Dropdown.Item>
         <Dropdown.Item
           className={styles.DropdownItem}
@@ -60,6 +60,7 @@ export const MoreDropdown = ({ handleEdit, handleShowConfirm }) => {
             className={`fa-lg ${styles.faTrashAlt}`}
             icon={faTrashAlt}
           />
+          <span>Delete</span>
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
@@ -80,7 +81,7 @@ export const ProfileEditDropdown = ({ id }) => {
           aria-label="edit-profile"
         >
           <FontAwesomeIcon className={`fa-lg ${styles.faEdit}`} icon={faEdit} />
-          <span className={styles.DropdownItem}>edit profile</span>
+          <span>Edit Profile</span>
         </Dropdown.Item>
         <Dropdown.Item
           className={styles.DropdownItem}
@@ -91,7 +92,7 @@ export const ProfileEditDropdown = ({ id }) => {
             className={`fa-lg ${styles.faIdCard}`}
             icon={faIdCard}
           />
-          <span className={styles.DropdownItem}>change username</span>
+          <span>Change Username</span>
         </Dropdown.Item>
         <Dropdown.Item
           className={styles.DropdownItem}
@@ -99,7 +100,7 @@ export const ProfileEditDropdown = ({ id }) => {
           aria-label="edit-password"
         >
           <FontAwesomeIcon className={`fa-lg ${styles.faKey}`} icon={faKey} />
-          <span className={styles.DropdownItem}>change password</span>
+          <span>Change Password</span>
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

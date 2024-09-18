@@ -6,28 +6,23 @@
   border-radius: 10px;
 }
 
-.Image {
-  max-width: 100%;
-  height: auto;
-  cursor: pointer;
-}
-
 .ImageWrapper {
-  position: relative;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
   cursor: pointer;
-  border: 1px solid transparent;
-  transition: border-color 0.3s;
-}
-
-.ImageWrapper * {
-  cursor: pointer;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s 0.3s,
+    opacity 0.3s;
+  border-radius: 10px;
+  position: relative;
+  opacity: 0.8;
 }
 
 .ImageWrapper:hover {
-  border: 1px solid #8b8787;
+  box-shadow: 0 0 15px 0 rgba(10, 10, 10, 0.5);
+  opacity: 1;
 }
 
 .Placeholder {
@@ -36,9 +31,17 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: #ffffff;
-  background-color: #3f3e3e;
+  background-color: rgba(63, 62, 62, 0.7);
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 90%;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
 }
 
 .FormControl {

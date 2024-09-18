@@ -1,4 +1,4 @@
-import { jwtDecode } from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import { axiosReq } from '../api/axiosDefaults';
 
 /* Function to fetch more data and update the resource state */
@@ -26,8 +26,8 @@ export const followHelper = (profile, clickedProfile, following_id) => {
         following_id,
       }
     : profile.is_owner
-    ? { ...profile, following_count: profile.following_count + 1 }
-    : profile;
+      ? { ...profile, following_count: profile.following_count + 1 }
+      : profile;
 };
 
 /* Helper function to update profile data when a user is unfollowed */
@@ -39,12 +39,12 @@ export const unfollowHelper = (profile, clickedProfile) => {
         following_id: null,
       }
     : profile.is_owner
-    ? { ...profile, following_count: profile.following_count - 1 }
-    : profile;
+      ? { ...profile, following_count: profile.following_count - 1 }
+      : profile;
 };
 
 export const setTokenTimestamp = (data) => {
-  const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp;
+  const refreshTokenTimestamp = jwtDecode(data?.refresh).exp;
   localStorage.setItem('refreshTokenTimestamp', refreshTokenTimestamp);
 };
 

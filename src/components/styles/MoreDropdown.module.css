@@ -1,9 +1,19 @@
 .DropdownItem {
-  display: block;
-  border-radius: 25px;
-  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  padding: 10px 15px;
+  background-color: #2d2f33;
   color: white !important;
-  transition: color 0.3s, background-color 0.3s;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.Icon {
+  padding-left: 20px;
 }
 
 .faEdit,
@@ -12,18 +22,36 @@
 .faKey {
   color: white;
   transition: color 0.3s;
+  margin-right: 10px;
 }
 
-.DropdownItem:hover .faEdit,
-.DropdownItem:hover .faTrashAlt,
+span:hover {
+  color: inherit;
+}
+
+.DropdownItem:hover {
+  background-image: linear-gradient(to bottom right, #464749, #38393f);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.DropdownItem:hover .faEdit {
+  color: #ffc107;
+}
+
+.DropdownItem:hover .faTrashAlt {
+  color: #ff4c4c;
+}
+
 .DropdownItem:hover .faIdCard,
 .DropdownItem:hover .faKey {
   color: #007bff;
-  transform: scale(1.15);
 }
 
 .DropdownMenu {
-  background-color: #343a40 !important;
+  padding: 0px;
+  border-radius: 10px;
+  background-color: #242526 !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
   --bs-dropdown-link-hover-bg: none;
   --bs-dropdown-link-active-color: none;
   --bs-dropdown-link-active-bg: none;

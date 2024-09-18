@@ -12,7 +12,6 @@ import {
   Image,
   InputGroup,
 } from 'react-bootstrap';
-
 import Upload from '../../assets/upload.png';
 import styles from './styles/PostCreateForm.module.css';
 import Asset from '../../components/Asset';
@@ -30,6 +29,7 @@ function PostEditForm() {
   });
 
   const { title, location, content, image } = postData;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const imageInput = useRef(null);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -86,6 +86,7 @@ function PostEditForm() {
   /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     const formData = new FormData();
 
     formData.append('title', title);
@@ -105,124 +106,75 @@ function PostEditForm() {
         setErrors(err.response?.data);
         toast.error('Failed to update post. Please try again.');
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const textFields = (
-    <div className="text-center">
-      <Form.Group controlId="title" className="mb-3">
-        <Form.Label className="d-none">Title</Form.Label>
-        <InputGroup>
-          <InputGroup.Text>
-            <FontAwesomeIcon icon={faFileAlt} />
-          </InputGroup.Text>
-          <Form.Control
-            type="text"
-            placeholder="Title"
-            name="title"
-            value={title}
-            onChange={handleChange}
-            className={styles.FormControl}
-          />
-        </InputGroup>
-        {errors?.title?.map((message, idx) => (
-          <Alert variant="warning" key={idx}>
-            {message}
-          </Alert>
-        ))}
-      </Form.Group>
-
-      <Form.Group controlId="location" className="mb-3">
-        <Form.Label className="d-none">Location</Form.Label>
-        <InputGroup>
-          <InputGroup.Text>
-            <FontAwesomeIcon icon={faMapMarkerAlt} />
-          </InputGroup.Text>
-          <Form.Control
-            type="text"
-            placeholder="Location"
-            name="location"
-            value={location}
-            onChange={handleChange}
-            className={styles.FormControl}
-          />
-        </InputGroup>
-        {errors?.location?.map((message, idx) => (
-          <Alert variant="warning" key={idx}>
-            {message}
-          </Alert>
-        ))}
-      </Form.Group>
-
-      <Form.Group controlId="content" className="mb-4">
-        <Form.Label className="d-none">Content</Form.Label>
-        <InputGroup>
-          <InputGroup.Text>
-            <FontAwesomeIcon icon={faFileAlt} />
-          </InputGroup.Text>
-          <Form.Control
-            as="textarea"
-            rows={6}
-            placeholder="Content"
-            name="content"
-            value={content}
-            onChange={handleChange}
-            className={styles.FormControl}
-          />
-        </InputGroup>
-        {errors?.content?.map((message, idx) => (
-          <Alert variant="warning" key={idx}>
-            {message}
-          </Alert>
-        ))}
-      </Form.Group>
-      <div className="float-end">
-        <Button variant="outline-light mx-3" onClick={() => navigate(-1)}>
-          Cancel
-        </Button>
-        <Button variant="outline-primary text-white" type="submit">
-          Save
-        </Button>
-      </div>
-    </div>
+  // Render text input fields
+  const renderTextField = (name, placeholder, icon, as = 'input', rows) => (
+    <Form.Group controlId={name} className="mb-3">
+      <Form.Label className="d-none">{placeholder}</Form.Label>
+      <InputGroup>
+        <InputGroup.Text>
+          <FontAwesomeIcon icon={icon} />
+        </InputGroup.Text>
+        <Form.Control
+          as={as}
+          rows={rows}
+          type="text"
+          placeholder={placeholder}
+          name={name}
+          value={postData[name]}
+          onChange={handleChange}
+          className={styles.FormControl}
+        />
+      </InputGroup>
+      {errors[name]?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+    </Form.Group>
   );
 
   return (
     <Form onSubmit={handleSubmit}>
       <Container
-        className={`${styles.Container} d-flex flex-column justify-content-center`}
+        className={`d-flex flex-column justify-content-center ${styles.Container}`}
       >
+        {/* Image upload section */}
         <Row>
           <Col className="py-2 p-0 p-md-2" md={12} lg={12}>
             <Form.Group className="text-center">
-              <div
-                className={styles.ImageWrapper}
-                onClick={() => imageInput.current.click()}
-              >
-                {image ? (
+              {image ? (
+                <div
+                  className={styles.ImageWrapper}
+                  onClick={() => imageInput.current.click()}
+                >
                   <figure>
-                    <Image className={styles.Image} src={image} rounded />
+                    <Image className={styles.Image} src={image} fluid rounded />
                     <div className={styles.Placeholder}>
                       Click to change the image
                     </div>
                   </figure>
-                ) : (
-                  <Form.Label
-                    className="d-flex justify-content-center"
-                    htmlFor="image-upload"
-                  >
-                    <Asset src={Upload} message="Click to upload an image" />
-                  </Form.Label>
-                )}
-                <Form.Control
-                  type="file"
-                  id="image-upload"
-                  accept="image/*"
-                  className="d-none"
-                  ref={imageInput}
-                  onChange={handleChangeImage}
-                />
-              </div>
+                </div>
+              ) : (
+                <Form.Label
+                  className="d-flex justify-content-center"
+                  htmlFor="image-upload"
+                >
+                  <Asset src={Upload} message="Click to upload an image" />
+                </Form.Label>
+              )}
+              <Form.Control
+                type="file"
+                id="image-upload"
+                accept="image/*"
+                className="d-none"
+                ref={imageInput}
+                onChange={handleChangeImage}
+              />
               {image && (
                 <div className="d-flex justify-content-center mt-2">
                   <Button
@@ -242,9 +194,39 @@ function PostEditForm() {
             ))}
           </Col>
         </Row>
+        {/* Form fields */}
         <Row>
           <Col className="py-2 p-0 p-md-2" md={12} lg={12}>
-            {textFields}
+            <div className="text-center">
+              {renderTextField('title', 'Title', faFileAlt)}
+              {renderTextField('location', 'Location', faMapMarkerAlt)}
+              {renderTextField('content', 'Content', faFileAlt, 'textarea', 6)}
+              <Button
+                variant="outline-warning text-white"
+                onClick={() => navigate(-1)}
+                className="mx-3 btn-lg"
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="outline-primary"
+                className="mx-3 btn-lg"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <span
+                      className="spinner-border spinner-border-sm mr-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  </>
+                ) : (
+                  'Save'
+                )}
+              </Button>
+            </div>
           </Col>
         </Row>
       </Container>

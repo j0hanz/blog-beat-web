@@ -1,10 +1,13 @@
 .Icon {
-  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    opacity 0.3s ease;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .Icon:hover {
-  transform: scale(1.15);
+  transform: scale(1.1);
   box-shadow: 0 8px 16px #000000;
 }

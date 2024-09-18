@@ -12,7 +12,6 @@ import { useRedirect } from '../../hooks/useRedirect';
 function SignUpForm() {
   useRedirect('loggedIn');
 
-  /* State to manage sign up data */
   const [signUpData, setSignUpData] = useState({
     username: '',
     password1: '',
@@ -20,19 +19,16 @@ function SignUpForm() {
   });
   const { username, password1, password2 } = signUpData;
 
-  /* State to manage errors */
   const [errors, setErrors] = useState({});
-  /* State to manage modal visibility */
   const [showModal, setShowModal] = useState(true);
-
   const navigate = useNavigate();
 
   /* Handle input change */
-  const handleChange = (event) => {
-    setSignUpData({
-      ...signUpData,
-      [event.target.name]: event.target.value,
-    });
+  const handleChange = ({ target: { name, value } }) => {
+    setSignUpData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   /* Handle form submission */
@@ -43,26 +39,34 @@ function SignUpForm() {
       toast.success('Account created successfully! Please login.');
       navigate('/signin');
     } catch (err) {
-      setErrors(err.response?.data);
+      setErrors(err.response?.data || {});
       toast.error('An error occurred. Please try again.');
     }
   };
 
-  /* Handle closing the modal */
+  /* Handle modal close */
   const handleClose = () => {
     setShowModal(false);
     navigate('/');
   };
 
-  /* Handle login redirection */
+  /* Handle login button click */
   const handleLogin = () => {
     setShowModal(false);
     navigate('/signin');
   };
 
+  /* Render error messages */
+  const renderError = (errorKey) =>
+    errors[errorKey]?.map((message, idx) => (
+      <Alert variant="warning" key={idx}>
+        {message}
+      </Alert>
+    ));
+
   return (
     <Modal show={showModal} onHide={handleClose} centered>
-      <Modal.Header className="d-flex justify-content-center p-3 bg-dark position-relative">
+      <Modal.Header className="d-flex justify-content-center p-3 bg-dark position-relative border-0">
         <Modal.Title className="text-center">Sign Up</Modal.Title>
         <Button
           variant="link"
@@ -75,7 +79,6 @@ function SignUpForm() {
       <Modal.Body className={`text-center ${styles.modalHeadBg}`}>
         <Form className="m-3" onSubmit={handleSubmit}>
           <Form.Group controlId="username" className="mb-3">
-            <Form.Label className="d-none">Username</Form.Label>
             <InputGroup>
               <InputGroup.Text>
                 <FontAwesomeIcon icon={faUserPlus} />
@@ -88,14 +91,10 @@ function SignUpForm() {
                 onChange={handleChange}
               />
             </InputGroup>
-            {errors.username?.map((message, idx) => (
-              <Alert variant="warning" key={idx}>
-                {message}
-              </Alert>
-            ))}
+            {renderError('username')}
           </Form.Group>
+
           <Form.Group controlId="password1" className="mb-3">
-            <Form.Label className="d-none">Password</Form.Label>
             <InputGroup>
               <InputGroup.Text>
                 <FontAwesomeIcon icon={faKey} />
@@ -108,14 +107,10 @@ function SignUpForm() {
                 onChange={handleChange}
               />
             </InputGroup>
-            {errors.password1?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
+            {renderError('password1')}
           </Form.Group>
+
           <Form.Group controlId="password2" className="mb-3">
-            <Form.Label className="d-none">Confirm password</Form.Label>
             <InputGroup>
               <InputGroup.Text>
                 <FontAwesomeIcon icon={faKey} />
@@ -128,12 +123,9 @@ function SignUpForm() {
                 onChange={handleChange}
               />
             </InputGroup>
-            {errors.password2?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
+            {renderError('password2')}
           </Form.Group>
+
           <div className="d-flex justify-content-center">
             <Button
               className={`btn-outline-primary btn-lg ${styles.buttonOutlinePrimary}`}
@@ -142,15 +134,17 @@ function SignUpForm() {
               Sign Up
             </Button>
           </div>
-          {errors.non_field_errors?.map((message, idx) => (
-            <Alert key={idx} variant="warning" className="mt-3">
-              {message}
-            </Alert>
-          ))}
+
+          {renderError('non_field_errors')}
+
           <div className="mt-4">
-            Already have an account?{' '}
-            <p className="mt-3">
-              <Button variant="outline-light" onClick={handleLogin}>
+            Already have an account?
+            <p>
+              <Button
+                variant="outline-light"
+                className="mt-3"
+                onClick={handleLogin}
+              >
                 Login here!
               </Button>
             </p>

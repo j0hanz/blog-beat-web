@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './styles/Profile.module.css';
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { Link } from 'react-router-dom';
-import Icon from '../../components/Icon';
-import { Button } from 'react-bootstrap';
+import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useSetProfileData } from '../../contexts/ProfileDataContext';
+import { Button } from 'react-bootstrap';
+import styles from './styles/Profile.module.css';
+import Icon from '../../components/Icon';
 
 /* Profile component to display a user profile with follow/unfollow functionality */
 const Profile = (props) => {
@@ -20,21 +20,27 @@ const Profile = (props) => {
     <div className="d-flex align-items-center">
       <div className="d-flex flex-column align-items-center">
         <Link className="align-self-center" to={`/profiles/${id}`}>
-          <Icon src={image} height={imageSize} />
+          <Icon
+            src={image}
+            height={imageSize}
+            className={styles.ProfileImage}
+          />
         </Link>
         <strong className={`my-1 ${styles.WordBreak}`}>{owner}</strong>
         {currentUser &&
           !is_owner &&
           (following_id ? (
             <Button
-              variant="outline-primary text-white btn-sm"
+              variant="secondary text-white btn-sm"
+              className={`${styles.Button} ${styles.unfollowButton}`}
               onClick={() => handleUnfollow(profile)}
             >
               unfollow
             </Button>
           ) : (
             <Button
-              variant="outline-primary text-white btn-sm"
+              variant="primary text-white btn-sm"
+              className={`${styles.Button} ${styles.followButton}`}
               onClick={() => handleFollow(profile)}
             >
               follow

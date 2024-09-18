@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Offcanvas, Container, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -17,8 +17,9 @@ import {
   faPersonWalkingArrowRight,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.webp';
+import logoOnly from '../assets/logoOnly.webp';
 import defaultProfileImage from '../assets/nobody.webp';
 import styles from './styles/NavBar.module.css';
 import TooltipWrapper from './TooltipWrapper';
@@ -32,226 +33,180 @@ import { toast } from 'react-toastify';
 import About from '../pages/About';
 import { removeTokenTimestamp } from '../utils/utils';
 
-/* NavBar component to manage navigation and user interactions */
 const NavBar = () => {
-  /* Get current user from context */
   const currentUser = useCurrentUser();
-  /* Set current user in context */
   const setCurrentUser = useSetCurrentUser();
-  /* State to manage offcanvas visibility */
-  const [show, setShow] = useState(false);
-  const toggleOffcanvas = () => setShow(!show);
-  /* State to manage About modal visibility */
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
-  const handleShowAbout = () => setShowAbout(true);
-  const handleCloseAbout = () => setShowAbout(false);
+  const navigate = useNavigate();
+  const toggleOffcanvas = () => setShowOffcanvas((prev) => !prev);
+  const toggleAboutModal = () => setShowAbout((prev) => !prev);
 
-  /* Function to handle user sign out */
   const handleSignOut = async () => {
     try {
       await axios.post('dj-rest-auth/logout/');
       setCurrentUser(null);
       removeTokenTimestamp();
       toast.info('You have logged out!');
+      navigate('/');
     } catch (err) {
-      console.log(err);
       toast.error('An error occurred. Please try again.');
     }
   };
 
-  /* Icons and links for logged-in users */
+  const generateNavItem = (to, icon, label, handleClick) => (
+    <NavLink
+      className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
+      to={to}
+      onClick={handleClick}
+    >
+      <FontAwesomeIcon size="lg" icon={icon} />
+      <span className="mx-auto">{label}</span>
+      <FontAwesomeIcon size="lg" icon={faAngleRight} />
+    </NavLink>
+  );
+
   const loggedInIcons = (
     <>
-      <NavLink
-        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to="/feed"
-        onClick={toggleOffcanvas}
-      >
-        <FontAwesomeIcon
-          className={`fa-xl ${styles.faBarsStaggered}`}
-          icon={faBarsStaggered}
-        />
-        <span className="mx-auto">Feed</span>
-        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-      </NavLink>
-      <NavLink
-        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to="/liked"
-        onClick={toggleOffcanvas}
-      >
-        <FontAwesomeIcon
-          className={`fa-xl ${styles.faThumbsUp}`}
-          icon={faThumbsUp}
-        />
-        <span className="mx-auto">Liked</span>
-        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-      </NavLink>
-      <NavLink
-        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to="/favorites"
-        onClick={toggleOffcanvas}
-      >
-        <FontAwesomeIcon className={`fa-xl ${styles.faStar}`} icon={faStar} />
-        <span className="mx-auto">Favorites</span>
-        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-      </NavLink>
+      {generateNavItem('/feed', faBarsStaggered, 'Feed', toggleOffcanvas)}
+      {generateNavItem('/liked', faThumbsUp, 'Liked', toggleOffcanvas)}
+      {generateNavItem('/favorites', faStar, 'Favorites', toggleOffcanvas)}
       <hr />
-      <NavLink
-        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to={`/profiles/${currentUser?.pk}/edit`}
-        onClick={toggleOffcanvas}
-      >
-        <FontAwesomeIcon className="fa-xl" icon={faUserEdit} />
-        <span className="mx-auto">Edit Profile</span>
-        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-      </NavLink>
-      <NavLink
-        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to={`/profiles/${currentUser?.pk}/edit/password`}
-        onClick={toggleOffcanvas}
-      >
-        <FontAwesomeIcon className={`fa-xl ${styles.faKey}`} icon={faKey} />
-        <span className="mx-auto">Update Password</span>
-        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-      </NavLink>
+      {generateNavItem(
+        `/profiles/${currentUser?.profile_id}/edit`,
+        faUserEdit,
+        'Edit Profile',
+        toggleOffcanvas
+      )}
+      {generateNavItem(
+        `/profiles/${currentUser?.profile_id}/edit/password`,
+        faKey,
+        'Update Password',
+        toggleOffcanvas
+      )}
       <hr />
       <NavLink
         className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
         to="/"
-        onClick={() => {
-          handleSignOut();
-        }}
+        onClick={handleSignOut}
       >
-        <FontAwesomeIcon
-          className={`fa-xl ${styles.faSignOutAlt}`}
-          icon={faSignOutAlt}
-        />
+        <FontAwesomeIcon size="lg" icon={faSignOutAlt} />
         <span className="mx-auto">Sign out</span>
-        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
+        <FontAwesomeIcon size="lg" icon={faAngleRight} />
       </NavLink>
     </>
   );
 
-  /* Icons and links for logged-out users */
   const loggedOutIcons = (
     <>
-      <NavLink
-        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to="/signin"
-        onClick={toggleOffcanvas}
-      >
-        <FontAwesomeIcon className="fa-xl" icon={faArrowRightToBracket} />
-        <span className="mx-auto">Login</span>
-        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-      </NavLink>
-      <NavLink
-        className={`${styles.NavLink} text-white d-flex align-items-center btn btn-dark rounded p-2 border my-2`}
-        to="/signup"
-        onClick={toggleOffcanvas}
-      >
-        <FontAwesomeIcon className="fa-xl" icon={faUserPlus} />
-        <span className="mx-auto">Sign Up</span>
-        <FontAwesomeIcon className="fa-xl" icon={faAngleRight} />
-      </NavLink>
+      {generateNavItem(
+        '/signin',
+        faArrowRightToBracket,
+        'Login',
+        toggleOffcanvas
+      )}
+      {generateNavItem('/signup', faUserPlus, 'Sign Up', toggleOffcanvas)}
     </>
   );
 
   return (
     <>
-      <Navbar className="navbar-dark bg-dark fixed-top py-1">
+      <Navbar className="navbar-dark bg-dark fixed-top py-3">
         <Container fluid>
           <NavLink to="/" className="position-relative">
             <img
               src={logo}
               alt="Logo"
-              className={`position-absolute translate-middle-y ${styles.logoNav}`}
+              className={`position-absolute translate-middle-y top-0 start-0 ${styles.logoNav}`}
+            />
+            <img
+              src={logoOnly}
+              alt="Logo Only"
+              className={`position-absolute translate-middle-y top-0 start-0 ${styles.logoNavMobile}`}
             />
           </NavLink>
-          <Nav className="mx-auto">
+
+          <Nav>
             <NavLink to="/" className={styles.navLinkEffect}>
               <TooltipWrapper message="Home">
                 <FontAwesomeIcon
-                  className="fa-xl mx-4 mx-md-5"
+                  className="mx-4 mx-md-5"
                   icon={faHouse}
+                  size="lg"
                 />
               </TooltipWrapper>
             </NavLink>
-            <div className={styles.navLinkEffect} onClick={handleShowAbout}>
+            <div className={styles.navLinkEffect} onClick={toggleAboutModal}>
               <TooltipWrapper message="About">
                 <FontAwesomeIcon
-                  className="fa-xl mx-4 mx-md-5"
+                  className="mx-4 mx-md-5"
                   icon={faCircleInfo}
+                  size="lg"
                 />
               </TooltipWrapper>
             </div>
             <NavLink to="/posts/create" className={styles.navLinkEffect}>
               <TooltipWrapper message="New Post">
                 <FontAwesomeIcon
-                  className="fa-xl mx-4 mx-md-5"
+                  className="mx-4 mx-md-5"
                   icon={faSquarePlus}
+                  size="lg"
                 />
               </TooltipWrapper>
             </NavLink>
           </Nav>
-          <Button variant="outline-dark p-1" onClick={toggleOffcanvas}>
-            {currentUser ? (
-              <Icon
-                src={currentUser.profile_image || defaultProfileImage}
-                height={35}
-              />
-            ) : (
-              <FontAwesomeIcon
-                className={`fa-xl ${styles.navLinkEffect}`}
-                icon={faPersonWalkingArrowRight}
-              />
-            )}
-          </Button>
+          <div className="position-relative">
+            <Nav.Link
+              onClick={toggleOffcanvas}
+              className="position-absolute translate-middle-y top-0 end-0"
+            >
+              {currentUser ? (
+                <Icon
+                  src={currentUser?.profile_image || defaultProfileImage}
+                  height={30}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  className={styles.navLinkEffect}
+                  icon={faPersonWalkingArrowRight}
+                  size="lg"
+                />
+              )}
+            </Nav.Link>
+          </div>
           <Offcanvas
-            show={show}
+            show={showOffcanvas}
             onHide={toggleOffcanvas}
             placement="end"
             className={`bg-dark text-white ${styles.offcanvasWidth}`}
           >
             <Offcanvas.Header>
               {currentUser ? (
-                <TooltipWrapper message="Profile">
-                  <NavLink to={`/profiles/${currentUser?.pk}/`}>
-                    <Icon
-                      src={currentUser.profile_image || defaultProfileImage}
-                      height={55}
-                    />
-                  </NavLink>
-                </TooltipWrapper>
+                <>
+                  <TooltipWrapper message="Profile">
+                    <NavLink to={`/profiles/${currentUser?.profile_id}/`}>
+                      <Icon
+                        src={currentUser?.profile_image || defaultProfileImage}
+                        height={55}
+                      />
+                    </NavLink>
+                  </TooltipWrapper>
+                  <Offcanvas.Title className="mx-auto">
+                    {currentUser?.username}
+                  </Offcanvas.Title>
+                </>
               ) : (
                 <div className="text-center w-100">
-                  <img
-                    src={logo}
-                    alt="Logo"
-                    className={`${styles.logoOffcanvas}`}
-                  />
-                  <Button
-                    variant="link"
-                    className="text-white btn-outline-secondary btn-sm float-end"
-                    onClick={toggleOffcanvas}
-                  >
-                    <FontAwesomeIcon className="fa-lg" icon={faTimes} />
-                  </Button>
+                  <img src={logo} alt="Logo" className={styles.logoOffcanvas} />
                 </div>
               )}
-              {currentUser && (
-                <>
-                  <Offcanvas.Title className="mx-auto">
-                    {currentUser.username}
-                  </Offcanvas.Title>
-                  <Button
-                    variant="link"
-                    className="text-white btn-outline-secondary btn-sm ms-auto"
-                    onClick={toggleOffcanvas}
-                  >
-                    <FontAwesomeIcon className="fa-lg" icon={faTimes} />
-                  </Button>
-                </>
-              )}
+              <Button
+                variant="link"
+                className="text-white btn-outline-secondary btn-sm ms-auto"
+                onClick={toggleOffcanvas}
+              >
+                <FontAwesomeIcon size="lg" icon={faTimes} />
+              </Button>
             </Offcanvas.Header>
             <hr />
             <Offcanvas.Body className={styles.offcanvasBody}>
@@ -262,7 +217,7 @@ const NavBar = () => {
           </Offcanvas>
         </Container>
       </Navbar>
-      <About show={showAbout} handleClose={handleCloseAbout} />
+      <About show={showAbout} handleClose={toggleAboutModal} />
     </>
   );
 };

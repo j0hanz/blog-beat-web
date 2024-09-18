@@ -44,7 +44,7 @@ function PostPage() {
 
   return (
     <Row className="h-100 mx-auto">
-      <Col className="d-flex flex-column justify-content-center mx-auto">
+      <Col className="d-flex flex-column justify-content-center mx-auto px-0">
         <Post {...post.results[0]} setPosts={setPost} postPage />
         <Container className="mt-4 ">
           {currentUser && (
@@ -72,7 +72,7 @@ function PostPage() {
               next={() => fetchMoreData(comments, setComments)}
             />
           ) : (
-            <div className="d-flex justify-content-center mt-3">
+            <div className="d-flex justify-content-center my-3">
               <span>No comments yet, be the first to comment!</span>
             </div>
           )}

@@ -1,16 +1,46 @@
-.PopularProfilesBorder {
-  border-radius: 25px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.Header {
-  color: #fff;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+.Container {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .ProfilesSection {
   max-width: 800px;
   margin: 0 auto;
+  background-color: #242424;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.Header {
+  color: #ffffff;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.ProfilesWrapper {
+  background-color: #1c1e21;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.PopularProfilesBorder {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.EmptyState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+}
+
+.AssetSpinner {
+  color: #007bff;
 }

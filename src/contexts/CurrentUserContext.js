@@ -10,17 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
 
-/* Hook to use current user context */
 export const useCurrentUser = () => useContext(CurrentUserContext);
-/* Hook to use set current user context */
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 
-/* CurrentUserProvider component to manage current user state */
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
-  /* Function to handle component mount */
   const handleMount = async () => {
     try {
       const { data } = await axiosRes.get('dj-rest-auth/user/');
@@ -41,15 +37,11 @@ export const CurrentUserProvider = ({ children }) => {
           try {
             await axios.post('/dj-rest-auth/token/refresh/');
           } catch (err) {
-            setCurrentUser((prevCurrentUser) => {
-              if (prevCurrentUser) {
-                navigate('/signin');
-                toast.error('Session expired. Please sign in again.');
-              }
-              return null;
-            });
+            setCurrentUser(null);
             removeTokenTimestamp();
-            return config;
+            navigate('/signin');
+            toast.error('Session expired. Please sign in again.');
+            return Promise.reject(err);
           }
         }
         return config;
@@ -57,30 +49,27 @@ export const CurrentUserProvider = ({ children }) => {
       (err) => {
         toast.error('Request failed. Please try again.');
         return Promise.reject(err);
-      },
+      }
     );
+
     axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
-        if (err.response?.status === 401 && currentUser) {
+        if (err.response?.status === 401 && shouldRefreshToken()) {
           try {
             await axios.post('/dj-rest-auth/token/refresh/');
-          } catch (err) {
-            setCurrentUser((prevCurrentUser) => {
-              if (prevCurrentUser) {
-                navigate('/signin');
-                toast.error('Session expired. Please sign in again.');
-              }
-              return null;
-            });
+            return axios(err.config);
+          } catch (refreshErr) {
+            setCurrentUser(null);
             removeTokenTimestamp();
+            navigate('/signin');
+            toast.error('Session expired. Please sign in again.');
           }
-          return axios(err.config);
         }
         return Promise.reject(err);
-      },
+      }
     );
-  }, [currentUser, navigate]);
+  }, [navigate]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

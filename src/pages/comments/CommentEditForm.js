@@ -48,7 +48,7 @@ function CommentEditForm(props) {
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header
         closeButton
-        className="bg-dark text-white"
+        className="bg-dark text-white border-0"
         closeVariant="white"
       >
         <Modal.Title>Edit Comment</Modal.Title>

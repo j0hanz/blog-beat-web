@@ -15,6 +15,7 @@ import styles from './styles/ProfileEditForm.module.css';
 const UsernameForm = () => {
   const [username, setUsername] = useState('');
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -29,7 +30,7 @@ const UsernameForm = () => {
 
   useEffect(() => {
     /* Set the current username if the user ID matches */
-    if (currentUser?.pk?.toString() === id) {
+    if (currentUser?.profile_id?.toString() === id) {
       setUsername(currentUser.username);
     } else {
       navigate('/');
@@ -39,6 +40,7 @@ const UsernameForm = () => {
   /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     try {
       await axiosRes.put('/dj-rest-auth/user/', {
         username,
@@ -53,13 +55,15 @@ const UsernameForm = () => {
       console.log(err);
       setErrors(err.response?.data);
       toast.error('Failed to update username. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <Modal show={true} onHide={handleClose} centered>
       <Modal.Header
-        className={`d-flex justify-content-center p-3 ${styles.modalHeadBg} position-relative`}
+        className={`d-flex justify-content-center p-3 border-0 ${styles.modalHeadBg} position-relative`}
       >
         <Modal.Title className="text-center">Edit Username</Modal.Title>
         <Button
@@ -98,8 +102,19 @@ const UsernameForm = () => {
               variant="outline-primary text-white"
               type="submit"
               className="mx-3 btn-lg"
+              disabled={isSubmitting}
             >
-              Save
+              {isSubmitting ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm mr-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                </>
+              ) : (
+                'Save'
+              )}
             </Button>
           </Container>
         </Form>

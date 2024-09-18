@@ -8,6 +8,7 @@
 
 .ProfileStats {
   font-size: 0.7em;
+  color: #ffffff99;
 }
 
 .ProfileImage {
@@ -15,6 +16,58 @@
   height: 150px;
   width: 150px;
   margin: 3px;
+  border: 3px solid #2d2f33;
+}
+
+.Button {
+  display: flex;
+  justify-content: center;
+  width: 80px;
+  max-width: 100%;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  margin-top: 10px;
+}
+
+.Button:hover {
+  transform: scale(1.05);
+}
+
+.Button:active {
+  transform: scale(0.95);
+}
+
+.followButton {
+  color: white;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.followButton:hover {
+  background-color: #0004d6;
+  border-color: #0004d6;
+}
+
+.followButton:active {
+  background-color: #0407a1;
+  border-color: #0407a1;
+}
+
+.unfollowButton {
+  color: white;
+  background-color: #6c757d;
+  border: 1px solid #6c757d;
+}
+
+.unfollowButton:hover {
+  background-color: #4e4e4e;
+  border-color: #4e4e4e;
+}
+
+.unfollowButton:active {
+  background-color: #363636;
+  border-color: #363636;
 }
 
 @media screen and (max-width: 991px) {

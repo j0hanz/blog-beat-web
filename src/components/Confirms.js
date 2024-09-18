@@ -9,7 +9,7 @@ const Confirm = ({ show, onConfirm, onCancel }) => {
   return (
     <Modal show={show} onHide={onCancel} centered>
       <Modal.Header
-        className={`d-flex justify-content-center p-3 ${styles.modalBodyBg} position-relative`}
+        className={`d-flex justify-content-center p-3 border-0 ${styles.modalBodyBg} position-relative`}
       >
         <Modal.Title className="text-center">Confirm Deletion</Modal.Title>
         <Button
