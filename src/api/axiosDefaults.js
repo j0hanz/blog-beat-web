@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Set the base URL for all axios requests
-axios.defaults.baseURL = 'https://blog-beat-api-bab609deb9ee.herokuapp.com';
+axios.defaults.baseURL = 'http://localhost:8000';
 
 // Set the default Content-Type for POST requests
 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
