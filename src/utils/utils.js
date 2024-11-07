@@ -14,7 +14,9 @@ export const fetchMoreData = async (resource, setResource) => {
           : [...acc, cur];
       }, prevResource.results),
     }));
-  } catch (err) {}
+  } catch (err) {
+    console.error('Error fetching more data:', err);
+  }
 };
 
 /* Helper function to update profile data when a user is followed */
@@ -43,15 +45,37 @@ export const unfollowHelper = (profile, clickedProfile) => {
       : profile;
 };
 
+/* Set the token timestamp in local storage */
 export const setTokenTimestamp = (data) => {
-  const refreshTokenTimestamp = jwtDecode(data?.refresh).exp;
-  localStorage.setItem('refreshTokenTimestamp', refreshTokenTimestamp);
+  try {
+    if (!data?.refresh) {
+      throw new Error('No refresh token provided');
+    }
+    const decoded = jwtDecode(data.refresh);
+    if (!decoded?.exp) {
+      throw new Error('Invalid token format');
+    }
+    localStorage.setItem('refreshTokenTimestamp', decoded.exp);
+  } catch (err) {
+    console.error('Token timestamp error:', err);
+    removeTokenTimestamp();
+  }
 };
 
+/* Check if token should be refreshed based on timestamp */
 export const shouldRefreshToken = () => {
-  return !!localStorage.getItem('refreshTokenTimestamp');
+  try {
+    const timestamp = localStorage.getItem('refreshTokenTimestamp');
+    if (!timestamp) return false;
+    const currentTime = Math.floor(Date.now() / 1000);
+    return Number(timestamp) - currentTime < 300;
+  } catch (err) {
+    console.error('Refresh check error:', err);
+    return false;
+  }
 };
 
+/* Remove token timestamp from local storage */
 export const removeTokenTimestamp = () => {
   localStorage.removeItem('refreshTokenTimestamp');
 };
