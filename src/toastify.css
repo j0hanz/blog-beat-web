@@ -1,0 +1,46 @@
+/* Custom Toastify Styles. */
+
+.Toastify__toast {
+  background: linear-gradient(
+    180deg,
+    #1a1a1ae0 0%,
+    #252525ce 50%,
+    #1a1a1ad0 100%
+  ) !important;
+  color: #fff !important;
+  border-radius: 6.5px !important;
+  padding: 10px !important;
+  box-shadow: none !important;
+  border: none !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(
+    180deg,
+    #1a1a1acc 0%,
+    #252525c2 50%,
+    #1a1a1abe 100%
+  ) !important;
+  color: #fff !important;
+  border-radius: 6.5px !important;
+  padding: 10px !important;
+  box-shadow: none !important;
+  border: none !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.Toastify__toast--error {
+  background: linear-gradient(
+    180deg,
+    #1a1a1acc 0%,
+    #252525c2 50%,
+    #1a1a1abe 100%
+  ) !important;
+  color: #fff !important;
+  border-radius: 6.5px !important;
+  padding: 10px !important;
+  box-shadow: none !important;
+  border: none !important;
+  font-family: 'Poppins', sans-serif !important;
+}
