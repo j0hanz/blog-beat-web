@@ -1,28 +1,34 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { shouldRefreshToken, removeTokenTimestamp } from '../utils/utils';
+import { toast } from 'react-toastify';
 
 /* Custom hook to redirect user based on authentication status */
 export const useRedirect = (userAuthStatus) => {
   const navigate = useNavigate();
 
+  /* Redirect user based on authentication status */
   useEffect(() => {
-    /* Function to handle component mount */
     const handleMount = async () => {
       try {
-        await axios.post('/dj-rest-auth/token/refresh/');
-        // if the user is logged in, this code will run
+        if (shouldRefreshToken()) {
+          await axios.post('/dj-rest-auth/token/refresh/');
+        }
         if (userAuthStatus === 'loggedIn') {
           navigate('/');
+          return;
         }
       } catch (err) {
-        // if the user is not logged in, the code below will run instead
+        removeTokenTimestamp();
         if (userAuthStatus === 'loggedOut') {
           navigate('/');
+          return;
         }
+        console.error('Redirection error:', err);
+        toast.error('An error occurred. Please try again.');
       }
     };
-
     handleMount();
   }, [navigate, userAuthStatus]);
 };
