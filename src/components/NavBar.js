@@ -42,6 +42,7 @@ const NavBar = () => {
   const toggleOffcanvas = () => setShowOffcanvas((prev) => !prev);
   const toggleAboutModal = () => setShowAbout((prev) => !prev);
 
+  /* Handle user sign out */
   const handleSignOut = async () => {
     try {
       await axios.post('dj-rest-auth/logout/');
