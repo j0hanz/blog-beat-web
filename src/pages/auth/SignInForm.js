@@ -43,6 +43,11 @@ function SignInForm() {
   /* Handle form submission */
   const handleSubmit = async (event) => {
     event.preventDefault();
+    /* Check that required fields are provided */
+    if (!signInData.username || !signInData.password) {
+      toast.error('Please enter both username and password.');
+      return;
+    }
     try {
       const { data } = await axios.post('/dj-rest-auth/login/', signInData);
       setCurrentUser(data.user);
@@ -51,6 +56,8 @@ function SignInForm() {
       navigate(-1);
     } catch (err) {
       setErrors(err.response?.data || {});
+      console.error('Login error:', err);
+      toast.error('Failed to log in. Please check your credentials.');
     }
   };
 
