@@ -7,18 +7,18 @@ import styles from './App.module.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import About from './pages/About';
-import PostCreateForm from './pages/posts/PostCreateForm';
+import PostCreateForm from './pages/posts/PostCreate';
 import PostPage from './pages/posts/PostPage';
-import SignInForm from './pages/auth/SignInForm';
-import SignUpForm from './pages/auth/SignUpForm';
+import SignInForm from './auth/SignIn';
+import SignUpForm from './auth/SignUp';
 import Notifications from './components/Notifications';
 import { useCurrentUser } from './contexts/CurrentUserContext';
 import PostsPage from './pages/posts/PostsPage';
-import PostEditForm from './pages/posts/PostEditForm';
+import PostEditForm from './pages/posts/PostEdit';
 import ProfilePage from './pages/profiles/ProfilePage';
 import UsernameForm from './pages/profiles/UsernameForm';
 import UserPasswordForm from './pages/profiles/UserPasswordForm';
-import ProfileEditForm from './pages/profiles/ProfileEditForm';
+import ProfileEdit from './pages/profiles/ProfileEdit';
 import NotFound from './components/NotFound';
 import PrivateRoute from './components/PrivateRoute';
 
@@ -105,7 +105,7 @@ function App() {
             path="/profiles/:id/edit"
             element={
               <PrivateRoute>
-                <ProfileEditForm />
+                <ProfileEdit />
               </PrivateRoute>
             }
           />
