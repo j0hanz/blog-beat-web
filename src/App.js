@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import './toastify.css';
 import './api/axiosDefaults';
 import styles from './App.module.css';
 import NavBar from './components/NavBar';
